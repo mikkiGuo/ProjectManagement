@@ -20,6 +20,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions "staging"
+    productFlavors{
+        manager{
+            dimension "staging"
+            applicationId "com.example.mikki.projectmanagement.manager"
+            buildConfigField("String", "SERVER_URL", '"www.manager.facebook.com"')
+        }
+        developer{
+            dimension "staging"
+            applicationId "com.example.mikki.projectmanagement.developer"
+            buildConfigField("String", "SERVER_URL", '"www.developer.facebook.com"')
+        }
+    }
+
 }
 
 dependencies {
@@ -30,4 +45,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.android.support:design:27.1.1'
 }
