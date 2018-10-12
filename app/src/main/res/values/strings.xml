@@ -3,4 +3,19 @@
     <string name="menu_search">Search</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_navigation">Navigation</string>
+
+    <!--Create New Project-->
+    <string name="tv_title_cnp">New Project</string>
+    <string name="tv_status_cnp">Private</string>
+    <string name="et_title_cnp">Title</string>
+    <string name="tv_owners_cnp">OWNERS</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="set_date">Set date</string>
+    <string name="add_to_project_or_folder">Add to project or folder</string>
+    <string name="owner_name">Owner Name</string>
+    <string name="todo">indicated access mode is private</string>
+    <string name="todo_id_img">replace with owner id</string>
+    <string name="create">Create</string>
+
 </resources>
