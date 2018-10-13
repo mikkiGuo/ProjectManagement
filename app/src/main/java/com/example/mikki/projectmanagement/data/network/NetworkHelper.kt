@@ -14,7 +14,6 @@ class NetworkHelper:INetworkHelper {
     }
 
     override fun storeNewProjectToServer(p:Project) {
-
         Log.d("MyTag", "+++++++++++++++++++++++++++++++++++++++")
         disposable =
                 apiServe.getCreateNewProjectStatus(
@@ -30,13 +29,6 @@ class NetworkHelper:INetworkHelper {
                                 },
                                 { error -> Log.d("MyTag", error.message) }
                         )
-    }
-
-    private fun showError(message: String?) {
-
-    }
-
-    private fun showResult() {
     }
 
     /*override fun onPause() {
