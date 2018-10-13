@@ -3,6 +3,8 @@ package com.example.mikki.projectmanagement
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import com.example.mikki.projectmanagement.data.DataManager
+import com.example.mikki.projectmanagement.data.IDataManager
 import com.example.mikki.projectmanagement.data.database.IDbHelper
 import com.example.mikki.projectmanagement.data.model.Project
 import com.example.mikki.projectmanagement.data.network.INetworkHelper
@@ -16,10 +18,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.snack_create_new_project)
 
-        /*val networkHelper:INetworkHelper = NetworkHelper()
+        /*val iDataManager:IDataManager = DataManager()
         var p:Project = Project("ecomm", "1"
                 , "xyz", "2018-04-03","2018-04-15")
-        networkHelper.storeNewProjectToServer(p)*/
+        iDataManager.storeNewProjectToServer(p)*/
 
         /*fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
