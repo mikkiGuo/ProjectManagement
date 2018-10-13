@@ -18,10 +18,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.snack_create_new_project)
 
-        /*val iDataManager:IDataManager = DataManager()
+        val iDataManager:IDataManager = DataManager()
         var p:Project = Project("ecomm", "1"
                 , "xyz", "2018-04-03","2018-04-15")
-        iDataManager.storeNewProjectToServer(p)*/
+        iDataManager.storeNewProjectToServer(p)
 
         /*fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
