@@ -1,5 +1,6 @@
 package com.example.mikki.projectmanagement.data.network
 
+import com.example.mikki.projectmanagement.data.model.SuccessMsg
 import io.reactivex.Observable
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -19,7 +20,7 @@ interface APIService {
                             @Query("project_name") project_desc: String,
                             @Query("project_name") start_date: String,
                             @Query("project_name") end_date: String):
-            Observable<String>
+            Observable<SuccessMsg>
 
     companion object {
 

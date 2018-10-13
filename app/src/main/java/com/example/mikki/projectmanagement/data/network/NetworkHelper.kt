@@ -1,5 +1,6 @@
 package com.example.mikki.projectmanagement.data.network
 
+import android.util.Log
 import com.example.mikki.projectmanagement.data.model.Project
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -14,6 +15,7 @@ class NetworkHelper:INetworkHelper {
 
     override fun storeNewProjectToServer(p:Project) {
 
+        Log.d("MyTag", "+++++++++++++++++++++++++++++++++++++++")
         disposable =
                 apiServe.getCreateNewProjectStatus(
                         p.pname,
@@ -24,8 +26,9 @@ class NetworkHelper:INetworkHelper {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                { result -> showResult() },
-                                { error -> showError(error.message) }
+                                { result -> Log.d("MyTag", result.toString())
+                                },
+                                { error -> Log.d("MyTag", error.message) }
                         )
     }
 
@@ -34,7 +37,6 @@ class NetworkHelper:INetworkHelper {
     }
 
     private fun showResult() {
-        
     }
 
     /*override fun onPause() {
