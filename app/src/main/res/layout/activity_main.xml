@@ -7,6 +7,14 @@
     tools:context=".MainActivity">
 
     <include
+        android:id="@+id/createTask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/snack_create_new_project"
+        />
+
+
+    <include
         android:id="@+id/floating_button"
         layout="@layout/floating_button"
         android:layout_width="wrap_content"

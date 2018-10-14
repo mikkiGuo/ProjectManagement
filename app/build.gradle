@@ -22,13 +22,13 @@ android {
     }
 
     flavorDimensions "staging"
-    productFlavors{
-        manager{
+    productFlavors {
+        manager {
             dimension "staging"
             applicationId "com.example.mikki.projectmanagement.manager"
             buildConfigField("String", "SERVER_URL", '"www.manager.facebook.com"')
         }
-        developer{
+        developer {
             dimension "staging"
             applicationId "com.example.mikki.projectmanagement.developer"
             buildConfigField("String", "SERVER_URL", '"www.developer.facebook.com"')
