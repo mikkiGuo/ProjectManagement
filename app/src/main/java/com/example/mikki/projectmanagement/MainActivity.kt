@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.example.mikki.projectmanagement.data.DataManager
 import com.example.mikki.projectmanagement.data.IDataManager
+import com.example.mikki.projectmanagement.data.model.ProjectTask
+import com.example.mikki.projectmanagement.data.model.ProjectTaskItem
 import com.example.mikki.projectmanagement.data.model.ProjectsItem
 
 class MainActivity : AppCompatActivity() {
@@ -30,5 +32,12 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }*/
+
+        val task = ProjectTaskItem()
+        task.projectid = "30"
+        task.taskname = "mytask"
+
+        iDataManager.createTask(task)
+        iDataManager.getTaskList()
     }
 }

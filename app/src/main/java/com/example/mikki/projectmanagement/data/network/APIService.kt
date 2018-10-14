@@ -1,6 +1,8 @@
 package com.example.mikki.projectmanagement.data.network
 
 import com.example.mikki.projectmanagement.data.model.ProjectList
+import com.example.mikki.projectmanagement.data.model.ProjectTask
+import com.example.mikki.projectmanagement.data.model.ProjectTaskItem
 import com.example.mikki.projectmanagement.data.model.SuccessMsg
 import io.reactivex.Observable
 import retrofit2.Retrofit
@@ -28,6 +30,20 @@ interface APIService {
     @GET("pms_projects.php")
     fun getProjectList():Observable<ProjectList>
 
+    /* http://rjtmobile.com/aamir/pms/android-app/
+     * pms_create_task.php?
+     * project_id=30&
+     * task_name=blah
+     */
+    @GET("pms_create_task.php")
+    fun createNewTask(@Query("project_id") id: String,
+                      @Query("task_name") name: String): Observable<SuccessMsg>
+
+    /* http://rjtmobile.com/aamir/pms/android-app/
+     * pms_project_task_list.php?
+     */
+    @GET("pms_project_task_list.php?")
+    fun getTaskList(): Observable<ProjectTask>
 
     companion object {
 
@@ -43,5 +59,4 @@ interface APIService {
             return retrofit.create(APIService::class.java)
         }
     }
-
 }
