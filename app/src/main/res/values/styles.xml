@@ -12,4 +12,13 @@
         <item name="actionBarDivider">@color/divider</item>
     </style>
 
+    <style name="addBottomLine"   parent="android:Widget.Holo.Light.TextView">
+        <item name="android:drawableBottom">@drawable/add_bottom_line</item>
+        <item name="android:drawablePadding">4dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
 </resources>
