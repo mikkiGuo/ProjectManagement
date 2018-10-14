@@ -4,7 +4,6 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.example.mikki.projectmanagement.data.DataManager
 import com.example.mikki.projectmanagement.data.IDataManager
-import com.example.mikki.projectmanagement.data.model.ProjectDB
 import com.example.mikki.projectmanagement.data.model.ProjectsItem
 
 class MainActivity : AppCompatActivity() {

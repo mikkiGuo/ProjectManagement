@@ -1,6 +1,5 @@
 package com.example.mikki.projectmanagement.data
 
-import com.example.mikki.projectmanagement.data.model.ProjectDB
 import com.example.mikki.projectmanagement.data.model.ProjectsItem
 import com.example.mikki.projectmanagement.data.network.INetworkHelper
 import com.example.mikki.projectmanagement.data.network.NetworkHelper

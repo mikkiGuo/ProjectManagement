@@ -1,7 +1,6 @@
 package com.example.mikki.projectmanagement.data.network
 
 import android.util.Log
-import com.example.mikki.projectmanagement.data.model.ProjectDB
 import com.example.mikki.projectmanagement.data.model.ProjectsItem
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
