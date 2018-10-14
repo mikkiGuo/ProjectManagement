@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.mikki.projectmanagement.R
 
-class NewProjectFragment : Fragment() {
+class CreateProjectFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        return inflater?.inflate(R.layout.frag_create_project, container, false)
+        return inflater.inflate(R.layout.frag_create_project, container, false)
     }
 
 }

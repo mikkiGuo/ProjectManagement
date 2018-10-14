@@ -1,6 +1,7 @@
 package com.example.mikki.projectmanagement.data.network
 
 import android.util.Log
+import com.example.mikki.projectmanagement.data.model.ProjectSubTaskItem
 import com.example.mikki.projectmanagement.data.model.ProjectsItem
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -44,7 +45,26 @@ class NetworkHelper:INetworkHelper {
                         )
     }
 
-    /*override fun onPause() {
+    override fun storeNewSubTaskToServer(subTask: ProjectSubTaskItem) {
+        Log.d("MyTag", "+++++++++++++++++++++++++++++++++++++++")
+        disposable =
+                apiServe.getCreateNewSubTaskStatus(
+                        subTask.projectid!!,
+                        subTask.taskid!!,
+                        subTask.subtaskname!!,
+                        subTask.subtaskstatus!!,
+                        subTask.subtaskdesc!!,
+                        subTask.startdate!!,
+                        subTask.endstart!!)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                { result -> Log.d("MyTag", result.toString())
+                                },
+                                { error -> Log.d("MyTag", error.message) }
+                        )
+    }
+/*override fun onPause() {
         super.onPause()
         disposable?.dispose()
     }*/
