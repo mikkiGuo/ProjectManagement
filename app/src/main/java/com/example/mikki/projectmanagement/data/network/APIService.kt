@@ -1,5 +1,6 @@
 package com.example.mikki.projectmanagement.data.network
 
+import com.example.mikki.projectmanagement.data.model.ProjectList
 import com.example.mikki.projectmanagement.data.model.SuccessMsg
 import io.reactivex.Observable
 import retrofit2.Retrofit
@@ -21,6 +22,12 @@ interface APIService {
                             @Query("project_name") start_date: String,
                             @Query("project_name") end_date: String):
             Observable<SuccessMsg>
+
+    //http://rjtmobile.com/aamir/pms/android-app/
+    //pms_projects.php?
+    @GET("pms_projects.php")
+    fun getProjectList():Observable<ProjectList>
+
 
     companion object {
 
