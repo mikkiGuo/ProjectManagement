@@ -9,7 +9,5 @@ interface INetworkHelper {
 
     fun getProjectList()
 
-    fun storeNewSubTaskToServer(subTask: ProjectSubTaskItem)
-
-    fun getSubTaskList()
+    fun storeNewSubTaskToServer(subTask:ProjectSubTaskItem)
 }

@@ -26,9 +26,9 @@ class NetworkHelper:INetworkHelper {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                { result -> Log.d("MyTag PROJECT", result.toString())
+                                { result -> Log.d("MyTag", result.toString())
                                 },
-                                { error -> Log.d("MyTag PROJECT", error.message) }
+                                { error -> Log.d("MyTag", error.message) }
                         )
     }
 
@@ -46,10 +46,9 @@ class NetworkHelper:INetworkHelper {
     }
 
     override fun storeNewSubTaskToServer(subTask: ProjectSubTaskItem) {
-        Log.d("Create NewSubTask", "++++++++++create NewSubTask+++++++++++")
-        Log.d("NetWork: Subtask data: ", subTask.toString())
+        Log.d("MyTag", "+++++++++++++++++++++++++++++++++++++++")
         disposable =
-                apiServe.getCreateNewSubTask(
+                apiServe.getCreateNewSubTaskStatus(
                         subTask.projectid!!,
                         subTask.taskid!!,
                         subTask.subtaskname!!,
@@ -60,23 +59,12 @@ class NetworkHelper:INetworkHelper {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                {result -> Log.d("Success: createSubTask", result.toString())},
-                                {error -> Log.d("Fail: createSubTask", error.localizedMessage)}
+                                { result -> Log.d("MyTag", result.toString())
+                                },
+                                { error -> Log.d("MyTag", error.message) }
                         )
     }
-
-    override fun getSubTaskList() {
-        Log.d("SubTask List", "++++++++++++SubTaskList+++++++++++++++")
-        disposable = apiServe.getSubTaskList()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        {result -> Log.d("Success: SubTaskList ", result.projectSubTask!![result.projectSubTask.lastIndex].toString())},
-                        { error -> Log.d("Fail: SubTaskList ", error.message)}
-                )
-    }
-
-    /*override fun onPause() {
+/*override fun onPause() {
         super.onPause()
         disposable?.dispose()
     }*/

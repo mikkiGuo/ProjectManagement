@@ -6,6 +6,9 @@ import com.example.mikki.projectmanagement.data.network.INetworkHelper
 import com.example.mikki.projectmanagement.data.network.NetworkHelper
 
 class DataManager:IDataManager {
+    override fun storeNewSubTaskToServer(subTask: ProjectSubTaskItem) {
+        iNetworkHelper.storeNewSubTaskToServer(subTask)
+    }
 
     override fun getProjectList() {
         iNetworkHelper.getProjectList()
@@ -13,14 +16,6 @@ class DataManager:IDataManager {
 
     override fun storeNewProjectToServer(p: ProjectsItem) {
         iNetworkHelper.storeNewProjectToServer(p)
-    }
-
-    override fun storeNewSubTaskToServer(subTask: ProjectSubTaskItem) {
-        iNetworkHelper.storeNewSubTaskToServer(subTask)
-    }
-
-    override fun getSubTaskList() {
-        iNetworkHelper.getSubTaskList()
     }
 
 
