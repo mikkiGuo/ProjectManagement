@@ -3,6 +3,7 @@ package com.example.mikki.projectmanagement
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import com.example.mikki.projectmanagement.view.project.CreateProjectFragment
 import com.example.mikki.projectmanagement.view.project.ProjectListFragment
 import kotlinx.android.synthetic.main.floating_button.*
 
@@ -12,34 +13,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val fragment = ProjectListFragment()
+        //val fragment = ProjectListFragment()
+        val fragment = CreateProjectFragment()
 
         fragmentManager.beginTransaction().add(R.id.frame_layout,
                 fragment).addToBackStack(null).commit()
 
-        //val iDataManager:IDataManager = DataManager()
-        /*var p = ProjectsItem("ecomm", "1"
-                , "xyz", "2018-04-03","2018-04-15")*/
-        /*val p = ProjectsItem()
-        p.projectname = "ecomm"
-        p.endstart = "2018-04-15"
-        p.projectdesc = "xyz"
-        p.projectstatus = "1"
-        p.startdate = "2018-04-03"*/
-
-        /*var subTask = ProjectSubTaskItem()
-        subTask.projectid = "27"
-        subTask.taskid = "1"
-        subTask.subtaskname = "Best SubTask"
-        subTask.subtaskdesc = "This is SubTask"
-        subTask.subtaskstatus = "1"
-        subTask.startdate = "2018-01-22"
-        subTask.endstart = "2018-03-22"
-
-        //iDataManager.storeNewProjectToServer(p)
-
-        //iDataManager.getProjectList()
-        iDataManager.storeNewSubTaskToServer(subTask)*/
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
