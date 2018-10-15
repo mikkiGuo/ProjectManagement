@@ -1,4 +1,4 @@
-package com.example.mikki.projectmanagement.project.projectlist
+package com.example.mikki.projectmanagement.view.project
 
 import android.app.Fragment
 import android.databinding.DataBindingUtil
@@ -9,8 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.mikki.projectmanagement.R
+import com.example.mikki.projectmanagement.adapter.ProjectListAdapter
 import com.example.mikki.projectmanagement.databinding.FragProjectListBinding
-import com.example.mikki.projectmanagement.project.ProjectViewModel
+import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
 import kotlinx.android.synthetic.main.frag_project_list.view.*
 
 class ProjectListFragment(): Fragment() {

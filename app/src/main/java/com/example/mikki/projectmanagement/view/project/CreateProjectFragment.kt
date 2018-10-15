@@ -1,4 +1,4 @@
-package com.example.mikki.projectmanagement.project.createproject
+package com.example.mikki.projectmanagement.view.project
 
 import android.os.Bundle
 import android.support.v4.app.Fragment

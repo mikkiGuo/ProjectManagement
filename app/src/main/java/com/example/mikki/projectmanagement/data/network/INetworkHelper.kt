@@ -2,7 +2,7 @@ package com.example.mikki.projectmanagement.data.network
 
 import com.example.mikki.projectmanagement.data.model.ProjectSubTaskItem
 import com.example.mikki.projectmanagement.data.model.ProjectsItem
-import com.example.mikki.projectmanagement.project.ProjectViewModel
+import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
 
 interface INetworkHelper {
 

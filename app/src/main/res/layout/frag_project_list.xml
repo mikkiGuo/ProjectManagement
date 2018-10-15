@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.mikki.projectmanagement.project.ProjectViewModel"/>
+            type="com.example.mikki.projectmanagement.viewmodel.ProjectViewModel"/>
     </data>
     <LinearLayout
         android:layout_width="match_parent"

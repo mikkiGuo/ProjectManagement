@@ -3,7 +3,7 @@ package com.example.mikki.projectmanagement.data.network
 import android.util.Log
 import com.example.mikki.projectmanagement.data.model.ProjectSubTaskItem
 import com.example.mikki.projectmanagement.data.model.ProjectsItem
-import com.example.mikki.projectmanagement.project.ProjectViewModel
+import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers

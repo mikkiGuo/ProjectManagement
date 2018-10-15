@@ -3,11 +3,7 @@ package com.example.mikki.projectmanagement
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import com.example.mikki.projectmanagement.data.DataManager
-import com.example.mikki.projectmanagement.data.IDataManager
-import com.example.mikki.projectmanagement.data.model.ProjectSubTaskItem
-import com.example.mikki.projectmanagement.data.model.ProjectsItem
-import com.example.mikki.projectmanagement.project.projectlist.ProjectListFragment
+import com.example.mikki.projectmanagement.view.project.ProjectListFragment
 import kotlinx.android.synthetic.main.floating_button.*
 
 class MainActivity : AppCompatActivity() {
