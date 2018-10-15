@@ -3,6 +3,7 @@ package com.example.mikki.projectmanagement.data.network
 import android.util.Log
 import com.example.mikki.projectmanagement.data.model.ProjectSubTaskItem
 import com.example.mikki.projectmanagement.data.model.ProjectsItem
+import com.example.mikki.projectmanagement.project.ProjectViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -32,14 +33,19 @@ class NetworkHelper:INetworkHelper {
                         )
     }
 
-    override fun getProjectList() {
+    override fun getProjectList(viewModel: ProjectViewModel) {
         Log.d("MyTag", "+++++++++++++++++++++++++++++++++++++++")
         disposable =
                 apiServe.getProjectList()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                { result -> Log.d("MyTag", result.toString())
+                                { result ->
+                                    for(item in result.projects!!){
+                                        viewModel.updateList(item!!)
+                                    }
+                                    Log.d("MyTag",result.projects.toString()
+                                    )
                                 },
                                 { error -> Log.d("MyTag", error.message) }
                         )

@@ -7,6 +7,7 @@ import com.example.mikki.projectmanagement.data.DataManager
 import com.example.mikki.projectmanagement.data.IDataManager
 import com.example.mikki.projectmanagement.data.model.ProjectSubTaskItem
 import com.example.mikki.projectmanagement.data.model.ProjectsItem
+import com.example.mikki.projectmanagement.project.projectlist.ProjectListFragment
 import kotlinx.android.synthetic.main.floating_button.*
 
 class MainActivity : AppCompatActivity() {
@@ -15,7 +16,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val iDataManager:IDataManager = DataManager()
+        val fragment = ProjectListFragment()
+
+        fragmentManager.beginTransaction().add(R.id.frame_layout,
+                fragment).addToBackStack(null).commit()
+
+        //val iDataManager:IDataManager = DataManager()
         /*var p = ProjectsItem("ecomm", "1"
                 , "xyz", "2018-04-03","2018-04-15")*/
         /*val p = ProjectsItem()
@@ -25,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         p.projectstatus = "1"
         p.startdate = "2018-04-03"*/
 
-        var subTask = ProjectSubTaskItem()
+        /*var subTask = ProjectSubTaskItem()
         subTask.projectid = "27"
         subTask.taskid = "1"
         subTask.subtaskname = "Best SubTask"
@@ -37,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         //iDataManager.storeNewProjectToServer(p)
 
         //iDataManager.getProjectList()
-        iDataManager.storeNewSubTaskToServer(subTask)
+        iDataManager.storeNewSubTaskToServer(subTask)*/
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
