@@ -9,15 +9,9 @@ import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
 interface INetworkHelper {
 
     fun storeNewProjectToServer(p: ProjectsItem)
-
-    fun getProjectList()
-
-    fun createTask(listener: OnAdminCreateTaskListener, adminTaskItem: ProjectAdminTaskItem)
-
-    fun getAdminTaskList(listener: OnAdminTaskListListener)
-
-    fun getUserTaskList(id: String)
     fun getProjectList(viewModel: ProjectViewModel)
-
+    fun createTask(listener: OnAdminCreateTaskListener, adminTaskItem: ProjectAdminTaskItem)
+    fun getAdminTaskList(listener: OnAdminTaskListListener)
+    fun getUserTaskList(id: String)
     fun storeNewSubTaskToServer(subTask:ProjectSubTaskItem)
 }

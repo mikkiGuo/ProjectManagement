@@ -37,12 +37,7 @@ class MainActivity : AppCompatActivity(), IDataManager.OnAdminTaskListListener {
 
             fragmentManager.beginTransaction().add(R.id.mainActivity, fragment).addToBackStack(null).commit()
             Log.d("ninntag", "tasklistfragment transaction begin")
-        //val fragment = ProjectListFragment()
-        val fragment = CreateProjectFragment()
-
         }
-        fragmentManager.beginTransaction().add(R.id.frame_layout,
-                fragment).addToBackStack(null).commit()
 
         bt_createTask.setOnClickListener {
             var fragment = CreateTaskFragment()
@@ -51,6 +46,17 @@ class MainActivity : AppCompatActivity(), IDataManager.OnAdminTaskListListener {
             Log.d("ninntag", "newtaskfragment transaction begin")
 
         }
+
+        bt_projectList.setOnClickListener {
+            val fragment = ProjectListFragment()
+            fragmentManager.beginTransaction().add(R.id.mainActivity, fragment).addToBackStack(null).commit()
+        }
+
+        bt_createProject.setOnClickListener {
+            val fragment = CreateProjectFragment()
+            fragmentManager.beginTransaction().add(R.id.mainActivity, fragment).addToBackStack(null).commit()
+        }
+
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()

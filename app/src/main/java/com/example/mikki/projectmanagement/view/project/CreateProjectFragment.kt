@@ -14,7 +14,7 @@ class CreateProjectFragment : Fragment() {
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        return inflater.inflate(R.layout.frag_create_project, container, false)
+        return inflater.inflate(R.layout.frag_project_create, container, false)
     }
 
 }

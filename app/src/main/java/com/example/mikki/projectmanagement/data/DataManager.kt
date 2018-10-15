@@ -8,8 +8,6 @@ import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
 
 class DataManager:IDataManager {
 
-    override fun getProjectList() {
-        iNetworkHelper.getProjectList()
     override fun storeNewSubTaskToServer(subTask: ProjectSubTaskItem) {
         iNetworkHelper.storeNewSubTaskToServer(subTask)
     }
