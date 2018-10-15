@@ -1,7 +1,8 @@
 package com.example.mikki.projectmanagement.data.network
 
 import android.util.Log
-import com.example.mikki.projectmanagement.data.model.ProjectTaskItem
+import com.example.mikki.projectmanagement.data.IDataManager
+import com.example.mikki.projectmanagement.data.model.ProjectAdminTaskItem
 import com.example.mikki.projectmanagement.data.model.ProjectsItem
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -48,20 +49,41 @@ class NetworkHelper:INetworkHelper {
         disposable?.dispose()
     }*/
 
-    override fun createTask(taskItem: ProjectTaskItem) {
+    override fun createTask(listener: IDataManager.OnAdminCreateTaskListener, adminTaskItem: ProjectAdminTaskItem) {
         disposable = apiServe.createNewTask(
-                taskItem.projectid!!,
-                taskItem.taskname!!)
+                adminTaskItem.projectid!!,
+                adminTaskItem.taskname!!,
+                adminTaskItem.taskstatus,
+                adminTaskItem.taskdesc,
+                adminTaskItem.startdate,
+                adminTaskItem.endstart)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { result -> Log.d("ninntag", result.toString()) },
+                        { result -> Log.d("ninntag", result.toString())
+                                    listener.createTask()},
                         { error -> Log.d("ninntag", error.message) }
                 )
     }
 
-    override fun getTaskList() {
-        disposable = apiServe.getTaskList()
+    override fun getAdminTaskList(listener: IDataManager.OnAdminTaskListListener) {
+        var adminTaskList: ArrayList<ProjectAdminTaskItem>?
+
+        disposable = apiServe.getAdminTaskList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe (
+                        { result -> Log.d("ninntag", result.toString())
+                                    adminTaskList = result.projectAdminTask
+                                    Log.d("ninntag", adminTaskList.toString())
+                                    listener.getAdminTaskList(adminTaskList)},
+                        { error -> Log.d("ninntag", error.message)
+                                    listener.getAdminTaskList(null)}
+                )
+    }
+
+    override fun getUserTaskList(id: String) {
+        disposable = apiServe.getUserTaskList(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe (

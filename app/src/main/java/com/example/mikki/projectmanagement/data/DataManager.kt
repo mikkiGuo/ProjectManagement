@@ -1,8 +1,7 @@
 package com.example.mikki.projectmanagement.data
 
-import com.example.mikki.projectmanagement.data.model.ProjectTaskItem
+import com.example.mikki.projectmanagement.data.model.ProjectAdminTaskItem
 import com.example.mikki.projectmanagement.data.model.ProjectsItem
-import com.example.mikki.projectmanagement.data.network.INetworkHelper
 import com.example.mikki.projectmanagement.data.network.NetworkHelper
 
 class DataManager:IDataManager {
@@ -15,12 +14,16 @@ class DataManager:IDataManager {
         iNetworkHelper.storeNewProjectToServer(p)
     }
 
-    override fun createTask(taskItem: ProjectTaskItem) {
-        iNetworkHelper.createTask(taskItem)
+    override fun createTask(listener: IDataManager.OnAdminCreateTaskListener, adminTaskItem: ProjectAdminTaskItem) {
+        iNetworkHelper.createTask(listener, adminTaskItem)
     }
 
-    override fun getTaskList() {
-        iNetworkHelper.getTaskList()
+    override fun getAdminTaskList(listener: IDataManager.OnAdminTaskListListener) {
+        return iNetworkHelper.getAdminTaskList(listener)
+    }
+
+    override fun getUserTaskList(id: String) {
+        iNetworkHelper.getUserTaskList(id)
     }
 
     companion object {
