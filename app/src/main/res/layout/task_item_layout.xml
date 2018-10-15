@@ -19,8 +19,7 @@
             <TextView
                 android:id="@+id/tv_taskName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="asldfajeiae"/>
+                android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/tv_taskDesc"
                 android:layout_width="match_parent"
