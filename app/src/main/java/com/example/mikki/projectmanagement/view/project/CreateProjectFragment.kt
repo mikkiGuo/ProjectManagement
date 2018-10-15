@@ -1,13 +1,14 @@
-package com.example.mikki.projectmanagement.view.project.createproject
+package com.example.mikki.projectmanagement.view.project
 
+import android.app.Fragment
 import android.os.Bundle
-import android.support.v4.app.Fragment
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.mikki.projectmanagement.R
 
-class NewProjectFragment : Fragment() {
+class CreateProjectFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,

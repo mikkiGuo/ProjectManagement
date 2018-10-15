@@ -3,7 +3,9 @@ package com.example.mikki.projectmanagement.data.network
 import android.util.Log
 import com.example.mikki.projectmanagement.data.IDataManager
 import com.example.mikki.projectmanagement.data.model.ProjectAdminTaskItem
+import com.example.mikki.projectmanagement.data.model.ProjectSubTaskItem
 import com.example.mikki.projectmanagement.data.model.ProjectsItem
+import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -32,10 +34,35 @@ class NetworkHelper:INetworkHelper {
                         )
     }
 
-    override fun getProjectList() {
+    override fun getProjectList(viewModel: ProjectViewModel) {
         Log.d("MyTag", "+++++++++++++++++++++++++++++++++++++++")
         disposable =
                 apiServe.getProjectList()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                { result ->
+                                    for(item in result.projects!!){
+                                        viewModel.updateList(item!!)
+                                    }
+                                    Log.d("MyTag",result.projects.toString()
+                                    )
+                                },
+                                { error -> Log.d("MyTag", error.message) }
+                        )
+    }
+
+    override fun storeNewSubTaskToServer(subTask: ProjectSubTaskItem) {
+        Log.d("MyTag", "+++++++++++++++++++++++++++++++++++++++")
+        disposable =
+                apiServe.getCreateNewSubTaskStatus(
+                        subTask.projectid!!,
+                        subTask.taskid!!,
+                        subTask.subtaskname!!,
+                        subTask.subtaskstatus!!,
+                        subTask.subtaskdesc!!,
+                        subTask.startdate!!,
+                        subTask.endstart!!)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(

@@ -10,6 +10,10 @@ import com.example.mikki.projectmanagement.data.model.ProjectsItem
 import com.example.mikki.projectmanagement.view.task.CreateTaskFragment
 import com.example.mikki.projectmanagement.view.task.TaskListFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import android.support.design.widget.Snackbar
+import com.example.mikki.projectmanagement.view.project.CreateProjectFragment
+import com.example.mikki.projectmanagement.view.project.ProjectListFragment
+import kotlinx.android.synthetic.main.floating_button.*
 
 class MainActivity : AppCompatActivity(), IDataManager.OnAdminTaskListListener {
 
@@ -33,7 +37,6 @@ class MainActivity : AppCompatActivity(), IDataManager.OnAdminTaskListListener {
 
             fragmentManager.beginTransaction().add(R.id.mainActivity, fragment).addToBackStack(null).commit()
             Log.d("ninntag", "tasklistfragment transaction begin")
-
         }
 
         bt_createTask.setOnClickListener {
@@ -42,6 +45,21 @@ class MainActivity : AppCompatActivity(), IDataManager.OnAdminTaskListListener {
             fragmentManager.beginTransaction().add(R.id.mainActivity, fragment).addToBackStack(null).commit()
             Log.d("ninntag", "newtaskfragment transaction begin")
 
+        }
+
+        bt_projectList.setOnClickListener {
+            val fragment = ProjectListFragment()
+            fragmentManager.beginTransaction().add(R.id.mainActivity, fragment).addToBackStack(null).commit()
+        }
+
+        bt_createProject.setOnClickListener {
+            val fragment = CreateProjectFragment()
+            fragmentManager.beginTransaction().add(R.id.mainActivity, fragment).addToBackStack(null).commit()
+        }
+
+        fab.setOnClickListener { view ->
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
         }
     }
 
