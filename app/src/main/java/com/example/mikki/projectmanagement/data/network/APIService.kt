@@ -1,9 +1,6 @@
 package com.example.mikki.projectmanagement.data.network
 
-import com.example.mikki.projectmanagement.data.model.ProjectAdminTask
-import com.example.mikki.projectmanagement.data.model.ProjectList
-import com.example.mikki.projectmanagement.data.model.ProjectUserTask
-import com.example.mikki.projectmanagement.data.model.SuccessMsg
+import com.example.mikki.projectmanagement.data.model.*
 import io.reactivex.Observable
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -13,9 +10,9 @@ import retrofit2.http.Query
 
 interface APIService {
 
-    /*http://rjtmobile.com/aamir/pms/android-app/pms_create_project.php?
-    project_name=ecomm&project_status=1&project_desc=xyz
-     &start_date=2018-04-03&end_date=2018-04-15*/
+    //http://rjtmobile.com/aamir/pms/android-app/pms_create_project.php?
+    //project_name=ecomm&project_status=1&project_desc=xyz
+    // &start_date=2018-04-03&end_date=2018-04-15
 
     @GET("pms_create_project.php")
     fun getCreateNewProjectStatus(@Query("project_name") projectName: String,
@@ -25,11 +22,10 @@ interface APIService {
                             @Query("project_name") end_date: String):
             Observable<SuccessMsg>
 
-    /*http://rjtmobile.com/aamir/pms/android-app/
-    pms_projects.php?*/
+    //http://rjtmobile.com/aamir/pms/android-app/
+    //pms_projects.php?
     @GET("pms_projects.php")
     fun getProjectList():Observable<ProjectList>
-
 
     /* http://rjtmobile.com/aamir/pms/android-app/
      * pms_create_task.php?
@@ -60,17 +56,15 @@ interface APIService {
      */
     @GET("pms_view_task.php")
     fun getUserTaskList(@Query("user_id") id: String): Observable<ProjectUserTask>
-
-
-    /* http://rjtmobile.com/aamir/pms/android-app/
-     pms_create_sub_task.php?
-     project_id=27&
-     task_id=1&
-     sub_task_name=category screen image loading&
-     sub_task_status=1&
-     sub_task_desc=xyz&
-     start_date=2018-04-03&
-     end_date=2018-04-15*/
+    //http://rjtmobile.com/aamir/pms/android-app/
+    // pms_create_sub_task.php?
+    // project_id=27&
+    // task_id=1&
+    // sub_task_name=category screen image loading&
+    // sub_task_status=1&
+    // sub_task_desc=xyz&
+    // start_date=2018-04-03&
+    // end_date=2018-04-15
 
     @GET("pms_create_sub_task.php")
     fun getCreateNewSubTaskStatus(@Query("project_id") pId:String,
@@ -97,5 +91,4 @@ interface APIService {
             return retrofit.create(APIService::class.java)
         }
     }
-
 }

@@ -3,11 +3,11 @@ package com.example.mikki.projectmanagement.data
 import com.example.mikki.projectmanagement.data.model.ProjectAdminTaskItem
 import com.example.mikki.projectmanagement.data.model.ProjectSubTaskItem
 import com.example.mikki.projectmanagement.data.model.ProjectsItem
-import com.example.mikki.projectmanagement.data.network.INetworkHelper
 import com.example.mikki.projectmanagement.data.network.NetworkHelper
 import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
 
 class DataManager:IDataManager {
+
     override fun storeNewSubTaskToServer(subTask: ProjectSubTaskItem) {
         iNetworkHelper.storeNewSubTaskToServer(subTask)
     }
@@ -32,9 +32,8 @@ class DataManager:IDataManager {
         iNetworkHelper.getUserTaskList(id)
     }
 
-
     companion object {
-        val iNetworkHelper: INetworkHelper = NetworkHelper()
+        val iNetworkHelper = NetworkHelper()
     }
 
 }
