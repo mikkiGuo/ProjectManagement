@@ -7,27 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!--<fragment
-        android:id="@+id/fragment"
-        android:name="com.example.mikki.projectmanagement.project.projectlist.ProjectListFragment"
-        android:layout_width="match_parent"
-        android:layout_height="600dp"
-        android:layout_alignBottom="@+id/floating_button"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginBottom="2dp"
-        app:layout_anchor="@+id/floating_button"
-        app:layout_anchorGravity="right|center" />-->
-
-
-    <include
-        android:id="@+id/floating_button"
-        layout="@layout/floating_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/bottom_navigation"
-        android:layout_alignParentEnd="true" />
-
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
@@ -37,21 +16,20 @@
     </FrameLayout>
 
     <include
+        android:id="@+id/floating_button"
+        layout="@layout/floating_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_navigation"
+        android:layout_alignParentEnd="true" />
+
+
+    <include
         android:id="@+id/bottom_navigation"
         layout="@layout/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" />
-
-    <!--<fragment
-        android:id="@+id/fragment2"
-        android:name="com.example.mikki.projectmanagement.project.projectlist.ProjectListFragment"
-        android:layout_width="407dp"
-        android:layout_height="603dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="0dp" />-->
 
 
 </RelativeLayout>
