@@ -56,7 +56,7 @@ class ProjectListFragment(): Fragment() {
         val swipeHandler = object : SwipeToDeleteCallback(context) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder?, direction: Int) {
                 //val adapter = view.rv_project_list.adapter as ProjectListAdapter
-                viewModel.removeItem()
+                viewModel.markCompleted(viewHolder!!.adapterPosition)
                 adapter.removeAt(viewHolder!!.adapterPosition)
 
             }

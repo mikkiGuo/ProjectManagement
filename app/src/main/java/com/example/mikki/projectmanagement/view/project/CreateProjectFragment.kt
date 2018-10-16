@@ -32,6 +32,10 @@ class CreateProjectFragment : Fragment() {
             Log.d("mikkiproject", "--------------------"+newProject.projectname)
             viewModel.addProject(newProject)
 
+            val fragment = ProjectListFragment()
+            fragmentManager.beginTransaction().replace(R.id.mainActivity,
+                    fragment).addToBackStack(null).commit()
+
         }
 
         return view

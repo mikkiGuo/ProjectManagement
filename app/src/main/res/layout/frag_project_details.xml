@@ -61,12 +61,12 @@
             android:padding="15dp">
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/img_team_forproject"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                app:srcCompat="@mipmap/ic_launcher_round"
-                android:contentDescription="@string/todo_id_img" />
+                android:contentDescription="@string/todo_id_img"
+                app:srcCompat="@mipmap/ic_launcher_round" />
 
             <TextView
                 android:id="@+id/tv_owners_cnp"

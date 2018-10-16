@@ -22,6 +22,7 @@
     <string name="todo">indicated access mode is private</string>
     <string name="todo_id_img">replace with owner id</string>
     <string name="create">Create</string>
+    <string name="owners">Owners</string>
 
     <!--Spinner for status-->
     <string-array name="spinner_status">

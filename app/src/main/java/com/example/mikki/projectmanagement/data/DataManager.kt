@@ -7,6 +7,7 @@ import com.example.mikki.projectmanagement.data.network.NetworkHelper
 import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
 
 class DataManager:IDataManager {
+
     override fun updateProject(p: ProjectsItem,
                                viewModel: ProjectViewModel, index:Int) {
         iNetworkHelper.updateProject(p, viewModel, index)
@@ -34,6 +35,13 @@ class DataManager:IDataManager {
 
     override fun getUserTaskList(id: String) {
         iNetworkHelper.getUserTaskList(id)
+    }
+
+    /******************************************************************
+     * Team Stuff Divider
+     ******************************************************************/
+    override fun createTeamForProject(projectId: Int, team_member_userid: Int) {
+        iNetworkHelper.createTeamForProject(projectId, team_member_userid)
     }
 
     companion object {

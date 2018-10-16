@@ -17,4 +17,9 @@ interface INetworkHelper {
     fun getUserTaskList(id: String)
     fun storeNewSubTaskToServer(subTask:ProjectSubTaskItem)
 
+    /******************************************************************
+     * Team Stuff
+     ******************************************************************/
+    fun createTeamForProject(projectId: Int, team_member_userid: Int)
+
 }

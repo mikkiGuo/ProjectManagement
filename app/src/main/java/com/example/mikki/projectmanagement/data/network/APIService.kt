@@ -77,16 +77,16 @@ interface APIService {
      */
     @GET("pms_view_task.php")
     fun getUserTaskList(@Query("user_id") id: String): Observable<ProjectUserTask>
-    //http://rjtmobile.com/aamir/pms/android-app/
-    // pms_create_sub_task.php?
-    // project_id=27&
-    // task_id=1&
-    // sub_task_name=category screen image loading&
-    // sub_task_status=1&
-    // sub_task_desc=xyz&
-    // start_date=2018-04-03&
-    // end_date=2018-04-15
 
+    /*http://rjtmobile.com/aamir/pms/android-app/
+     *pms_create_sub_task.php?
+     *project_id=27&
+     *task_id=1&
+     *sub_task_name=category screen image loading&
+     *sub_task_status=1&
+     *sub_task_desc=xyz&
+     *start_date=2018-04-03&
+     *end_date=2018-04-15*/
     @GET("pms_create_sub_task.php")
     fun getCreateNewSubTaskStatus(@Query("project_id") pId:String,
                                   @Query("task_id") taskId:String,
@@ -95,6 +95,16 @@ interface APIService {
                                   @Query("sub_task_desc") subTaskDesc:String,
                                   @Query("start_date") subTaskSdate:String,
                                   @Query("end_date") subTaskEdate:String):
+            Observable<SuccessMsg>
+
+    /*http://rjtmobile.com/aamir/pms/android-app/
+     * pms_create_project_team.php?
+     * project_id=27&
+     * team_member_userid=14
+     */
+    @GET("pms_create_project_team.php")
+    fun createTeamForProject(@Query("project_id") project_id:Int,
+                             @Query("team_member_userid") team_member_userid:Int):
             Observable<SuccessMsg>
 
 

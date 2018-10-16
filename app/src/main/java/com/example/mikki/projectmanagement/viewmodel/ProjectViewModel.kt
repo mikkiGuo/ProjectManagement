@@ -30,6 +30,7 @@ class ProjectViewModel:BaseObservable() {
         }
 
     fun initList() {
+        projectList = mutableListOf()
         dataManager.getProjectList(this)
     }
 
@@ -58,8 +59,10 @@ class ProjectViewModel:BaseObservable() {
         //changedPositions = i
     }
 
-    fun removeItem() {
 
+    fun markCompleted(adapterPosition: Int) {
+        projectList[adapterPosition].projectstatus = "2"
+        updateProject(projectList[adapterPosition],adapterPosition)
     }
 
 

@@ -50,8 +50,12 @@ class NetworkHelper:INetworkHelper {
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 { result ->
-                                    for(item in result.projects!!){
-                                        viewModel.updateList(item!!)
+                                    for(item in result.projects!!)
+                                    {
+                                        item as ProjectsItem
+                                        if(!item.projectstatus.equals("2") ){
+                                            viewModel.updateList(item!!)
+                                        }
                                     }
                                     Log.d("mikkiproject",result.projects.toString()
                                     )
@@ -59,6 +63,7 @@ class NetworkHelper:INetworkHelper {
                                 { error -> Log.d("mikkiproject", error.message) }
                         )
     }
+
 
     override fun updateProject(p: ProjectsItem,
                                viewModel: ProjectViewModel, index:Int) {
@@ -155,6 +160,23 @@ class NetworkHelper:INetworkHelper {
     }*/
 
 
+    /**************************************************************************
+     * Team Stuff
+     **************************************************************************/
+    override fun createTeamForProject(projectId: Int, team_member_userid: Int) {
+        disposable =
+                apiServe.createTeamForProject(
+                        projectId!!,
+                        team_member_userid!!)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                { result ->
+                                    Log.d("mikkiteam", result.toString())
+                                },
+                                { error -> Log.d("mikkiteam", error.message) }
+                        )
+    }
 
 
 
