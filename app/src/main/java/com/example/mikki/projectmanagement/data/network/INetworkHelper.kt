@@ -1,7 +1,9 @@
 package com.example.mikki.projectmanagement.data.network
 
+import com.example.mikki.projectmanagement.data.IDataManager
 import com.example.mikki.projectmanagement.data.model.ProjectSubTaskItem
 import com.example.mikki.projectmanagement.data.model.ProjectsItem
+import com.example.mikki.projectmanagement.viewmodel.ViewModelSubTask
 
 interface INetworkHelper {
 
@@ -9,5 +11,11 @@ interface INetworkHelper {
 
     fun getProjectList()
 
-    fun storeNewSubTaskToServer(subTask:ProjectSubTaskItem)
+    fun createNewSubTask(listener: IDataManager.OnAdminCreateSubTaskListener,
+                         subTask:ProjectSubTaskItem)
+
+    fun editSubTask(listener: IDataManager.OnAdminEditSubTaskListener,
+                         subTask:ProjectSubTaskItem)
+
+    fun getSubTasksList(subTaskViewModel: ViewModelSubTask)
 }

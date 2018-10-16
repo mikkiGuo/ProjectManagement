@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.data.model.ProjectsItem
-/*
+
 class ProjectListAdapter: RecyclerView.Adapter<ProjectListAdapter.ViewHolder>() {
 
     fun setData(items:List<ProjectsItem>){
@@ -30,10 +30,10 @@ class ProjectListAdapter: RecyclerView.Adapter<ProjectListAdapter.ViewHolder>() 
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder?.projectId?.text = productList.get(position).projectname
+        holder.projectId.text = productList.get(position).projectname
     }
 
     class ViewHolder(itemView:View): RecyclerView.ViewHolder(itemView) {
         var projectId = itemView.findViewById(R.id.tv_project_id) as TextView
     }
-}*/
+}

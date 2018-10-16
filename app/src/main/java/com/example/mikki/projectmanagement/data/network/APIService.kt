@@ -28,13 +28,23 @@ interface APIService {
     // project_id=27&task_id=1&sub_task_name=category screen image loading&sub_task_status=1&
     // sub_task_desc=xyz&start_date=2018-04-03&end_date=2018-04-15
     @GET("pms_create_sub_task.php")
-    fun getCreateNewSubTask(@Query("project_id") projectId: String,
+    fun createNewSubTask(@Query("project_id") projectId: String,
                             @Query("task_id") taskId: String,
                             @Query("sub_task_name") subTaskName: String,
                             @Query("sub_task_status") subTaskStatus: String,
                             @Query("sub_task_desc") subTaskDescription: String,
                             @Query("start_date") subTaskStartDate: String,
                             @Query("end_date") subTaskEndDate: String):
+            Observable<SuccessMsg>
+
+    @GET("pms_edit_sub_task.php")
+    fun editNewSubTask(@Query("project_id") projectId: String,
+                         @Query("task_id") taskId: String,
+                         @Query("sub_task_name") subTaskName: String,
+                         @Query("sub_task_status") subTaskStatus: String,
+                         @Query("sub_task_desc") subTaskDescription: String,
+                         @Query("start_date") subTaskStartDate: String,
+                         @Query("end_date") subTaskEndDate: String):
             Observable<SuccessMsg>
 
     //http://rjtmobile.com/aamir/pms/android-app/pms_project_sub_task_list.php?
@@ -45,16 +55,6 @@ interface APIService {
     //pms_projects.php?
     @GET("pms_projects.php")
     fun getProjectList():Observable<ProjectList>
-
-    //http://rjtmobile.com/aamir/pms/android-app/
-    // pms_create_sub_task.php?
-    // project_id=27&
-    // task_id=1&
-    // sub_task_name=category screen image loading&
-    // sub_task_status=1&
-    // sub_task_desc=xyz&
-    // start_date=2018-04-03&
-    // end_date=2018-04-15
 
     @GET("pms_create_sub_task.php")
     fun getCreateNewSubTaskStatus(@Query("project_id") pId:String,

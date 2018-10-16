@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="subTaskViewModel"
+            type="com.example.mikki.projectmanagement.viewmodel.ViewModelSubTask"/>
+    </data>
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#d18eed"
+        tools:context = ".MainActivity">
+
+        <TextView
+            android:id="@+id/tvSubTaskList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:text="Sub Task List"/>
+
+        <TextView
+            android:id="@+id/tvCreateSubTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@id/tvSubTaskList"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:text="Create"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvSubTask"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/tvCreateSubTask"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:myLists="@{subTaskViewModel.subTaskList}"
+            app:changedPositions="@{subTaskViewModel.changedPositions}"/>
+
+
+    </RelativeLayout>
+</layout>

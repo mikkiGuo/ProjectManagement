@@ -1,13 +1,16 @@
 package com.example.mikki.projectmanagement.data.network
 
 import android.util.Log
+import com.example.mikki.projectmanagement.data.IDataManager
 import com.example.mikki.projectmanagement.data.model.ProjectSubTaskItem
 import com.example.mikki.projectmanagement.data.model.ProjectsItem
+import com.example.mikki.projectmanagement.viewmodel.ViewModelSubTask
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 class NetworkHelper:INetworkHelper {
+
 
     var disposable: Disposable? = null
     val apiServe by lazy {
@@ -15,7 +18,7 @@ class NetworkHelper:INetworkHelper {
     }
 
     override fun storeNewProjectToServer(p:ProjectsItem) {
-        Log.d("MyTag", "+++++++++++++++++++++++++++++++++++++++")
+        Log.d("Store Project", "+++++++++++++++++++++++++++++++++++++++")
         disposable =
                 apiServe.getCreateNewProjectStatus(
                         p.projectname!!,
@@ -33,7 +36,7 @@ class NetworkHelper:INetworkHelper {
     }
 
     override fun getProjectList() {
-        Log.d("MyTag", "+++++++++++++++++++++++++++++++++++++++")
+        Log.d("ProjectList", "+++++++++++++++++++++++++++++++++++++++")
         disposable =
                 apiServe.getProjectList()
                         .subscribeOn(Schedulers.io())
@@ -45,10 +48,10 @@ class NetworkHelper:INetworkHelper {
                         )
     }
 
-    override fun storeNewSubTaskToServer(subTask: ProjectSubTaskItem) {
-        Log.d("MyTag", "+++++++++++++++++++++++++++++++++++++++")
+    override fun createNewSubTask(listener: IDataManager.OnAdminCreateSubTaskListener, subTask: ProjectSubTaskItem) {
+        Log.d("Store SubTask", "+++++++++++++++++++++++++++++++++++++++")
         disposable =
-                apiServe.getCreateNewSubTaskStatus(
+                apiServe.createNewSubTask(
                         subTask.projectid!!,
                         subTask.taskid!!,
                         subTask.subtaskname!!,
@@ -59,9 +62,36 @@ class NetworkHelper:INetworkHelper {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                { result -> Log.d("MyTag", result.toString())
+                                { result -> Log.d("SubTask Success: ", result.msg?.get(0).toString())
+                                    listener.createTask(result.msg?.get(0).toString())
                                 },
-                                { error -> Log.d("MyTag", error.message) }
+                                { error -> Log.d("SubTask Fail: ", error.message)
+                                    listener.createTask(error.message.toString())
+                                }
+                        )
+    }
+
+    override fun editSubTask(listener: IDataManager.OnAdminEditSubTaskListener,
+                             subTask: ProjectSubTaskItem) {
+        listener.editTask("You did it!!")
+
+    }
+
+    override fun getSubTasksList(subTaskViewModel: ViewModelSubTask) {
+        Log.d("SubTaskList", "+++++++++++++++++++++++++++++++++++++++")
+        disposable =
+                apiServe.getSubTaskList()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                { result ->
+                                    for(item in result.projectSubTask!!) {
+                                        subTaskViewModel.upadteSubTaskList(item!!)
+                                    }
+                                    Log.d("StFragList Success: ",
+                                        result.projectSubTask?.get(result.projectSubTask.size-1).toString())
+                                },
+                                { error -> Log.d("StFragList Fail: ", error.message) }
                         )
     }
 /*override fun onPause() {
