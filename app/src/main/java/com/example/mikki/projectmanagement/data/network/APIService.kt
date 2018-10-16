@@ -27,6 +27,27 @@ interface APIService {
     @GET("pms_projects.php")
     fun getProjectList():Observable<ProjectList>
 
+
+    /*http://rjtmobile.com/aamir/pms/android-app/
+    pms_edit_project.php?
+    project_id=27&
+    project_name=e-commerce&
+    project_status=1&
+    project_desc=xyzss&
+    start_date=2018-04-05&
+    end_end=2018-04-15
+     */
+
+    @GET("pms_edit_project.php")
+    fun updateProject(@Query("project_id") project_id:String,
+                      @Query("project_name") project_name:String,
+                      @Query("project_status") project_status:String,
+                      @Query("project_desc") project_desc:String,
+                      @Query("start_date") start_date:String,
+                      @Query("end_end") end_end:String):
+            Observable<SuccessMsg>
+
+
     /* http://rjtmobile.com/aamir/pms/android-app/
      * pms_create_task.php?
      * project_id=30&

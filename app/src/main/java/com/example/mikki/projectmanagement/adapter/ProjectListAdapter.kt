@@ -44,12 +44,14 @@ class ProjectListAdapter: RecyclerView.Adapter<ProjectListAdapter.ViewHolder>(),
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var project = prodjectList.get(position)
-        holder.bind(project)
+        holder.projectName?.text = project.projectname
+        holder.projectDesc.text = project.projectdesc
+
+        //holder.bind(project)
         holder.itemView.setOnClickListener{
             listener.onClick(it,project)
         }
-        /*holder.projectName?.text = prodjectList[position].projectname
-        holder.projectDesc.text = prodjectList[position].projectdesc*/
+
     }
 
     fun setOnItemClickListener(listener: onItemClickListener){
@@ -57,11 +59,12 @@ class ProjectListAdapter: RecyclerView.Adapter<ProjectListAdapter.ViewHolder>(),
     }
 
     class ViewHolder(itemView:View): RecyclerView.ViewHolder(itemView) {
-
-        fun bind(projectsItem: ProjectsItem){
+        var projectName = itemView.tv_project_name
+        var projectDesc = itemView.tv_project_desc
+        /*fun bind(projectsItem: ProjectsItem){
             var projectName = itemView.tv_project_name
             var projectDesc = itemView.tv_project_desc
-        }
+        }*/
 
     }
 

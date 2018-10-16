@@ -21,7 +21,7 @@
             android:padding="15dp"
             android:textAlignment="center" />
 
-        <TextView
+        <EditText
             android:id="@+id/tv_title_cnp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
             android:padding="15dp"
             />
 
-        <TextView
+        <EditText
             android:id="@+id/tv_despt_cnp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"/>
 
-        <TextView
+        <EditText
             android:id="@+id/tv_startdate_cnp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -95,7 +95,7 @@
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"/>
 
-        <TextView
+        <EditText
             android:id="@+id/tv_enddate_cnp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -118,6 +118,23 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"/>
+
+        <Button
+            android:id="@+id/btn_edit_project"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Edit"
+            android:layout_marginTop="20dp"
+            android:background="@color/spinner"/>
+
+        <Button
+            android:id="@+id/btn_update_project"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Update"
+            android:layout_marginTop="20dp"
+            android:background="@color/spinner"/>
+
 
     </LinearLayout>
 </LinearLayout>

@@ -40,6 +40,7 @@ class NetworkHelper:INetworkHelper {
                         )
     }
 
+
     override fun getProjectList(viewModel: ProjectViewModel) {
         Log.d("mikkiproject", "+++++++++++++++++++++++++++++++++++++++")
         disposable =
@@ -57,6 +58,30 @@ class NetworkHelper:INetworkHelper {
                                 { error -> Log.d("mikkiproject", error.message) }
                         )
     }
+
+    override fun updateProject(pId: String, p: ProjectsItem, viewModel: ProjectViewModel) {
+        Log.d("mikkiproject", "+++++++++++++++++++++++++++++++++++++++")
+        disposable =
+                apiServe.updateProject(
+                        pId,
+                        p.projectname!!,
+                        p.projectstatus!!,
+                        p.projectdesc!!,
+                        p.startdate!!,
+                        p.endstart!!
+                )
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                { result ->
+                                    Log.d("mikkiproject","Message"
+                                            + result.toString()
+                                    )
+                                },
+                                { error -> Log.d("mikkiproject", error.message) }
+                        )
+    }
+
 
     override fun createTask(listener: IDataManager.OnAdminCreateTaskListener, adminTaskItem: ProjectAdminTaskItem) {
         disposable = apiServe.createNewTask(

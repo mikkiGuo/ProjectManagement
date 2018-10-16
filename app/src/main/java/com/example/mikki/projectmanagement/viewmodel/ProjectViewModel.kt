@@ -44,6 +44,10 @@ class ProjectViewModel:BaseObservable() {
         dataManager.storeNewProjectToServer(projectsItem, this)
     }
 
+    fun updateProject(pId: String, projectsItem: ProjectsItem){
+        dataManager.updateProject(pId, projectsItem, this)
+    }
+
 
 
 }
