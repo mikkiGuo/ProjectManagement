@@ -1,23 +1,33 @@
 
-package com.example.mikki.projectmanagement.project.projectlist
+package com.example.mikki.projectmanagement.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.data.model.ProjectsItem
 
 class ProjectListAdapter: RecyclerView.Adapter<ProjectListAdapter.ViewHolder>() {
+import kotlinx.android.synthetic.main.item_project.view.*
 
-    fun setData(items:List<ProjectsItem>){
-        productList = items
+class ProjectListAdapter: RecyclerView.Adapter<ProjectListAdapter.ViewHolder>(),
+        BindableAdapter<ProjectsItem> {
+
+
+    override fun changedPositions(positions: Int) {
+
+        notifyItemChanged(positions)
+        //positions.forEach(this::notifyItemChanged)
+
+    }
+
+    override fun setData(items:List<ProjectsItem>){
+        prodjectList = items
         notifyDataSetChanged()
     }
 
-    var productList = listOf<ProjectsItem>()
+    var prodjectList = listOf<ProjectsItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -26,14 +36,17 @@ class ProjectListAdapter: RecyclerView.Adapter<ProjectListAdapter.ViewHolder>() 
     }
 
     override fun getItemCount(): Int {
-        return productList.size
+        return prodjectList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.projectId.text = productList.get(position).projectname
+        holder?.projectName?.text = prodjectList[position].projectname
+        holder.projectDesc.text = prodjectList[position].projectdesc
     }
 
     class ViewHolder(itemView:View): RecyclerView.ViewHolder(itemView) {
-        var projectId = itemView.findViewById(R.id.tv_project_id) as TextView
+        var projectName = itemView.tv_project_name
+        var projectDesc = itemView.tv_project_desc
     }
+
 }

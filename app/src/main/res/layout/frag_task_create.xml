@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/icons">
+
+    <EditText
+        android:id="@+id/et_create_projectID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Project ID"/>
+    <EditText
+        android:id="@+id/et_create_taskName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Task Name"/>
+    <EditText
+        android:id="@+id/et_create_taskDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Task Description"/>
+    <EditText
+        android:id="@+id/et_create_taskStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Task Status"/>
+    <EditText
+        android:id="@+id/et_create_taskStart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Task Start Date"/>
+    <EditText
+        android:id="@+id/et_create_taskEnd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Task End Date"/>
+    <Button
+        android:id="@+id/bt_createTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Create Task"
+        style="?android:attr/buttonBarButtonStyle" />
+
+</LinearLayout>
