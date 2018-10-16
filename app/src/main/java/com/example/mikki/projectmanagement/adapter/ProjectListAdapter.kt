@@ -2,6 +2,7 @@
 package com.example.mikki.projectmanagement.adapter
 
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,10 +17,11 @@ class ProjectListAdapter: RecyclerView.Adapter<ProjectListAdapter.ViewHolder>(),
     lateinit var listener: onItemClickListener
 
     interface onItemClickListener{
-        fun onClick(view:View, project:ProjectsItem)
+        fun onClick(view:View, project:ProjectsItem, position: Int)
     }
 
     override fun changedPositions(positions: Int) {
+        Log.d("mikkiindex", "adapter " + positions)
         notifyItemChanged(positions)
         //positions.forEach(this::notifyItemChanged)
 
@@ -49,7 +51,7 @@ class ProjectListAdapter: RecyclerView.Adapter<ProjectListAdapter.ViewHolder>(),
 
         //holder.bind(project)
         holder.itemView.setOnClickListener{
-            listener.onClick(it,project)
+            listener.onClick(it,project,position)
         }
 
     }

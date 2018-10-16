@@ -30,6 +30,7 @@ class ProjectDetails:Fragment() {
 
         var bundle = arguments
         var projectItem = bundle.getParcelable<ProjectsItem>("data")
+        var index = bundle.get("index")
         Log.d("mikkitest", "" + projectItem.projectname)
 
 
@@ -46,8 +47,8 @@ class ProjectDetails:Fragment() {
 
         view.btn_update_project.setOnClickListener{
             var updatedProject = ProjectsItem()
-            //var pId:String = projectItem.id.toString()
-            var pId:String = "28"
+            var pId:String = projectItem.id.toString()
+            //var pId:String = "28"
             updatedProject.projectname = view.tv_title_cnp.text.toString()
             updatedProject.projectdesc = view.tv_despt_cnp.text.toString()
             updatedProject.startdate = view.tv_startdate_cnp.text.toString()
@@ -56,7 +57,14 @@ class ProjectDetails:Fragment() {
             updatedProject.projectstatus = "1"
             Log.d("mikki", updatedProject.projectstatus)
 
-            viewModel.updateProject(pId, updatedProject)
+            Log.d("mikkiindex", ""+index)
+            viewModel.updateProject(pId, updatedProject, index as Int)
+
+            var fragment = ProjectListFragment()
+            fragmentManager.beginTransaction()
+                    .replace(R.id.mainActivity, fragment)
+                    .addToBackStack(null).commit()
+
         }
 
         return view

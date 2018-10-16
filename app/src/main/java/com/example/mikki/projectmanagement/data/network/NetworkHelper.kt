@@ -59,7 +59,8 @@ class NetworkHelper:INetworkHelper {
                         )
     }
 
-    override fun updateProject(pId: String, p: ProjectsItem, viewModel: ProjectViewModel) {
+    override fun updateProject(pId: String, p: ProjectsItem,
+                               viewModel: ProjectViewModel, index:Int) {
         Log.d("mikkiproject", "+++++++++++++++++++++++++++++++++++++++")
         disposable =
                 apiServe.updateProject(
@@ -73,7 +74,7 @@ class NetworkHelper:INetworkHelper {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                { result ->
+                                { result ->viewModel.updateItem(index, p)
                                     Log.d("mikkiproject","Message"
                                             + result.toString()
                                     )

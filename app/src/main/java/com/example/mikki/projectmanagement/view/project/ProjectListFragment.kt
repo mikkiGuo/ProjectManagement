@@ -34,19 +34,20 @@ class ProjectListFragment(): Fragment() {
 
         val adapter = ProjectListAdapter()
         adapter.setOnItemClickListener(object :ProjectListAdapter.onItemClickListener{
-            override fun onClick(view: View, project: ProjectsItem) {
+            override fun onClick(view: View, project: ProjectsItem, position: Int) {
                 Log.d("mikkiproject", "onclicked+++++++++++++++++++++++"+
                         project.projectname)
 
                 var fragment = ProjectDetails()
                 val bundle = Bundle()
                 bundle.putParcelable("data", project)
+                bundle.putInt("index", position)
                 fragment.arguments = bundle
                 fragmentManager.beginTransaction()
                         .replace(R.id.mainActivity, fragment)
                         .addToBackStack(null).commit()
-
             }
+
 
         })
 

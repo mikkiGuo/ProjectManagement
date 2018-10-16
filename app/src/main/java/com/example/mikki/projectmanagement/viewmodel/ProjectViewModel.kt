@@ -44,9 +44,20 @@ class ProjectViewModel:BaseObservable() {
         dataManager.storeNewProjectToServer(projectsItem, this)
     }
 
-    fun updateProject(pId: String, projectsItem: ProjectsItem){
-        dataManager.updateProject(pId, projectsItem, this)
+    fun updateProject(pId: String, projectsItem: ProjectsItem, index:Int){
+        dataManager.updateProject(pId, projectsItem, this, index)
     }
+
+    fun updateItem(index:Int, p:ProjectsItem){
+        Log.d("mikkiindex", "updateitem "+index)
+        var i = index+1
+        projectList[index].copy(p.projectname,p.endstart,
+                p.projectdesc,p.id,p.startdate,p.projectstatus)
+
+        //Log.d("mikkiindex", "updateitem "+i)
+        //changedPositions = i
+    }
+
 
 
 

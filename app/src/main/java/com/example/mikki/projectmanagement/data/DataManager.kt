@@ -7,8 +7,9 @@ import com.example.mikki.projectmanagement.data.network.NetworkHelper
 import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
 
 class DataManager:IDataManager {
-    override fun updateProject(pId: String, p: ProjectsItem, viewModel: ProjectViewModel) {
-        iNetworkHelper.updateProject(pId, p, viewModel)
+    override fun updateProject(pId: String, p: ProjectsItem,
+                               viewModel: ProjectViewModel, index:Int) {
+        iNetworkHelper.updateProject(pId, p, viewModel, index)
     }
 
     override fun storeNewSubTaskToServer(subTask: ProjectSubTaskItem) {
