@@ -44,8 +44,8 @@ class ProjectViewModel:BaseObservable() {
         dataManager.storeNewProjectToServer(projectsItem, this)
     }
 
-    fun updateProject(pId: String, projectsItem: ProjectsItem, index:Int){
-        dataManager.updateProject(pId, projectsItem, this, index)
+    fun updateProject(projectsItem: ProjectsItem, index:Int){
+        dataManager.updateProject(projectsItem, this, index)
     }
 
     fun updateItem(index:Int, p:ProjectsItem){
@@ -58,7 +58,9 @@ class ProjectViewModel:BaseObservable() {
         //changedPositions = i
     }
 
+    fun removeItem() {
 
+    }
 
 
 }

@@ -17,7 +17,7 @@ data class ProjectsItem(
 	var projectdesc: String? = null,
 
 	@field:SerializedName("id")
-	val id: String? = null,
+	var id: String? = null,
 
 	@field:SerializedName("startdate")
 	var startdate: String? = null,

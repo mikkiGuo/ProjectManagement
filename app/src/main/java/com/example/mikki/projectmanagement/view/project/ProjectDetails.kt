@@ -47,18 +47,18 @@ class ProjectDetails:Fragment() {
 
         view.btn_update_project.setOnClickListener{
             var updatedProject = ProjectsItem()
-            var pId:String = projectItem.id.toString()
-            //var pId:String = "28"
+
+            updatedProject.id = projectItem.id
             updatedProject.projectname = view.tv_title_cnp.text.toString()
             updatedProject.projectdesc = view.tv_despt_cnp.text.toString()
             updatedProject.startdate = view.tv_startdate_cnp.text.toString()
             updatedProject.endstart = view.tv_enddate_cnp.text.toString()
-            //updatedProject.projectstatus = view.spinner_project_status.toString()
+
             updatedProject.projectstatus = "1"
             Log.d("mikki", updatedProject.projectstatus)
 
             Log.d("mikkiindex", ""+index)
-            viewModel.updateProject(pId, updatedProject, index as Int)
+            viewModel.updateProject(updatedProject, index as Int)
 
             var fragment = ProjectListFragment()
             fragmentManager.beginTransaction()

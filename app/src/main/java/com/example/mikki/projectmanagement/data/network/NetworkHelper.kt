@@ -34,6 +34,7 @@ class NetworkHelper:INetworkHelper {
                         .subscribe(
                                 { result ->
                                     Log.d("mikkiproject", result.toString())
+                                    p.id = result.id.toString()
                                     viewModel.updateList(p)
                                      },
                                 { error -> Log.d("mikkiproject", error.message) }
@@ -59,12 +60,12 @@ class NetworkHelper:INetworkHelper {
                         )
     }
 
-    override fun updateProject(pId: String, p: ProjectsItem,
+    override fun updateProject(p: ProjectsItem,
                                viewModel: ProjectViewModel, index:Int) {
         Log.d("mikkiproject", "+++++++++++++++++++++++++++++++++++++++")
         disposable =
                 apiServe.updateProject(
-                        pId,
+                        p.id!!,
                         p.projectname!!,
                         p.projectstatus!!,
                         p.projectdesc!!,

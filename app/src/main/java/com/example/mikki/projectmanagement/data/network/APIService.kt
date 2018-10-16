@@ -20,7 +20,7 @@ interface APIService {
                             @Query("project_desc") project_desc: String,
                             @Query("start_date") start_date: String,
                             @Query("end_date") end_date: String):
-            Observable<SuccessMsg>
+            Observable<CreateProjectSuccessMsg>
 
     //http://rjtmobile.com/aamir/pms/android-app/
     //pms_projects.php?

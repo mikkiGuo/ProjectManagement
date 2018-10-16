@@ -28,11 +28,18 @@ class ProjectListAdapter: RecyclerView.Adapter<ProjectListAdapter.ViewHolder>(),
     }
 
     override fun setData(items:List<ProjectsItem>){
-        prodjectList = items
+        prodjectList = items as MutableList<ProjectsItem>
         notifyDataSetChanged()
     }
 
-    var prodjectList = listOf<ProjectsItem>()
+    fun removeAt(position: Int) {
+
+        prodjectList.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
+    //var prodjectList = listOf<ProjectsItem>()
+    var prodjectList = mutableListOf<ProjectsItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
