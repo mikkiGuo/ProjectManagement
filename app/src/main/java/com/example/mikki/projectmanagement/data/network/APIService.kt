@@ -16,10 +16,10 @@ interface APIService {
 
     @GET("pms_create_project.php")
     fun getCreateNewProjectStatus(@Query("project_name") projectName: String,
-                            @Query("project_name") project_status: String,
-                            @Query("project_name") project_desc: String,
-                            @Query("project_name") start_date: String,
-                            @Query("project_name") end_date: String):
+                            @Query("project_status") project_status: String,
+                            @Query("project_desc") project_desc: String,
+                            @Query("start_date") start_date: String,
+                            @Query("end_date") end_date: String):
             Observable<SuccessMsg>
 
     //http://rjtmobile.com/aamir/pms/android-app/

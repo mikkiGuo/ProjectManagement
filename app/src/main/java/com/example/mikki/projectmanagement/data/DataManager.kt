@@ -16,8 +16,8 @@ class DataManager:IDataManager {
         iNetworkHelper.getProjectList(viewModel)
     }
 
-    override fun storeNewProjectToServer(p: ProjectsItem) {
-        iNetworkHelper.storeNewProjectToServer(p)
+    override fun storeNewProjectToServer(p: ProjectsItem, viewModel: ProjectViewModel) {
+        iNetworkHelper.storeNewProjectToServer(p, viewModel)
     }
 
     override fun createTask(listener: IDataManager.OnAdminCreateTaskListener, adminTaskItem: ProjectAdminTaskItem) {

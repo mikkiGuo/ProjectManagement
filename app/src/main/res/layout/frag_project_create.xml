@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="20dp">
+        android:layout_margin="15dp">
 
         <TextView
             android:id="@+id/tv_title_cnp"
@@ -37,7 +37,7 @@
             android:contentDescription="@string/todo" />
 
         <TextView
-            android:id="@+id/tv_status_cnp"
+            android:id="@+id/tv_mode_cnp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
@@ -49,15 +49,22 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
             android:text="@string/create"
-            android:textAlignment="textEnd" />
+            android:textAlignment="textEnd"
+            />
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginBottom="10dp"
         android:background="@android:color/darker_gray"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="20dp">
+
+
 
     <EditText
         android:id="@+id/et_title_cnp"
@@ -65,13 +72,9 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/title"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingEnd="10dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="10dp"
         android:inputType="textPersonName"
         android:background="@android:color/transparent"
+        android:padding="15dp"
         />
 
     <EditText
@@ -82,38 +85,25 @@
         android:ems="10"
         android:hint="@string/description"
         android:inputType="textPersonName"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingEnd="10dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="10dp"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:padding="15dp"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_margin="10dp"
         android:background="@android:color/darker_gray"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/tv_owners_cnp"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingEnd="10dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="10dp"/>
+        android:padding="15dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingEnd="10dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="10dp">
+        android:padding="15dp">
 
         <ImageView
             android:id="@+id/imageView2"
@@ -136,24 +126,30 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_margin="10dp"
         android:background="@android:color/darker_gray"/>
 
-    <TextView
-        android:id="@+id/tv_setdate_cnp"
+    <EditText
+        android:id="@+id/et_startdate_cnp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/set_date"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingEnd="10dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="10dp" />
+        android:hint="@string/start_date"
+        android:padding="15dp" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_margin="10dp"
+        android:background="@android:color/darker_gray"/>
+
+    <EditText
+        android:id="@+id/et_enddate_cnp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/end_date"
+        android:padding="15dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
         android:background="@android:color/darker_gray"/>
 
     <TextView
@@ -161,16 +157,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/add_to_project_or_folder"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingEnd="10dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="10dp" />
+        android:padding="15dp" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_margin="10dp"
-        android:background="@android:color/darker_gray"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+
+    </LinearLayout>
 
 </LinearLayout>
