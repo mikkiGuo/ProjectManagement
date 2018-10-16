@@ -23,4 +23,13 @@
     <string name="todo_id_img">replace with owner id</string>
     <string name="create">Create</string>
 
+    <!--Spinner for status-->
+    <string-array name="spinner_status">
+        <item>New</item>
+        <item>In Progress</item>
+        <item>Completed</item>
+        <item>On Hold</item>
+        <item>Cancelled</item>
+    </string-array>
+
 </resources>

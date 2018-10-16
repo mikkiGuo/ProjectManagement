@@ -67,4 +67,7 @@ dependencies {
     //card view
     implementation 'com.android.support:cardview-v7:27.1.1'
 
+    //spinner
+    implementation 'com.asksira.android:dropdownview:1.0.3'
+
 }

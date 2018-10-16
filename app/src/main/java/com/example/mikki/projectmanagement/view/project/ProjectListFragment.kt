@@ -37,7 +37,7 @@ class ProjectListFragment(): Fragment() {
             override fun onClick(view: View, project: ProjectsItem) {
                 Log.d("mikkiproject", "onclicked+++++++++++++++++++++++"+
                         project.projectname)
-                var fragment = CreateProjectFragment()
+                var fragment = ProjectDetails()
                 fragmentManager.beginTransaction()
                         .replace(R.id.mainActivity, fragment)
                         .addToBackStack(null).commit()
