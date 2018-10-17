@@ -6,11 +6,13 @@ import com.example.mikki.projectmanagement.data.model.ProjectAdminTaskItem
 import com.example.mikki.projectmanagement.data.model.ProjectSubTaskItem
 import com.example.mikki.projectmanagement.data.model.ProjectsItem
 import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
+import com.example.mikki.projectmanagement.viewmodel.TeamViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 class NetworkHelper:INetworkHelper {
+    private val MIKKI_TEAM = "MikkiTeam"
 
     var disposable: Disposable? = null
     val apiServe by lazy {
@@ -161,9 +163,12 @@ class NetworkHelper:INetworkHelper {
 
 
     /**************************************************************************
-     * Team Stuff
+     * Team Stuff Divider
      **************************************************************************/
-    override fun createTeamForProject(projectId: Int, team_member_userid: Int) {
+
+    override fun createTeamForProject(projectId: Int,
+                                      team_member_userid: Int,
+                                      viewModel: TeamViewModel) {
         disposable =
                 apiServe.createTeamForProject(
                         projectId!!,
@@ -172,12 +177,27 @@ class NetworkHelper:INetworkHelper {
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 { result ->
-                                    Log.d("mikkiteam", result.toString())
+                                    Log.d(MIKKI_TEAM, result.toString())
+                                    viewModel.printMsg(result.toString())
+
                                 },
-                                { error -> Log.d("mikkiteam", error.message) }
+                                { error -> Log.d(MIKKI_TEAM, error.message) }
                         )
     }
 
+    override fun getEmployeeList(viewModel: TeamViewModel) {
+        disposable = apiServe.getEmployeeList().
+                subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(
+                        {
+                            result -> Log.d(MIKKI_TEAM, result.employees.toString())
+                        },
+                        {
+                            error -> Log.d(MIKKI_TEAM, error.message)
+                        }
+                )
+    }
 
 
 }

@@ -1,6 +1,7 @@
 package com.example.mikki.projectmanagement.view.project
 
 import android.app.Fragment
+import android.content.SharedPreferences
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 
@@ -23,6 +24,7 @@ import kotlinx.android.synthetic.main.frag_project_list.view.*
 
 class ProjectListFragment(): Fragment() {
 
+
     private val viewModel = ProjectViewModel()
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -36,6 +38,7 @@ class ProjectListFragment(): Fragment() {
         val view:View = binding.root
 
         binding.viewModel = viewModel
+
 
         val adapter = ProjectListAdapter()
         adapter.setOnItemClickListener(object :ProjectListAdapter.onItemClickListener{
@@ -62,8 +65,7 @@ class ProjectListFragment(): Fragment() {
             }
         }
 
-
-        view.rv_project_list.layoutManager = LinearLayoutManager(context.applicationContext)
+        view.rv_project_list.layoutManager = LinearLayoutManager(context) as RecyclerView.LayoutManager?
         view.rv_project_list.adapter = adapter
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
         itemTouchHelper.attachToRecyclerView(view.rv_project_list)

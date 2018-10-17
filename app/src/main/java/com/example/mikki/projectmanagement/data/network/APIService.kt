@@ -107,6 +107,12 @@ interface APIService {
                              @Query("team_member_userid") team_member_userid:Int):
             Observable<SuccessMsg>
 
+    /*http://rjtmobile.com/aamir/pms/android-app/
+     * pms_employee_list.php?
+     */
+    @GET("pms_employee_list.php")
+    fun getEmployeeList():Observable<EmployeeList>
+
 
     companion object {
 

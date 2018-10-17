@@ -15,9 +15,14 @@ class TeamForProjectFragment:Fragment() {
         val view:View = inflater!!.inflate(R.layout.frag_team_for_project,
                 container, false)
 
-
         view.icon_add_member_project.setOnClickListener{
+            val bundle:Bundle = arguments
+            var projectId = bundle.get("projectId")
+
             val fragment = CreateTeamForProject()
+            val bundle2 = Bundle()
+            bundle2.putInt("projectId", projectId as Int)
+            fragment.arguments = bundle2
             fragmentManager.beginTransaction().replace(R.id.mainActivity,
                     fragment).addToBackStack(null).commit()
         }

@@ -50,15 +50,11 @@ class ProjectViewModel:BaseObservable() {
     }
 
     fun updateItem(index:Int, p:ProjectsItem){
-        Log.d("mikkiindex", "updateitem "+index)
         var i = index+1
         projectList[index].copy(p.projectname,p.endstart,
                 p.projectdesc,p.id,p.startdate,p.projectstatus)
 
-        //Log.d("mikkiindex", "updateitem "+i)
-        //changedPositions = i
     }
-
 
     fun markCompleted(adapterPosition: Int) {
         projectList[adapterPosition].projectstatus = "2"

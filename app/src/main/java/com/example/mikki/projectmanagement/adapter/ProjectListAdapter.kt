@@ -15,6 +15,7 @@ class ProjectListAdapter: RecyclerView.Adapter<ProjectListAdapter.ViewHolder>(),
         BindableAdapter<ProjectsItem> {
 
     lateinit var listener: onItemClickListener
+    var prodjectList = mutableListOf<ProjectsItem>()
 
     interface onItemClickListener{
         fun onClick(view:View, project:ProjectsItem, position: Int)
@@ -39,7 +40,7 @@ class ProjectListAdapter: RecyclerView.Adapter<ProjectListAdapter.ViewHolder>(),
     }
 
     //var prodjectList = listOf<ProjectsItem>()
-    var prodjectList = mutableListOf<ProjectsItem>()
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)

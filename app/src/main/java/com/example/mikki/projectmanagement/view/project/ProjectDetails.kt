@@ -55,6 +55,11 @@ class ProjectDetails:Fragment() {
 
         view.img_team_forproject.setOnClickListener {
             var fragment = TeamForProjectFragment()
+
+            val bundle = Bundle()
+            bundle.putInt("projectId", projectItem.id!!.toInt())
+            fragment.arguments = bundle
+
             fragmentManager.beginTransaction()
                     .replace(R.id.mainActivity, fragment)
                     .addToBackStack(null).commit()

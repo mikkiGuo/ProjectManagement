@@ -5,6 +5,7 @@ import com.example.mikki.projectmanagement.data.model.ProjectAdminTaskItem
 import com.example.mikki.projectmanagement.data.model.ProjectSubTaskItem
 import com.example.mikki.projectmanagement.data.model.ProjectsItem
 import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
+import com.example.mikki.projectmanagement.viewmodel.TeamViewModel
 
 interface INetworkHelper {
 
@@ -20,6 +21,10 @@ interface INetworkHelper {
     /******************************************************************
      * Team Stuff
      ******************************************************************/
-    fun createTeamForProject(projectId: Int, team_member_userid: Int)
+    fun createTeamForProject(projectId: Int,
+                             team_member_userid: Int,
+                             viewModel: TeamViewModel)
+
+    fun getEmployeeList(viewModel: TeamViewModel)
 
 }
