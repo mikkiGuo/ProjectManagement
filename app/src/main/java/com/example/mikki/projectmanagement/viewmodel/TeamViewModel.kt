@@ -7,6 +7,7 @@ import com.example.mikki.projectmanagement.BR
 import com.example.mikki.projectmanagement.data.DataManager
 import com.example.mikki.projectmanagement.data.IDataManager
 import com.example.mikki.projectmanagement.data.model.EmployeesItem
+import com.example.mikki.projectmanagement.data.model.ProjectSubTaskItem
 
 
 class TeamViewModel: BaseObservable() {
@@ -43,6 +44,13 @@ class TeamViewModel: BaseObservable() {
     fun addTeammateToProject(projectId:Int, userId:Int, position: Int){
         Log.d(MIKKI_TEAM, "add teammate in view model")
         iDataManager.createTeamForProject(projectId, userId, position, this)
+
+    }
+
+    fun addTeammateToSubTask(listener: IDataManager.OnAdminAssignSubTaskToUserListener,
+                             subTaskItem: ProjectSubTaskItem, userId:Int, position: Int){
+        Log.d(MIKKI_TEAM, "add teammate in view model")
+        iDataManager.assignSubTaskToUser(listener, subTaskItem, userId, position)
 
     }
 

@@ -7,29 +7,29 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <FrameLayout
-        android:id="@+id/fragmentLayout"
-        android:layout_width="match_parent"
-        android:elevation="10dp"
-        android:layout_height="match_parent">
+    <!--<FrameLayout-->
+        <!--android:id="@+id/fragmentLayout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:elevation="10dp"-->
+        <!--android:layout_height="match_parent">-->
 
-    </FrameLayout>
+    <!--</FrameLayout>-->
 
     <FrameLayout
         android:id="@+id/mainActivity"
         android:layout_width="match_parent"
         android:layout_height="510dp"
-        android:elevation="10dp">
+        android:elevation="1dp">
 
     </FrameLayout>
 
 
-    <include
-        android:id="@+id/createTask"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/snack_create_new_project"
-        />
+    <!--<include-->
+        <!--android:id="@+id/createTask"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--layout="@layout/snack_create_new_project"-->
+        <!--/>-->
 
 
         <LinearLayout
@@ -62,6 +62,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Project List"
+                style="?android:attr/buttonBarButtonStyle" />
+
+            <Button
+                android:id="@+id/bt_createSubTask"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create SubTask"
+                style="?android:attr/buttonBarButtonStyle" />
+
+            <Button
+                android:id="@+id/bt_subTaskList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SubTask List"
                 style="?android:attr/buttonBarButtonStyle" />
 
         </LinearLayout>

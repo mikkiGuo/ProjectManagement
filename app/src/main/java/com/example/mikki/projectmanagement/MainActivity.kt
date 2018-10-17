@@ -48,29 +48,41 @@ class MainActivity : AppCompatActivity() {
             fragmentManager.beginTransaction().add(R.id.mainActivity, fragment).addToBackStack(null).commit()
         }
 
+        bt_createSubTask.setOnClickListener {
+            val createSubTaskFrag = CreateSubTaskFragment()
+            fragmentManager.beginTransaction().add(R.id.mainActivity, createSubTaskFrag)
+                    .addToBackStack(null).commit()
+        }
+
+        bt_subTaskList.setOnClickListener {
+            val subTaskListFrag = SubTaskFragmentList()
+            fragmentManager.beginTransaction().add(R.id.mainActivity, subTaskListFrag)
+                    .addToBackStack(null).commit()
+        }
+
         fab.setOnClickListener { view ->
 //            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                    .setAction("Action", null).show()
-            val subTaskListFrag = SubTaskFragmentList()
-            val createSubTaskFrag = CreateSubTaskFragment()
+//            val subTaskListFrag = SubTaskFragmentList()
+//            val createSubTaskFrag = CreateSubTaskFragment()
 //            val intent = Intent(this, TesterActivity::class.java)
 //            startActivity(intent)
-            fragmentManager.beginTransaction()
-                    //.add(R.id.fragmentLayout, fragment)
-                    .add(R.id.fragmentLayout, subTaskListFrag)
-                    .addToBackStack(null)
-                    .commit()
+//            fragmentManager.beginTransaction()
+//                    //.add(R.id.fragmentLayout, fragment)
+//                    .add(R.id.mainActivity, subTaskListFrag)
+//                    .addToBackStack(null)
+//                    .commit()
         }
     }
 
-    override fun getAdminTaskList(adminTaskList: ArrayList<ProjectAdminTaskItem>?) {
-        this.adminTaskList = adminTaskList
-        if (this.adminTaskList != null) {
-            Log.d("ninntag", "fragment getadmintasklist: " + adminTaskList!!.size)
-        }
-        else
-            Log.d("ninntag", "fragment getadmintasklist: null")
-    }
+//    override fun getAdminTaskList(adminTaskList: ArrayList<ProjectAdminTaskItem>?) {
+//        this.adminTaskList = adminTaskList
+//        if (this.adminTaskList != null) {
+//            Log.d("ninntag", "fragment getadmintasklist: " + adminTaskList!!.size)
+//        }
+//        else
+//            Log.d("ninntag", "fragment getadmintasklist: null")
+//    }
 
 
 

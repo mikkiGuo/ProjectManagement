@@ -11,6 +11,32 @@ import com.example.mikki.projectmanagement.viewmodel.TeamViewModel
 class DataManager:IDataManager {
 
 
+    companion object {
+        val iNetworkHelper = NetworkHelper()
+    }
+
+    /******************************************************************
+     * Project Stuff Divider
+     ******************************************************************/
+
+    override fun storeNewProjectToServer(p: ProjectsItem, viewModel: ProjectViewModel) {
+        iNetworkHelper.storeNewProjectToServer(p, viewModel)
+    }
+
+    override fun updateProject(p: ProjectsItem,
+                               viewModel: ProjectViewModel, index: Int) {
+        iNetworkHelper.updateProject(p, viewModel, index)
+    }
+
+    override fun getProjectList(viewModel: ProjectViewModel) {
+        iNetworkHelper.getProjectList(viewModel)
+    }
+
+
+    /******************************************************************
+     * SubTask Stuff Divider
+     ******************************************************************/
+
     override fun viewTeamMemberBySubTask(listener: IDataManager.OnAdminViewTeamMemeberBySubTask,
                                          subTask: ProjectSubTaskItem) {
         iNetworkHelper.viewTeamMemberBySubTask(listener, subTask)
@@ -18,16 +44,12 @@ class DataManager:IDataManager {
 
 
     override fun assignSubTaskToUser(listner: IDataManager.OnAdminAssignSubTaskToUserListener,
-                                     subTask: ProjectSubTaskItem) {
-        iNetworkHelper.assignSubTaskToUser(listner, subTask)
-    companion object {
-        val iNetworkHelper = NetworkHelper()
+                                     subTask: ProjectSubTaskItem, userId: Int, position: Int) {
+        iNetworkHelper.assignSubTaskToUser(listner, subTask, userId, position)
+
     }
 
-    override fun updateProject(p: ProjectsItem,
-                               viewModel: ProjectViewModel, index:Int) {
-        iNetworkHelper.updateProject(p, viewModel, index)
-    }
+
 
     override fun storeNewSubTaskToServer(subTask: ProjectSubTaskItem) {
         iNetworkHelper.storeNewSubTaskToServer(subTask)
@@ -38,13 +60,18 @@ class DataManager:IDataManager {
         iNetworkHelper.viewSubTaskDetailByUser(listner, subTask)
     }
 
+    override fun viewSubTaskListByUser(subTaskViewModel: ViewModelSubTask, userId: String, taskId: String) {
+        iNetworkHelper.viewSubTaskListByUser(subTaskViewModel, userId, taskId)
+    }
+
+
     override fun createNewSubTask(listener: IDataManager.OnAdminCreateSubTaskListener,
                                   subTask: ProjectSubTaskItem) {
         iNetworkHelper.createNewSubTask(listener, subTask)
     }
 
     override fun editSubTask(listener: IDataManager.OnAdminEditSubTaskListener,
-                                  subTask: ProjectSubTaskItem) {
+                             subTask: ProjectSubTaskItem) {
         iNetworkHelper.editSubTask(listener, subTask)
 
     }
@@ -53,51 +80,40 @@ class DataManager:IDataManager {
         iNetworkHelper.editSubTaskStatus(listner, subTask)
     }
 
-//    override fun storeNewSubTaskToServer(subTask: ProjectSubTaskItem) {
-//        iNetworkHelper.storeNewSubTaskToServer(subTask)
-//    }
-
-    override fun getProjectList(viewModel: ProjectViewModel) {
-        iNetworkHelper.getProjectList(viewModel)
-    }
-
-    override fun storeNewProjectToServer(p: ProjectsItem, viewModel: ProjectViewModel) {
-        iNetworkHelper.storeNewProjectToServer(p, viewModel)
-    }
 
     override fun getSubTasksList(subTaskViewModel: ViewModelSubTask) {
         iNetworkHelper.getSubTasksList(subTaskViewModel)
     }
 
-    /******************************************************************
-     * Task Stuff Divider
-     ******************************************************************/
-    override fun createTask(listener: IDataManager.OnAdminCreateTaskListener, adminTaskItem: ProjectAdminTaskItem) {
-        iNetworkHelper.createTask(listener, adminTaskItem)
-    }
+        /******************************************************************
+         * Task Stuff Divider
+         ******************************************************************/
+        override fun createTask(listener: IDataManager.OnAdminCreateTaskListener, adminTaskItem: ProjectAdminTaskItem) {
+            iNetworkHelper.createTask(listener, adminTaskItem)
+        }
 
-    override fun getAdminTaskList(listener: IDataManager.OnAdminTaskListListener) {
-        return iNetworkHelper.getAdminTaskList(listener)
-    }
+        override fun getAdminTaskList(listener: IDataManager.OnAdminTaskListListener) {
+            return iNetworkHelper.getAdminTaskList(listener)
+        }
 
-    override fun getUserTaskList(id: String) {
-        iNetworkHelper.getUserTaskList(id)
-    }
+        override fun getUserTaskList(id: String) {
+            iNetworkHelper.getUserTaskList(id)
+        }
 
-    /******************************************************************
-     * Team Stuff Divider
-     ******************************************************************/
-    override fun createTeamForProject(projectId: Int,
-                                      team_member_userid: Int,
-                                      index: Int,
-                                      viewModel: TeamViewModel) {
-        iNetworkHelper.createTeamForProject(projectId, team_member_userid,
-                index, viewModel)
-    }
+        /******************************************************************
+         * Team Stuff Divider
+         ******************************************************************/
+        override fun createTeamForProject(projectId: Int,
+                                          team_member_userid: Int,
+                                          index: Int,
+                                          viewModel: TeamViewModel) {
+            iNetworkHelper.createTeamForProject(projectId, team_member_userid,
+                    index, viewModel)
+        }
 
-    override fun getEmployeeList(viewModel: TeamViewModel) {
-        iNetworkHelper.getEmployeeList(viewModel)
-    }
+        override fun getEmployeeList(viewModel: TeamViewModel) {
+            iNetworkHelper.getEmployeeList(viewModel)
+        }
 
 
 

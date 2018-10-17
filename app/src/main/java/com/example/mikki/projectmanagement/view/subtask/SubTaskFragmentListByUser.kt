@@ -10,12 +10,15 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.adapter.SubTaskAdapter
+import com.example.mikki.projectmanagement.adapter.SubTaskUserAdapter
 import com.example.mikki.projectmanagement.databinding.FragmentSubTaskListBinding
+import com.example.mikki.projectmanagement.databinding.FragmentSubTaskListByUserBinding
 
 import com.example.mikki.projectmanagement.viewmodel.ViewModelSubTask
 import kotlinx.android.synthetic.main.fragment_sub_task_list.view.*
+import kotlinx.android.synthetic.main.fragment_sub_task_list_by_user.view.*
 
-class SubTaskFragmentList : Fragment() {
+class SubTaskFragmentListByUser : Fragment() {
 
     private val viewModelSubTask = ViewModelSubTask()
 
@@ -24,24 +27,24 @@ class SubTaskFragmentList : Fragment() {
 
 
 
-        val binding: FragmentSubTaskListBinding
+        val binding: FragmentSubTaskListByUserBinding
                 = DataBindingUtil.inflate(inflater,
                 R.layout.fragment_sub_task_list, container, false)
 
         val view:View = binding.root
 
-        val adapter = SubTaskAdapter(context)
-        view.rvSubTask.layoutManager = LinearLayoutManager(context.applicationContext)
-        view.rvSubTask.adapter = adapter
+        val adapter = SubTaskUserAdapter()
+        view.rvSubTaskByUser.layoutManager = LinearLayoutManager(context.applicationContext)
+        view.rvSubTaskByUser.adapter = adapter
 
         binding.subTaskViewModel = viewModelSubTask
         viewModelSubTask.initList()
 
-        view.tvCreateSubTask.setOnClickListener {
-            fragmentManager.beginTransaction()
-                    .replace(R.id.mainActivity, CreateSubTaskFragment.newInstance())
-                    .commit()
-        }
+//        view.tvCreateSubTask.setOnClickListener {
+//            fragmentManager.beginTransaction()
+//                    .replace(R.id.mainActivity, CreateSubTaskFragment.newInstance())
+//                    .commit()
+//        }
 
         return  view
 

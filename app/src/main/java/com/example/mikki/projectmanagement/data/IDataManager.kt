@@ -3,6 +3,7 @@ package com.example.mikki.projectmanagement.data
 import com.example.mikki.projectmanagement.data.model.MembersItem
 import com.example.mikki.projectmanagement.data.model.ProjectAdminTaskItem
 import com.example.mikki.projectmanagement.data.model.ProjectSubTaskItem
+import com.example.mikki.projectmanagement.data.model.ViewsubtasksItem
 import com.example.mikki.projectmanagement.data.network.INetworkHelper
 
 interface IDataManager:INetworkHelper {
@@ -21,6 +22,10 @@ interface IDataManager:INetworkHelper {
 
     interface OnAdminViewTeamMemeberBySubTask {
         fun viewTeamMemberBySubTask(membersItem: ArrayList<MembersItem>?)
+    }
+
+    interface OnAdminViewSubTaskListByUser {
+        fun viewSubTaskListByUser(viewsubtasksItem: ArrayList<ViewsubtasksItem>)
     }
 
     interface OnUserAdminViewSubTaskDetailListener {

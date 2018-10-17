@@ -13,18 +13,6 @@ import retrofit2.http.Query
 
 interface APIService {
 
-    //http://rjtmobile.com/aamir/pms/android-app/pms_create_project.php?
-    //project_name=ecomm&project_status=1&project_desc=xyz
-    // &start_date=2018-04-03&end_date=2018-04-15
-
-    @GET("pms_create_project.php")
-    fun getCreateNewProjectStatus(@Query("project_name") projectName: String,
-                            @Query("project_status") project_status: String,
-                            @Query("project_desc") project_desc: String,
-                            @Query("start_date") start_date: String,
-                            @Query("end_date") end_date: String):
-            Observable<SuccessMsg>
-
     //http://rjtmobile.com/aamir/pms/android-app/pms_create_sub_task.php?
     // project_id=27&task_id=1&sub_task_name=category screen image loading&sub_task_status=1&
     // sub_task_desc=xyz&start_date=2018-04-03&end_date=2018-04-15
@@ -85,7 +73,8 @@ interface APIService {
     fun viewSubTaskDetailByUser(@Query("taskid") taskId: String,
                                 @Query("subtask_id") subTaskId: String,
                                 @Query("project_id") projectId: String):
-            Observable<SuccessMsg>
+            Observable<SubTaskDetailsByUser>
+
 
     //http://rjtmobile.com/aamir/pms/android-app/pms_team_sub_task.php?
     // taskid=1&
@@ -122,10 +111,14 @@ interface APIService {
                             @Query("project_id") projectId: String,
                             @Query("userid") userId: String):
             Observable<SuccessMsg>
-                            @Query("project_status") project_status: String,
-                            @Query("project_desc") project_desc: String,
-                            @Query("start_date") start_date: String,
-                            @Query("end_date") end_date: String):
+
+
+    @GET("pms_create_project.php")
+    fun getCreateNewProjectStatus(@Query("project_name") projectName: String,
+                                  @Query("project_status") project_status: String,
+                                  @Query("project_desc") project_desc: String,
+                                  @Query("start_date") start_date: String,
+                                  @Query("end_date") end_date: String):
             Observable<CreateProjectSuccessMsg>
 
     //http://rjtmobile.com/aamir/pms/android-app/pms_view_subtask.php?
@@ -134,7 +127,7 @@ interface APIService {
     @GET("pms_view_subtask.php")
     fun viewAllSubTaskListByUser(@Query("user_id") userId: String,
                                  @Query("taskid") taskId: String):
-           Observable<SuccessMsg>
+           Observable<SubTaskByUser>
 
 
     //http://rjtmobile.com/aamir/pms/android-app/

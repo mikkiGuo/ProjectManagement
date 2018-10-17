@@ -53,7 +53,7 @@ class SubTaskAdapter(context: Context) : RecyclerView.Adapter<SubTaskAdapter.Sub
             editFrag.arguments = args
             starter.fragmentManager.beginTransaction()
                     //.add(R.id.fragmentLayout, fragment)
-                    .replace(R.id.fragmentLayout, editFrag)
+                    .replace(R.id.mainActivity, editFrag)
                     .addToBackStack(null)
                     .commit()
 

@@ -6,8 +6,14 @@ import com.example.mikki.projectmanagement.BR
 import com.example.mikki.projectmanagement.data.DataManager
 import com.example.mikki.projectmanagement.data.IDataManager
 import com.example.mikki.projectmanagement.data.model.ProjectSubTaskItem
+import com.example.mikki.projectmanagement.data.model.ViewsubtasksItem
 
-class ViewModelSubTask : BaseObservable() {
+class ViewModelSubTask : BaseObservable(), IDataManager.OnUserAdminViewSubTaskDetailListener {
+
+
+    override fun viewSubTaskByDetailByUser(subTask: ProjectSubTaskItem) {
+
+    }
 
     val dataManager:IDataManager = DataManager()
 
@@ -19,6 +25,13 @@ class ViewModelSubTask : BaseObservable() {
         }
 
     @get:Bindable
+    var subTaskListByUser: MutableList<ViewsubtasksItem> = mutableListOf()
+        private set(value) {
+            field = value
+            notifyPropertyChanged(BR.subTaskListByUser)
+        }
+
+    @get:Bindable
     var changedPositions: Int = 0
         private set(value) {
             field = value
@@ -27,10 +40,16 @@ class ViewModelSubTask : BaseObservable() {
 
     fun initList() {
         dataManager.getSubTasksList(this)
+        dataManager.viewSubTaskListByUser(this, "3", "3")
     }
 
     fun upadteSubTaskList(subTaskItem: ProjectSubTaskItem) {
         subTaskList.add(subTaskItem)
-        changedPositions = 5
+        changedPositions = 0
+    }
+
+    fun upadteSubTaskListByUser(viewsubtasksItem: ViewsubtasksItem) {
+        subTaskListByUser.add(viewsubtasksItem)
+        changedPositions = 0
     }
 }

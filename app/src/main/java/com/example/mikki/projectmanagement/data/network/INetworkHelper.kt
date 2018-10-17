@@ -11,7 +11,7 @@ import com.example.mikki.projectmanagement.viewmodel.TeamViewModel
 
 interface INetworkHelper {
 
-    fun storeNewProjectToServer(p: ProjectsItem)
+    //fun storeNewProjectToServer(p: ProjectsItem)
 
     fun createNewSubTask(listener: IDataManager.OnAdminCreateSubTaskListener,
                          subTask:ProjectSubTaskItem)
@@ -22,15 +22,20 @@ interface INetworkHelper {
     fun editSubTaskStatus(listner: OnUserEditSubTaskStatusListener,
                           subTask: ProjectSubTaskItem)
 
+
+
     fun assignSubTaskToUser(listner: OnAdminAssignSubTaskToUserListener,
-                            subTask: ProjectSubTaskItem)
+                            subTask: ProjectSubTaskItem, userId: Int, position: Int)
 
     fun viewTeamMemberBySubTask(listener: OnAdminViewTeamMemeberBySubTask, subTask: ProjectSubTaskItem)
 
     fun viewSubTaskDetailByUser(listner: OnUserAdminViewSubTaskDetailListener,
                                 subTask: ProjectSubTaskItem)
 
+
+
     fun getSubTasksList(subTaskViewModel: ViewModelSubTask)
+    fun viewSubTaskListByUser(subTaskViewModel: ViewModelSubTask, userId: String, taskId: String)
     fun storeNewProjectToServer(p: ProjectsItem, viewModel: ProjectViewModel)
     fun getProjectList(viewModel: ProjectViewModel)
     fun updateProject(p:ProjectsItem, viewModel: ProjectViewModel, index:Int)
