@@ -20,13 +20,11 @@ class MainActivity : AppCompatActivity() {
         bt_taskList.setOnClickListener {
             var fragment = TaskListFragment()
             fragmentManager.beginTransaction().add(R.id.mainActivity, fragment).addToBackStack(null).commit()
-            Log.d("ninntag", "tasklistfragment transaction begin")
         }
 
         bt_createTask.setOnClickListener {
             var fragment = CreateTaskFragment()
             fragmentManager.beginTransaction().add(R.id.mainActivity, fragment).addToBackStack(null).commit()
-            Log.d("ninntag", "newtaskfragment transaction begin")
         }
 
         bt_projectList.setOnClickListener {

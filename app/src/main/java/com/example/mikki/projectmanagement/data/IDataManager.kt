@@ -1,5 +1,6 @@
 package com.example.mikki.projectmanagement.data
 
+import com.example.mikki.projectmanagement.data.model.MemberDetails
 import com.example.mikki.projectmanagement.data.model.TaskItem
 import com.example.mikki.projectmanagement.data.network.INetworkHelper
 
@@ -10,11 +11,18 @@ interface IDataManager:INetworkHelper {
     }
 
     interface OnAdminTaskListListener {
-        fun getAdminTaskList(taskList: ArrayList<TaskItem>?)
+        fun getAdminTaskList()
     }
 
     interface OnAdminTaskUpdatedListener {
         fun updateTask(s: String)
     }
 
+    interface OnTaskMemberListener {
+        fun getTaskMembers()
+    }
+
+    interface OnAddMemberDetailsListener {
+        fun finishedAdding(listener: OnTaskMemberListener)
+    }
 }

@@ -1,13 +1,12 @@
 package com.example.mikki.projectmanagement.data
 
-import com.example.mikki.projectmanagement.data.model.TaskItem
-import com.example.mikki.projectmanagement.data.model.ProjectSubTaskItem
-import com.example.mikki.projectmanagement.data.model.ProjectsItem
+import com.example.mikki.projectmanagement.data.model.*
 import com.example.mikki.projectmanagement.data.network.NetworkHelper
 import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
 import com.example.mikki.projectmanagement.viewmodel.TaskViewModel
 
 class DataManager:IDataManager {
+
     override fun storeNewSubTaskToServer(subTask: ProjectSubTaskItem) {
         iNetworkHelper.storeNewSubTaskToServer(subTask)
     }
@@ -34,6 +33,17 @@ class DataManager:IDataManager {
 
     override fun updateTaskDetails(viewModel: TaskViewModel, listener: IDataManager.OnAdminTaskUpdatedListener, taskItem: TaskItem) {
         iNetworkHelper.updateTaskDetails(viewModel, listener, taskItem)
+    }
+
+    override fun getTeamMemberByTask(viewModel: TaskViewModel, listener: IDataManager.OnTaskMemberListener, taskItem: TaskItem) {
+        iNetworkHelper.getTeamMemberByTask(viewModel, listener, taskItem)
+    }
+
+    override fun getMemberDetails(viewModel: TaskViewModel,
+                                  addlistener: IDataManager.OnAddMemberDetailsListener,
+                                  memberListListener: IDataManager.OnTaskMemberListener,
+                                  memberList: ArrayList<TaskMemberItem>?) {
+        iNetworkHelper.getMemberDetails(viewModel, addlistener, memberListListener, memberList)
     }
 
     companion object {

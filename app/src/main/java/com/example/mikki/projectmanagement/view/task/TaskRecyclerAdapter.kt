@@ -31,7 +31,7 @@ class TaskRecyclerAdapter(val context: Context, var viewModel: TaskViewModel):
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         var taskItem = viewModel.taskList.get(position)
-        holder.bind(viewModel, taskItem)
+        holder.bind(taskItem)
 
         holder.itemView.setOnClickListener {
             val fragment = TaskDetailsFragment()
@@ -45,8 +45,7 @@ class TaskRecyclerAdapter(val context: Context, var viewModel: TaskViewModel):
     }
 
     class MyViewHolder(itemView: View, val binding: ItemTaskLayoutBinding): RecyclerView.ViewHolder(itemView) {
-        fun bind(viewModel: TaskViewModel, taskItem: TaskItem) {
-            Log.d("ninntag", "in viewholder bind: " + viewModel.taskItem.toString())
+        fun bind(taskItem: TaskItem) {
             binding.setVariable(BR.task, taskItem)
         }
     }

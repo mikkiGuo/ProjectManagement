@@ -22,7 +22,7 @@
             android:layout_height="match_parent"
             android:layout_above="@+id/bt_updateTaskList"
             android:scrollbars="vertical"
-            android:adapter="@{viewModel.adapter}"/>
+            android:adapter="@{viewModel.taskRecyclerAdapter}"/>
 
         <Button
             android:id="@+id/bt_updateTaskList"
