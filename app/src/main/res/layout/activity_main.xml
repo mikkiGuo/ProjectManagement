@@ -9,6 +9,12 @@
 
     <FrameLayout
         android:id="@+id/fragmentLayout"
+        android:layout_width="match_parent"
+        android:elevation="10dp"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
     <FrameLayout
         android:id="@+id/mainActivity"
         android:layout_width="match_parent"
@@ -17,17 +23,6 @@
 
     </FrameLayout>
 
-    <!--<fragment-->
-        <!--android:id="@+id/fragment"-->
-        <!--android:name="com.example.mikki.projectmanagement.project.createproject.CreateProjectFragment"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="600dp"-->
-        <!--android:layout_alignBottom="@+id/floating_button"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--android:layout_marginStart="0dp"-->
-        <!--android:layout_marginBottom="2dp"-->
-        <!--app:layout_anchor="@+id/floating_button"-->
-        <!--app:layout_anchorGravity="right|center" />-->
 
     <include
         android:id="@+id/createTask"
@@ -36,8 +31,6 @@
         layout="@layout/snack_create_new_project"
         />
 
-        android:layout_height="match_parent"
-        android:layout_above="@id/bottom_navigation">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -73,7 +66,7 @@
 
         </LinearLayout>
 
-    </FrameLayout>
+
 
     <include
         android:id="@+id/floating_button"

@@ -1,4 +1,4 @@
-package com.example.mikki.projectmanagement.subtask
+package com.example.mikki.projectmanagement.view.subtask
 
 import android.app.Fragment
 import android.os.Bundle
@@ -20,7 +20,10 @@ class CreateSubTaskFragment: Fragment(), IDataManager.OnAdminCreateSubTaskListen
         }
         val dataManager: IDataManager = DataManager()
         val subTask = ProjectSubTaskItem()
+
     }
+
+    val me : Fragment = this
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -37,6 +40,7 @@ class CreateSubTaskFragment: Fragment(), IDataManager.OnAdminCreateSubTaskListen
             subTask.endstart = v.etStEndDate.text.toString()
 
             dataManager.createNewSubTask(this, subTask)
+
         }
 
         return v
@@ -44,6 +48,7 @@ class CreateSubTaskFragment: Fragment(), IDataManager.OnAdminCreateSubTaskListen
 
     override fun createTask(message: String) {
         Toast.makeText(view.context, message, Toast.LENGTH_LONG).show()
+        activity.fragmentManager.beginTransaction().remove(me).commit()
     }
 
 

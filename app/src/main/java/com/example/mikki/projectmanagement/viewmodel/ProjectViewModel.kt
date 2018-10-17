@@ -13,6 +13,7 @@ class ProjectViewModel:BaseObservable() {
 
     val dataManager:IDataManager = DataManager()
 
+
     @get:Bindable
     var projectList: MutableList<ProjectsItem> = mutableListOf()
         private set(value) {

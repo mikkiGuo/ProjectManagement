@@ -1,31 +1,21 @@
 package com.example.mikki.projectmanagement.adapter
 
-
-import android.app.Activity
-import android.app.FragmentManager
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.data.model.ProjectSubTaskItem
-import com.example.mikki.projectmanagement.subtask.EditSubTaskFragment
+import com.example.mikki.projectmanagement.view.subtask.EditSubTaskFragment
 import kotlinx.android.synthetic.main.sub_task_item_view.view.*
 
-class SubTaskAdapter(context: Context) : RecyclerView.Adapter<SubTaskAdapter.SubTaskHolder>(), BindableAdapter<ProjectSubTaskItem> {
-
-    interface OnClickHandler {
-        fun sendData(subTaskItem: ProjectSubTaskItem)
-    }
+class SubTaskAdapter(context: Context) : RecyclerView.Adapter<SubTaskAdapter.SubTaskHolder>(),
+        BindableAdapter<ProjectSubTaskItem> {
 
     var subTaskList = listOf<ProjectSubTaskItem>()
-    //lateinit var listener: OnClickHandler
-    val resources = context.resources
 
     override fun setData(items: List<ProjectSubTaskItem>) {
         subTaskList = items
@@ -58,7 +48,6 @@ class SubTaskAdapter(context: Context) : RecyclerView.Adapter<SubTaskAdapter.Sub
 
             val starter :AppCompatActivity = view.context as AppCompatActivity
             val editFrag = EditSubTaskFragment()
-            //listener.sendData(subTaskList.get(position))
             val args = Bundle()
             args.putParcelable("subtask", subTaskList[position])
             editFrag.arguments = args

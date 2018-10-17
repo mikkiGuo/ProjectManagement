@@ -9,6 +9,23 @@ import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
 
 class DataManager:IDataManager {
 
+
+    override fun viewTeamMemberBySubTask(listener: IDataManager.OnAdminViewTeamMemeberBySubTask,
+                                         subTask: ProjectSubTaskItem) {
+        iNetworkHelper.viewTeamMemberBySubTask(listener, subTask)
+    }
+
+
+    override fun assignSubTaskToUser(listner: IDataManager.OnAdminAssignSubTaskToUserListener,
+                                     subTask: ProjectSubTaskItem) {
+        iNetworkHelper.assignSubTaskToUser(listner, subTask)
+    }
+
+    override fun viewSubTaskDetailByUser(listner: IDataManager.OnUserAdminViewSubTaskDetailListener,
+                                         subTask: ProjectSubTaskItem) {
+        iNetworkHelper.viewSubTaskDetailByUser(listner, subTask)
+    }
+
     override fun createNewSubTask(listener: IDataManager.OnAdminCreateSubTaskListener,
                                   subTask: ProjectSubTaskItem) {
         iNetworkHelper.createNewSubTask(listener, subTask)
@@ -18,9 +35,15 @@ class DataManager:IDataManager {
                                   subTask: ProjectSubTaskItem) {
         iNetworkHelper.editSubTask(listener, subTask)
 
-    override fun storeNewSubTaskToServer(subTask: ProjectSubTaskItem) {
-        iNetworkHelper.storeNewSubTaskToServer(subTask)
     }
+
+    override fun editSubTaskStatus(listner: IDataManager.OnUserEditSubTaskStatusListener, subTask: ProjectSubTaskItem) {
+        iNetworkHelper.editSubTaskStatus(listner, subTask)
+    }
+
+//    override fun storeNewSubTaskToServer(subTask: ProjectSubTaskItem) {
+//        iNetworkHelper.storeNewSubTaskToServer(subTask)
+//    }
 
     override fun getProjectList(viewModel: ProjectViewModel) {
         iNetworkHelper.getProjectList(viewModel)
@@ -49,5 +72,4 @@ class DataManager:IDataManager {
     companion object {
         val iNetworkHelper = NetworkHelper()
     }
-
 }

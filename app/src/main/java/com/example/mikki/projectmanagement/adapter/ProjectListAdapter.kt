@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.data.model.ProjectsItem
-
-class ProjectListAdapter: RecyclerView.Adapter<ProjectListAdapter.ViewHolder>() {
 import kotlinx.android.synthetic.main.item_project.view.*
 
 class ProjectListAdapter: RecyclerView.Adapter<ProjectListAdapter.ViewHolder>(),
@@ -50,3 +48,4 @@ class ProjectListAdapter: RecyclerView.Adapter<ProjectListAdapter.ViewHolder>(),
     }
 
 }
+

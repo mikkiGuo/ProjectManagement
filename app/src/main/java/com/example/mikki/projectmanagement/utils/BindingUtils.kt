@@ -4,7 +4,6 @@ import android.databinding.BindingAdapter
 import android.support.v7.widget.RecyclerView
 import com.example.mikki.projectmanagement.adapter.BindableAdapter
 
-@BindingAdapter("myLists")
 @BindingAdapter("data")
 fun <T> setRecyclerViewProperties(recyclerView: RecyclerView, items: List<T>) {
     if (recyclerView.adapter is BindableAdapter<*>) {

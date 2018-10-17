@@ -14,84 +14,84 @@
         android:visibility="gone"
         android:background="@color/icons">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/black"
-        android:text="Edit SubTask"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:text="Edit SubTask"/>
 
-    <EditText
-        android:id="@+id/etEditStProjectId"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="Project ID"/>
+        <EditText
+            android:id="@+id/etEditStProjectId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Project ID"/>
 
-    <EditText
-        android:id="@+id/etEditStTaskId"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="Task ID"/>
+        <EditText
+            android:id="@+id/etEditStTaskId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Task ID"/>
 
-    <EditText
-        android:id="@+id/etEditStName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="SubTask Name"/>
+        <EditText
+            android:id="@+id/etEditStName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="SubTask Name"/>
 
-    <EditText
-        android:id="@+id/etEditStStatus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="SubTask Status"/>
+        <EditText
+            android:id="@+id/etEditStStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="SubTask Status"/>
 
-    <EditText
-        android:id="@+id/etEditStDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="SubTask Description"/>
+        <EditText
+            android:id="@+id/etEditStDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="SubTask Description"/>
 
-    <EditText
-        android:id="@+id/etEditStStartDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="SubTask Start Date"/>
+        <EditText
+            android:id="@+id/etEditStStartDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="SubTask Start Date"/>
 
-    <EditText
-        android:id="@+id/etEditStEndDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="SubTask EndDate"/>
+        <EditText
+            android:id="@+id/etEditStEndDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="SubTask EndDate"/>
 
-    <Button
-        android:id="@+id/btEditSubTask"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:text="Update"
-        android:textStyle="bold"
-        android:background="#efbe78"/>
+        <Button
+            android:id="@+id/btEditSubTask"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:text="Update"
+            android:textStyle="bold"
+            android:background="#efbe78"/>
 
-    <Button
-        android:id="@+id/btBackSubTask"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:text="Back"
-        android:textStyle="bold"
-        android:background="#efbe78"/>
+        <Button
+            android:id="@+id/btBackSubTask"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:text="Back"
+            android:textStyle="bold"
+            android:background="#efbe78"/>
 
     </LinearLayout>
 

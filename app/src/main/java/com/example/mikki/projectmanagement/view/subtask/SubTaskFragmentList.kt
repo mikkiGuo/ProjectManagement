@@ -1,4 +1,4 @@
-package com.example.mikki.projectmanagement.subtask
+package com.example.mikki.projectmanagement.view.subtask
 
 import android.app.Fragment
 import android.databinding.DataBindingUtil
@@ -13,7 +13,6 @@ import com.example.mikki.projectmanagement.adapter.SubTaskAdapter
 import com.example.mikki.projectmanagement.databinding.FragmentSubTaskListBinding
 
 import com.example.mikki.projectmanagement.viewmodel.ViewModelSubTask
-import kotlinx.android.synthetic.main.fragment_sub_task_list.*
 import kotlinx.android.synthetic.main.fragment_sub_task_list.view.*
 
 class SubTaskFragmentList : Fragment() {
@@ -38,11 +37,11 @@ class SubTaskFragmentList : Fragment() {
         binding.subTaskViewModel = viewModelSubTask
         viewModelSubTask.initList()
 
-//        view.tvCreateSubTask.setOnClickListener {
-//            fragmentManager.beginTransaction()
-//                    .add(R.id.fragmentLayout, CreateSubTaskFragment.newInstance())
-//                    .commit()
-//        }
+        view.tvCreateSubTask.setOnClickListener {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.fragmentLayout, CreateSubTaskFragment.newInstance())
+                    .commit()
+        }
 
         return  view
 

@@ -22,4 +22,13 @@
     <string name="todo_id_img">replace with owner id</string>
     <string name="create">Create</string>
 
+    <!-- Login Fingerprint  -->
+    <string name="authenticate_instructions">Click the button below to authenticate your fingerprint.</string>
+    <string name="cancel">Cancel</string>
+    <string name="fingerprint_not_recognized">Fingerprint not recognized. Try again.</string>
+    <string name="touch_sensor">Touch sensor.</string>
+    <string name="fingerprint_recognized">Fingerprint recognized.</string>
+    <string name="title_activity_login">LoginActivity</string>
+
+
 </resources>

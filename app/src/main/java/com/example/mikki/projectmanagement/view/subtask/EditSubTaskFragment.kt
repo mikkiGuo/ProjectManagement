@@ -1,9 +1,7 @@
-package com.example.mikki.projectmanagement.subtask
+package com.example.mikki.projectmanagement.view.subtask
 
 import android.app.Fragment
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,12 +12,11 @@ import com.example.mikki.projectmanagement.adapter.SubTaskAdapter
 import com.example.mikki.projectmanagement.data.DataManager
 import com.example.mikki.projectmanagement.data.IDataManager
 import com.example.mikki.projectmanagement.data.model.ProjectSubTaskItem
+import kotlinx.android.synthetic.main.fragment_edit_sub_task.*
 import kotlinx.android.synthetic.main.fragment_edit_sub_task.view.*
 
-class EditSubTaskFragment: Fragment(), SubTaskAdapter.OnClickHandler, IDataManager.OnAdminEditSubTaskListener {
-    override fun sendData(subTaskItem: ProjectSubTaskItem) {
-        //subTask = subTaskItem
-    }
+class EditSubTaskFragment: Fragment(), IDataManager.OnAdminEditSubTaskListener {
+
 
 
     companion object {
@@ -32,21 +29,38 @@ class EditSubTaskFragment: Fragment(), SubTaskAdapter.OnClickHandler, IDataManag
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
         Log.d("onCreateView", "started")
-        val v = inflater!!.inflate(R.layout.fragment_edit_sub_task, container, false)
+        val v = inflater!!.inflate(R.layout.fragment_edit_sub_taskk, container, false)
 
         if(arguments != null) {
             subTask = arguments.getParcelable("subtask")
+
+            v.etEditStProjectId.setText(subTask.projectid.toString())
+            v.etEditStTaskId.setText(subTask.taskid.toString())
+            v.etEditStName.setText(subTask.subtaskname.toString())
+            v.etEditStStatus.setText(subTask.subtaskstatus.toString())
+            v.etEditStDescription.setText(subTask.subtaskdesc.toString())
+            v.etEditStStartDate.setText(subTask.startdate.toString())
+            v.etEditStEndDate.setText(subTask.endstart.toString())
+
+            v.tvEditStProjectId.setText(subTask.projectid)
+            v.tvEditStTaskId.setText(subTask.taskid)
+            v.tvEditStName.setText(subTask.subtaskname)
+            v.tvEditStStatus.setText(subTask.subtaskstatus)
+            v.tvEditStDescription.setText(subTask.subtaskdesc)
+            v.tvEditStStartDate.setText(subTask.startdate + " - " + subTask.endstart)
+        }
+
+        v.btShowEditSubTask.setOnClickListener {
+            viewSTLayout.visibility = View.GONE
+            editSTLayout.visibility = View.VISIBLE
+        }
+
+        v.btBackSubTask.setOnClickListener {
+            viewSTLayout.visibility = View.VISIBLE
+            editSTLayout.visibility = View.GONE
         }
 
 
-
-        v.etEditStProjectId.setText(subTask.projectid.toString())
-        v.etEditStTaskId.setText(subTask.taskid.toString())
-        v.etEditStName.setText(subTask.subtaskname.toString())
-        v.etEditStStatus.setText(subTask.subtaskstatus.toString())
-        v.etEditStDescription.setText(subTask.subtaskdesc.toString())
-        v.etEditStStartDate.setText(subTask.startdate.toString())
-        v.etEditStEndDate.setText(subTask.endstart.toString())
 
 
         v.btEditSubTask.setOnClickListener {
