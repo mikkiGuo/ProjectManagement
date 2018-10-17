@@ -8,6 +8,9 @@
     <color name="secondary_text">#757575</color>
     <color name="icons">#FFFFFF</color>
     <color name="divider">#BDBDBD</color>
+    <color name="warning_color">#F44336</color>
+    <color name="hint_color">#000000</color>
+    <color name="success_color">#4CAF50</color>
 
     <color name="spinner">#d6e1c0</color>
     <color name="blue">#FF5197FF</color>

@@ -79,3 +79,4 @@ class ProjectListAdapter: RecyclerView.Adapter<ProjectListAdapter.ViewHolder>(),
     }
 
 }
+

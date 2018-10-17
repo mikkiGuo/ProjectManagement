@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/viewSTLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/icons"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:text="SubTask Details"/>
+
+    <TextView
+        android:id="@+id/tvEditStProjectId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Project ID"/>
+
+    <TextView
+        android:id="@+id/tvEditStTaskId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Task ID"/>
+
+    <TextView
+        android:id="@+id/tvEditStName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="SubTask Name"/>
+
+    <TextView
+        android:id="@+id/tvEditStStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="SubTask Status"/>
+
+    <TextView
+        android:id="@+id/tvEditStDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="SubTask Description"/>
+
+    <TextView
+        android:id="@+id/tvEditStStartDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="SubTask Start Date"/>
+
+    <TextView
+        android:id="@+id/tvEditStEndDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="SubTask EndDate"/>
+
+    <Button
+        android:id="@+id/btShowEditSubTask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:text="Edit"
+        android:textStyle="bold"
+        android:background="#efbe78"/>
+
+</LinearLayout>

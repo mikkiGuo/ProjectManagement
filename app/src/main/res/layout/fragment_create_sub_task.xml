@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/icons">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:text="Create SubTask"/>
+
+    <EditText
+        android:id="@+id/etStProjectId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Project ID"/>
+
+    <EditText
+        android:id="@+id/etStTaskId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Task ID"/>
+
+    <EditText
+        android:id="@+id/etStName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="SubTask Name"/>
+
+    <EditText
+        android:id="@+id/etStStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="SubTask Status"/>
+
+    <EditText
+        android:id="@+id/etStDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="SubTask Description"/>
+
+    <EditText
+        android:id="@+id/etStStartDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="SubTask Start Date"/>
+
+    <EditText
+        android:id="@+id/etStEndDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="SubTask EndDate"/>
+
+    <Button
+        android:id="@+id/btCreateSubTask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:text="Create"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:background="@color/accent"/>
+
+</LinearLayout>

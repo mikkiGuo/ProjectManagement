@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.mikki.projectmanagement.viewmodel.TeamViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/icons"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/btn_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:text="Cancel"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/btn_done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:text="Done"
+                android:textAlignment="textEnd"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_add_names"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:background="@color/light_grey"
+                android:padding="20dp"
+                android:text="Add: "
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/et_team_userId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/light_grey"
+                android:ems="10"
+                android:hint="Member ID"
+                android:inputType="textPersonName"
+                android:padding="20dp"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_employee_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:data = "@{viewModel.employeeList}"
+            app:changedPositions = "@{viewModel.changedIndex}"/>
+
+
+    </LinearLayout>
+</layout>
