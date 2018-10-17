@@ -8,6 +8,7 @@ import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.constraint.solver.LinearSystem
+import android.util.DisplayMetrics
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -26,10 +27,14 @@ class MemberDetailsDialogFragment(): DialogFragment() {
     lateinit var memberDetails: MemberDetails
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        //var width: Int = activity.resources.displayMetrics
+        val width = resources.getDimensionPixelSize(R.dimen.dialogFragmentWidth)
+        val height = resources.getDimensionPixelSize(R.dimen.dialogFragmentHeight)
+
         var dialog = super.onCreateDialog(savedInstanceState)
+
         dialog.setContentView(R.layout.frag_member_details)
-        //dialog.window.setLayout(600, 200)
+        dialog.window.setLayout(width, height)
+
         return dialog
     }
 
