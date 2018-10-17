@@ -11,9 +11,11 @@ interface INetworkHelper {
 
     fun storeNewProjectToServer(p: ProjectsItem)
     fun getProjectList(viewModel: ProjectViewModel)
+
     fun createTask(viewModel: TaskViewModel, listener: OnAdminCreateTaskListener, taskItem: TaskItem)
     fun getAdminTaskList(viewModel: TaskViewModel, listener: OnAdminTaskListListener)
     fun getUserTaskList(viewModel: TaskViewModel, id: String)
     fun updateTaskDetails(viewModel: TaskViewModel, listener: OnAdminTaskUpdatedListener, taskItem: TaskItem)
+
     fun storeNewSubTaskToServer(subTask:ProjectSubTaskItem)
 }
