@@ -6,11 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.data.model.EmployeesItem
+import kotlinx.android.synthetic.main.item_name_tag.view.*
 
 class EmployeeListAdapter: RecyclerView.Adapter<EmployeeListAdapter.ViewHolder>(),
         BindableAdapter<EmployeesItem> {
 
+    lateinit var listener: onItemClickListener
     var employeeList = mutableListOf<EmployeesItem>()
+
+    interface onItemClickListener {
+        fun onClick(view: View, employee: EmployeesItem, position: Int)
+    }
 
     override fun setData(items: List<EmployeesItem>) {
         employeeList = items as MutableList<EmployeesItem>
@@ -31,12 +37,24 @@ class EmployeeListAdapter: RecyclerView.Adapter<EmployeeListAdapter.ViewHolder>(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        var employee = employeeList[position]
+        holder.employeeId.text = "Id: " + employee.empid
+        holder.employeeName.text = employee.empfirstname + " " + employee.emplastname
+        holder.btnAdd.setOnClickListener{
+            listener.onClick(it,employee,position)
+        }
 
     }
 
 
-    class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
-
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var employeeId = itemView.tv_user_id
+        var employeeName = itemView.tv_user_name
+        val btnAdd = itemView.btn_add_member
     }
+
+    fun setOnItemClickListener(listener: onItemClickListener){
+        this.listener = listener
+    }
+
 }

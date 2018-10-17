@@ -56,7 +56,7 @@ class NetworkHelper:INetworkHelper {
                                     {
                                         item as ProjectsItem
                                         if(!item.projectstatus.equals("2") ){
-                                            viewModel.updateList(item!!)
+                                            viewModel.updateList(item)
                                         }
                                     }
                                     Log.d("mikkiproject",result.projects.toString()
@@ -168,6 +168,7 @@ class NetworkHelper:INetworkHelper {
 
     override fun createTeamForProject(projectId: Int,
                                       team_member_userid: Int,
+                                      index: Int,
                                       viewModel: TeamViewModel) {
         disposable =
                 apiServe.createTeamForProject(
@@ -178,7 +179,7 @@ class NetworkHelper:INetworkHelper {
                         .subscribe(
                                 { result ->
                                     Log.d(MIKKI_TEAM, result.toString())
-                                    viewModel.printMsg(result.toString())
+                                    viewModel.removeAddedEmployeeFromView(index)
 
                                 },
                                 { error -> Log.d(MIKKI_TEAM, error.message) }
@@ -191,7 +192,11 @@ class NetworkHelper:INetworkHelper {
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(
                         {
-                            result -> Log.d(MIKKI_TEAM, result.employees.toString())
+                            result ->
+                            Log.d(MIKKI_TEAM, result.employees.toString())
+                            for(item in result.employees!!){
+                                viewModel.updateList(item!!)
+                            }
                         },
                         {
                             error -> Log.d(MIKKI_TEAM, error.message)

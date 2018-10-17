@@ -39,8 +39,8 @@ class ProjectListFragment(): Fragment() {
 
         binding.viewModel = viewModel
 
-
         val adapter = ProjectListAdapter()
+
         adapter.setOnItemClickListener(object :ProjectListAdapter.onItemClickListener{
             override fun onClick(view: View, project: ProjectsItem, position: Int) {
                 Log.d("mikkiproject", "onclicked+++++++++++++++++++++++"+
@@ -65,7 +65,7 @@ class ProjectListFragment(): Fragment() {
             }
         }
 
-        view.rv_project_list.layoutManager = LinearLayoutManager(context) as RecyclerView.LayoutManager?
+        view.rv_project_list.layoutManager = LinearLayoutManager(context)
         view.rv_project_list.adapter = adapter
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
         itemTouchHelper.attachToRecyclerView(view.rv_project_list)

@@ -50,8 +50,10 @@ class DataManager:IDataManager {
      ******************************************************************/
     override fun createTeamForProject(projectId: Int,
                                       team_member_userid: Int,
+                                      index: Int,
                                       viewModel: TeamViewModel) {
-        iNetworkHelper.createTeamForProject(projectId, team_member_userid, viewModel)
+        iNetworkHelper.createTeamForProject(projectId, team_member_userid,
+                index, viewModel)
     }
 
     override fun getEmployeeList(viewModel: TeamViewModel) {
