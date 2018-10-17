@@ -1,46 +1,53 @@
 package com.example.mikki.projectmanagement.view.task
 
+import android.app.Activity
+import android.content.Context
+import android.databinding.DataBindingUtil
+import android.os.Bundle
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.mikki.projectmanagement.BR
 import com.example.mikki.projectmanagement.R
-import com.example.mikki.projectmanagement.data.model.ProjectAdminTaskItem
-import kotlinx.android.synthetic.main.task_item_layout.view.*
+import com.example.mikki.projectmanagement.data.model.TaskItem
+import com.example.mikki.projectmanagement.databinding.ItemTaskLayoutBinding
+import com.example.mikki.projectmanagement.viewmodel.TaskViewModel
 
-class TaskRecyclerAdapter(val ADMIN_TASK_LIST: List<ProjectAdminTaskItem?>?):
+class TaskRecyclerAdapter(val context: Context, var viewModel: TaskViewModel):
         RecyclerView.Adapter<TaskRecyclerAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        return MyViewHolder(
-                LayoutInflater.from(parent.context)
-                        .inflate(R.layout.task_item_layout, parent, false))
+        val binding = DataBindingUtil.inflate<ItemTaskLayoutBinding>(
+                LayoutInflater.from(parent.context), R.layout.item_task_layout, parent, false)
+
+        return MyViewHolder(binding.root, binding)
     }
 
     override fun getItemCount(): Int {
-        if (ADMIN_TASK_LIST != null)
-            return ADMIN_TASK_LIST.size
-        else return 0
+        return viewModel.taskList.size
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.tv_name.text = ADMIN_TASK_LIST!!.get(position)!!.taskname
-        holder.tv_desc.text = ADMIN_TASK_LIST.get(position)!!.taskdesc
-        holder.tv_start.text = ADMIN_TASK_LIST.get(position)!!.startdate
-        holder.tv_end.text = ADMIN_TASK_LIST.get(position)!!.endstart
-        holder.tv_status.text = ADMIN_TASK_LIST.get(position)!!.taskstatus
+        var taskItem = viewModel.taskList.get(position)
+        holder.bind(viewModel, taskItem)
+
+        holder.itemView.setOnClickListener {
+            val fragment = TaskDetailsFragment()
+
+            var bundle = Bundle()
+            bundle.putParcelable("taskitem", taskItem)
+            fragment.arguments = bundle
+
+            (context as Activity).fragmentManager.beginTransaction().add(R.id.mainActivity, fragment).addToBackStack(null).commit()
+        }
     }
 
-    class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        var tv_name = itemView.tv_taskName
-        var tv_desc = itemView.tv_taskDesc
-        var tv_start = itemView.tv_taskStart
-        var tv_end = itemView.tv_taskEnd
-        var tv_status = itemView.tv_taskStatus
+    class MyViewHolder(itemView: View, val binding: ItemTaskLayoutBinding): RecyclerView.ViewHolder(itemView) {
+        fun bind(viewModel: TaskViewModel, taskItem: TaskItem) {
+            Log.d("ninntag", "in viewholder bind: " + viewModel.taskItem.toString())
+            binding.setVariable(BR.task, taskItem)
+        }
     }
-
-    companion object {
-
-    }
-
 }

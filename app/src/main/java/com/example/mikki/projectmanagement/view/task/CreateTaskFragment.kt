@@ -7,19 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.mikki.projectmanagement.R
-import com.example.mikki.projectmanagement.data.DataManager
 import com.example.mikki.projectmanagement.data.IDataManager
-import com.example.mikki.projectmanagement.data.model.ProjectAdminTaskItem
+import com.example.mikki.projectmanagement.data.model.TaskItem
+import com.example.mikki.projectmanagement.viewmodel.TaskViewModel
 import kotlinx.android.synthetic.main.frag_task_create.view.*
 
 class CreateTaskFragment: Fragment(), IDataManager.OnAdminCreateTaskListener {
-    val iDataManager = DataManager()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         var v = inflater.inflate(R.layout.frag_task_create, container, false)
 
+        val viewModel = TaskViewModel(v.context)
+
         v.bt_createTask.setOnClickListener{
-            val task = ProjectAdminTaskItem()
+            val task = TaskItem()
+
             task.projectid = v.et_create_projectID.text.toString()
             task.taskname = v.et_create_taskName.text.toString()
             task.taskdesc = v.et_create_taskDesc.text.toString()
@@ -27,14 +29,14 @@ class CreateTaskFragment: Fragment(), IDataManager.OnAdminCreateTaskListener {
             task.startdate = v.et_create_taskStart.text.toString()
             task.endstart = v.et_create_taskEnd.text.toString()
 
-            iDataManager.createTask(this, task)
+            viewModel.createTask(this, task)
         }
 
         return v
     }
 
-    override fun createTask() {
-        Toast.makeText(view.context, "Task Created", Toast.LENGTH_SHORT).show()
+    override fun createTask(string: String) {
+        Toast.makeText(view.context, string, Toast.LENGTH_SHORT).show()
     }
 
 }

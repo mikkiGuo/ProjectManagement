@@ -38,7 +38,7 @@ class ProjectListAdapter: RecyclerView.Adapter<ProjectListAdapter.ViewHolder>(),
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder?.projectName?.text = prodjectList[position].projectname
+        holder.projectName?.text = prodjectList[position].projectname
         holder.projectDesc.text = prodjectList[position].projectdesc
     }
 

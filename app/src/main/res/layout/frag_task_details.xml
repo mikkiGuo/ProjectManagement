@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="task"
+            type="com.example.mikki.projectmanagement.data.model.TaskItem"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/icons">
+
+        <EditText
+            android:id="@+id/et_details_projID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{task.projectid}"
+            android:enabled="false"/>
+
+        <EditText
+            android:id="@+id/et_details_taskID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{task.taskid}"
+            android:enabled="false"/>
+
+        <EditText
+            android:id="@+id/et_details_userID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{task.userid}"
+            android:enabled="false"/>
+
+        <EditText
+            android:id="@+id/et_details_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{task.taskstatus}"
+            android:enabled="false" />
+
+        <EditText
+            android:id="@+id/et_details_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{task.taskname}"
+            android:enabled="false"/>
+
+        <EditText
+            android:id="@+id/et_details_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{task.taskdesc}"
+            android:enabled="false"/>
+
+        <EditText
+            android:id="@+id/et_details_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{task.startdate}"
+            android:enabled="false"/>
+
+        <EditText
+            android:id="@+id/et_details_end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{task.endstart}"
+            android:enabled="false"/>
+
+        <Button
+            android:id="@+id/bt_details_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Edit Task Details"/>
+    </LinearLayout>
+</layout>

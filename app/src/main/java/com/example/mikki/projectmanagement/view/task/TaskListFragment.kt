@@ -2,6 +2,7 @@ package com.example.mikki.projectmanagement.view.task
 
 import android.app.Fragment
 import android.content.Context
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
@@ -10,34 +11,50 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.mikki.projectmanagement.R
-import com.example.mikki.projectmanagement.data.model.ProjectAdminTaskItem
+import com.example.mikki.projectmanagement.data.IDataManager
+import com.example.mikki.projectmanagement.data.model.TaskItem
+import com.example.mikki.projectmanagement.databinding.FragTaskListBinding
+import com.example.mikki.projectmanagement.viewmodel.TaskViewModel
 import kotlinx.android.synthetic.main.frag_task_list.view.*
 
-class TaskListFragment(): Fragment() {
+class TaskListFragment(): Fragment(), IDataManager.OnAdminTaskListListener {
 
-    var adminTaskList: ArrayList<ProjectAdminTaskItem>? = null
+    lateinit var viewmodel: TaskViewModel
 
     override fun onAttach(context: Context?) {
+        viewmodel = TaskViewModel(context!!)
+        viewmodel.createTaskList(this)
+
         super.onAttach(context)
 
-        var bundle = arguments
-        adminTaskList = bundle.getParcelableArrayList("tasklist")
-
-        Log.d("ninntag", "fragment attached")
+        Log.d("ninntag", "onattachfragment: " + viewmodel.taskList.toString())
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        var v = inflater.inflate(R.layout.frag_task_list, container, false)
+        val binding = DataBindingUtil.inflate<FragTaskListBinding>(
+                inflater, R.layout.frag_task_list, container, false)
 
-        var manager = LinearLayoutManager(context.applicationContext)
-        v.rv_taskList.layoutManager = manager
-        v.rv_taskList.itemAnimator = DefaultItemAnimator()
+        var v = binding.root
+        binding.viewModel = viewmodel
 
-        var adapter = TaskRecyclerAdapter(ADMIN_TASK_LIST = adminTaskList)
-        v.rv_taskList.adapter = adapter
+        Log.d("ninntag", "oncreateviewfragment: " + viewmodel.taskList.toString())
 
-        Log.d("ninntag", "fragment oncreateview")
+        v.bt_updateTaskList.setOnClickListener {
+            viewmodel.adapter.notifyDataSetChanged()
+            Log.d("ninntag", "buttonclicked: " + viewmodel.taskList.toString())
+        }
 
         return v
     }
+
+    override fun getAdminTaskList(taskList: ArrayList<TaskItem>?) {
+        var manager = LinearLayoutManager(context.applicationContext)
+
+        view.rv_taskList.layoutManager = manager
+        view.rv_taskList.itemAnimator = DefaultItemAnimator()
+        view.rv_taskList.adapter = viewmodel.adapter
+
+        Log.d("ninntag", "in getadmintasklist")
+    }
+
 }
