@@ -53,7 +53,7 @@ class ProjectDetails:Fragment() {
                     .addToBackStack(null).commit()
         }
 
-        view.img_team_forproject.setOnClickListener {
+        view.tv_add_teammates.setOnClickListener {
             var fragment = TeamForProjectFragment()
 
             val bundle = Bundle()

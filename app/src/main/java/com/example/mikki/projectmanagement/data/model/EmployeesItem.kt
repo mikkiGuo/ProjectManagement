@@ -11,13 +11,13 @@ data class EmployeesItem(
 	val empid: String? = null,
 
 	@field:SerializedName("empfirstname")
-	val empfirstname: String? = null,
+	var empfirstname: String? = null,
 
 	@field:SerializedName("dateofjoining")
 	val dateofjoining: String? = null,
 
 	@field:SerializedName("emplastname")
-	val emplastname: String? = null,
+	var emplastname: String? = null,
 
 	@field:SerializedName("empemail")
 	val empemail: String? = null,
