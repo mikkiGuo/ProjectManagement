@@ -1,9 +1,6 @@
 package com.example.mikki.projectmanagement.data
 
-import com.example.mikki.projectmanagement.data.model.MemberDetails
-import com.example.mikki.projectmanagement.data.model.TaskItem
 import com.example.mikki.projectmanagement.data.model.MembersItem
-import com.example.mikki.projectmanagement.data.model.ProjectAdminTaskItem
 import com.example.mikki.projectmanagement.data.model.ProjectSubTaskItem
 import com.example.mikki.projectmanagement.data.model.ViewsubtasksItem
 import com.example.mikki.projectmanagement.data.network.INetworkHelper

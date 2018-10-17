@@ -1,21 +1,16 @@
 package com.example.mikki.projectmanagement
 
-import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
-import android.util.Log
-import com.example.mikki.projectmanagement.data.DataManager
-import com.example.mikki.projectmanagement.data.IDataManager
 import com.example.mikki.projectmanagement.view.subtask.CreateSubTaskFragment
 import com.example.mikki.projectmanagement.view.subtask.SubTaskFragmentList
 import com.example.mikki.projectmanagement.view.task.CreateTaskFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import android.support.design.widget.Snackbar
-import android.view.MenuItem
-import android.util.Log
 import com.example.mikki.projectmanagement.view.project.CreateProjectFragment
 import com.example.mikki.projectmanagement.view.project.ProjectListFragment
+import com.example.mikki.projectmanagement.view.task.TaskListFragment
 import kotlinx.android.synthetic.main.floating_button.*
 
 class MainActivity : AppCompatActivity() {

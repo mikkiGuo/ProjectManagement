@@ -7,30 +7,11 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!--<FrameLayout-->
-        <!--android:id="@+id/fragmentLayout"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:elevation="10dp"-->
-        <!--android:layout_height="match_parent">-->
-
-    <!--</FrameLayout>-->
-
     <FrameLayout
         android:id="@+id/mainActivity"
         android:layout_width="match_parent"
-        android:layout_height="510dp"
-        android:elevation="1dp">
-
-    </FrameLayout>
-
-
-    <!--<include-->
-        <!--android:id="@+id/createTask"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--layout="@layout/snack_create_new_project"-->
-        <!--/>-->
-
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_navigation">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -79,8 +60,8 @@
                 style="?android:attr/buttonBarButtonStyle" />
 
         </LinearLayout>
-
-
+        
+    </FrameLayout>
 
     <include
         android:id="@+id/floating_button"
