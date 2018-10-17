@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.data.model.ProjectsItem
+import com.example.mikki.projectmanagement.view.task.TaskListFragment
 import com.example.mikki.projectmanagement.view.team.TeamForProjectFragment
 import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
 import kotlinx.android.synthetic.main.frag_project_details.view.*
@@ -63,6 +64,16 @@ class ProjectDetails:Fragment() {
             fragmentManager.beginTransaction()
                     .replace(R.id.mainActivity, fragment)
                     .addToBackStack(null).commit()
+        }
+
+        view.btn_view_tasks.setOnClickListener {
+            var fragment = TaskListFragment()
+
+            val bundle = Bundle()
+            bundle.putInt("projectId", projectItem.id!!.toInt())
+            fragment.arguments = bundle
+
+            fragmentManager.beginTransaction().add(R.id.mainActivity, fragment).addToBackStack(null).commit()
         }
 
         return view

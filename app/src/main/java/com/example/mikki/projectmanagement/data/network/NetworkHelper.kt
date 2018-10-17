@@ -58,9 +58,9 @@ class NetworkHelper:INetworkHelper {
                                     for(item in result.projects!!)
                                     {
                                         item as ProjectsItem
-                                        if(!item.projectstatus.equals("2") ){
+                                        //if(!item.projectstatus.equals("2") ){
                                             viewModel.updateList(item)
-                                        }
+                                        //}
                                     }
                                     Log.d("mikkiproject",result.projects.toString()
                                     )
@@ -118,13 +118,18 @@ class NetworkHelper:INetworkHelper {
                 )
     }
 
-    override fun getAdminTaskList(viewModel: TaskViewModel, listener: OnAdminTaskListListener) {
+    override fun getAdminTaskList(viewModel: TaskViewModel, listener: OnAdminTaskListListener, projectId: Int) {
+        var taskList = ArrayList<TaskItem>()
         disposable = apiServe.getAdminTaskList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe (
                         { result ->
-                            viewModel.showTaskList(listener, result.task)
+                            for (item in result.task!!) {
+                                if (item.projectid!!.toInt() == projectId)
+                                    taskList.add(item)
+                            }
+                            viewModel.showTaskList(listener, taskList)
                         },
                         { error -> viewModel.showTaskList(listener, null) }
                 )

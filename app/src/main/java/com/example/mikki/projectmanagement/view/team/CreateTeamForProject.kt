@@ -63,9 +63,9 @@ class CreateTeamForProject:Fragment() {
             var userId = view.et_team_userId.text.toString().toInt()
             Log.d(MIKKI_TEAM, "project_id: " + projectId + "user id: " + userId)
             viewModel.addTeammateToProject(projectId, userId, -1)
-            /*val fragment = TeamForProjectFragment()
+            val fragment = TeamForProjectFragment()
             fragmentManager.beginTransaction().replace(R.id.mainActivity,
-                    fragment).addToBackStack(null).commit()*/
+                    fragment).addToBackStack(null).commit()
         }
 
     }

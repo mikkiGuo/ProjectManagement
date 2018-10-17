@@ -125,6 +125,12 @@
             android:layout_marginTop="20dp"
             android:background="@color/spinner"/>
 
+        <Button
+            android:id="@+id/btn_view_tasks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View Tasks"
+            android:background="@color/spinner"/>
 
     </LinearLayout>
 </LinearLayout>

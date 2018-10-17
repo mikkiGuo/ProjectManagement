@@ -33,8 +33,8 @@ class DataManager:IDataManager {
         iNetworkHelper.createTask(viewModel, listener, taskItem)
     }
 
-    override fun getAdminTaskList(viewModel: TaskViewModel, listener: IDataManager.OnAdminTaskListListener) {
-        return iNetworkHelper.getAdminTaskList(viewModel, listener)
+    override fun getAdminTaskList(viewModel: TaskViewModel, listener: IDataManager.OnAdminTaskListListener, projectId: Int) {
+        return iNetworkHelper.getAdminTaskList(viewModel, listener, projectId)
     }
 
     override fun getUserTaskList(viewModel: TaskViewModel, id: String) {
