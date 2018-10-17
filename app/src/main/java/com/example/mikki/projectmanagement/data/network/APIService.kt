@@ -15,6 +15,16 @@ interface APIService {
 
     // BASE URL -> http://rjtmobile.com/aamir/pms/android-app/
 
+    // pms_reg.php?first_name=aamir&last_name=husain&email=aa@aa.com&mobile=9876543210&password=12345678&company_size=500&your_role=TL
+    @GET("pms_reg.php")
+    fun register(@Query("first_name") fname: String,
+                 @Query("last_name") lname: String,
+                 @Query("email") email: String,
+                 @Query("mobile") mobile: String,
+                 @Query("password") password: String,
+                 @Query("company_size") company_size: String,
+                 @Query("your_role") role: String): Observable<SuccessMsg>
+
     // pms_create_project.php?project_name=ecomm&project_status=1&project_desc=xyz&start_date=2018-04-03&end_date=2018-04-15
     @GET("pms_create_project.php")
     fun getCreateNewProjectStatus(@Query("project_name") projectName: String,

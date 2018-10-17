@@ -60,7 +60,7 @@
                 style="?android:attr/buttonBarButtonStyle" />
 
         </LinearLayout>
-        
+
     </FrameLayout>
 
     <include

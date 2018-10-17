@@ -30,8 +30,14 @@ class SubTaskFragmentList : Fragment() {
 
         val view:View = binding.root
 
+
         val adapter = SubTaskAdapter(context)
-        view.rvSubTask.layoutManager = LinearLayoutManager(context.applicationContext)
+
+        val mLayoutManager = LinearLayoutManager(context)
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+        
+        view.rvSubTask.layoutManager = mLayoutManager
         view.rvSubTask.adapter = adapter
 
         binding.subTaskViewModel = viewModelSubTask

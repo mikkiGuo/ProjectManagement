@@ -49,9 +49,11 @@ class TaskListFragment(): Fragment(), IDataManager.OnAdminTaskListListener {
     }
 
     override fun getAdminTaskList() {
-        var manager = LinearLayoutManager(context.applicationContext)
+        val mLayoutManager = LinearLayoutManager(context)
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
 
-        view.rv_taskList.layoutManager = manager
+        view.rv_taskList.layoutManager = mLayoutManager
         view.rv_taskList.itemAnimator = DefaultItemAnimator()
         view.rv_taskList.adapter = viewmodel.taskRecyclerAdapter
     }

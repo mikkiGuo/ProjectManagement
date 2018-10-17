@@ -26,6 +26,31 @@ class NetworkHelper:INetworkHelper {
         APIService.create()
     }
 
+    override fun register(listener: OnRegisterListener, register: Register) {
+        ninntag.warn { "in networkhelper, registering user..." }
+        disposable = apiServe.register(
+                register.fname,
+                register.lname,
+                register.email,
+                register.mobile,
+                register.pass,
+                register.compSize,
+                register.role)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { result ->
+                            if (result.msg!!.get(0).equals("successfully registered")) {
+                                ninntag.warn { "registered user " + register.toString() }
+                                listener.isRegistered(true)
+                            }
+                            else {
+                                ninntag.warn { result.toString() }
+                                listener.isRegistered(false)
+                            }
+                        }, { error -> ninntag.warn { error.message } })
+    }
+
     override fun updateProject(p: ProjectsItem,
                                viewModel: ProjectViewModel, index:Int) {
         Log.d("mikkiproject", "+++++++++++++++++++++++++++++++++++++++")
@@ -91,7 +116,7 @@ class NetworkHelper:INetworkHelper {
                                             viewModel.updateList(item)
                                         //}
                                     }
-                                    Log.d("mikkiproject",result.projects.toString()
+                                    Log.d("mikkiproject",(result.projects.size.toString())
                                     )
                                 },
                                 { error -> Log.d("mikkiproject", error.message) }

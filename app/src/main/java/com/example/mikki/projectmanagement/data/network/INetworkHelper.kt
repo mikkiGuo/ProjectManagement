@@ -12,6 +12,8 @@ import com.example.mikki.projectmanagement.viewmodel.TeamViewModel
 
 interface INetworkHelper {
 
+    fun register(listener: OnRegisterListener, register: Register)
+
     fun createNewSubTask(listener: IDataManager.OnAdminCreateSubTaskListener, subTask:ProjectSubTaskItem)
     fun editSubTask(listener: IDataManager.OnAdminEditSubTaskListener, subTask:ProjectSubTaskItem)
     fun editSubTaskStatus(listner: OnUserEditSubTaskStatusListener, subTask: ProjectSubTaskItem)

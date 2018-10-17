@@ -7,6 +7,10 @@ import com.example.mikki.projectmanagement.data.network.INetworkHelper
 
 interface IDataManager:INetworkHelper {
 
+    interface OnRegisterListener {
+        fun isRegistered(boolean: Boolean)
+    }
+
     interface OnAdminCreateSubTaskListener {
         fun createTask(message: String)
     }

@@ -13,6 +13,10 @@ class DataManager:IDataManager {
         val iNetworkHelper = NetworkHelper()
     }
 
+    override fun register(listener: IDataManager.OnRegisterListener, register: Register) {
+        iNetworkHelper.register(listener, register)
+    }
+
     /******************************************************************
      * Project Stuff Divider
      ******************************************************************/

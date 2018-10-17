@@ -26,6 +26,7 @@ class EmployeeListAdapter: RecyclerView.Adapter<EmployeeListAdapter.ViewHolder>(
 
     override fun changedPositions(positions: Int) {
         notifyItemChanged(positions)
+        notifyItemRemoved(positions)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
