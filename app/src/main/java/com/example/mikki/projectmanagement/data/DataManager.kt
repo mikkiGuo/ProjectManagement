@@ -6,6 +6,7 @@ import com.example.mikki.projectmanagement.data.model.ProjectsItem
 import com.example.mikki.projectmanagement.data.network.NetworkHelper
 import com.example.mikki.projectmanagement.viewmodel.ViewModelSubTask
 import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
+import com.example.mikki.projectmanagement.viewmodel.TeamViewModel
 
 class DataManager:IDataManager {
 
@@ -19,6 +20,17 @@ class DataManager:IDataManager {
     override fun assignSubTaskToUser(listner: IDataManager.OnAdminAssignSubTaskToUserListener,
                                      subTask: ProjectSubTaskItem) {
         iNetworkHelper.assignSubTaskToUser(listner, subTask)
+    companion object {
+        val iNetworkHelper = NetworkHelper()
+    }
+
+    override fun updateProject(p: ProjectsItem,
+                               viewModel: ProjectViewModel, index:Int) {
+        iNetworkHelper.updateProject(p, viewModel, index)
+    }
+
+    override fun storeNewSubTaskToServer(subTask: ProjectSubTaskItem) {
+        iNetworkHelper.storeNewSubTaskToServer(subTask)
     }
 
     override fun viewSubTaskDetailByUser(listner: IDataManager.OnUserAdminViewSubTaskDetailListener,
@@ -49,14 +61,17 @@ class DataManager:IDataManager {
         iNetworkHelper.getProjectList(viewModel)
     }
 
-    override fun storeNewProjectToServer(p: ProjectsItem) {
-        iNetworkHelper.storeNewProjectToServer(p)
+    override fun storeNewProjectToServer(p: ProjectsItem, viewModel: ProjectViewModel) {
+        iNetworkHelper.storeNewProjectToServer(p, viewModel)
     }
 
     override fun getSubTasksList(subTaskViewModel: ViewModelSubTask) {
         iNetworkHelper.getSubTasksList(subTaskViewModel)
     }
 
+    /******************************************************************
+     * Task Stuff Divider
+     ******************************************************************/
     override fun createTask(listener: IDataManager.OnAdminCreateTaskListener, adminTaskItem: ProjectAdminTaskItem) {
         iNetworkHelper.createTask(listener, adminTaskItem)
     }
@@ -69,7 +84,21 @@ class DataManager:IDataManager {
         iNetworkHelper.getUserTaskList(id)
     }
 
-    companion object {
-        val iNetworkHelper = NetworkHelper()
+    /******************************************************************
+     * Team Stuff Divider
+     ******************************************************************/
+    override fun createTeamForProject(projectId: Int,
+                                      team_member_userid: Int,
+                                      index: Int,
+                                      viewModel: TeamViewModel) {
+        iNetworkHelper.createTeamForProject(projectId, team_member_userid,
+                index, viewModel)
     }
+
+    override fun getEmployeeList(viewModel: TeamViewModel) {
+        iNetworkHelper.getEmployeeList(viewModel)
+    }
+
+
+
 }

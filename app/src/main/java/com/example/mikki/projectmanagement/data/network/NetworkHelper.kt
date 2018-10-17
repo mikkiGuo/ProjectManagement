@@ -8,11 +8,13 @@ import com.example.mikki.projectmanagement.data.model.ProjectSubTaskItem
 import com.example.mikki.projectmanagement.data.model.ProjectsItem
 import com.example.mikki.projectmanagement.viewmodel.ViewModelSubTask
 import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
+import com.example.mikki.projectmanagement.viewmodel.TeamViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 class NetworkHelper:INetworkHelper {
+    private val MIKKI_TEAM = "MikkiTeam"
 
     var disposable: Disposable? = null
     val apiServe by lazy {
@@ -21,6 +23,11 @@ class NetworkHelper:INetworkHelper {
 
     override fun storeNewProjectToServer(p:ProjectsItem) {
         Log.d("Store Project", "+++++++++++++++++++++++++++++++++++++++")
+    override fun storeNewProjectToServer(p:ProjectsItem, viewModel: ProjectViewModel) {
+        Log.d("mikkiproject", "+++++++++++++++++++++++++++++++++++++++")
+        Log.d("mikkiproject", p.projectname)
+        Log.d("mikkiproject", p.projectstatus)
+        Log.d("mikkiproject", p.projectdesc)
         disposable =
                 apiServe.getCreateNewProjectStatus(
                         p.projectname!!,
@@ -34,30 +41,45 @@ class NetworkHelper:INetworkHelper {
                                 { result -> Log.d("MyTag", result.toString())
                                 },
                                 { error -> Log.d("MyTag", error.message) }
+                                { result ->
+                                    Log.d("mikkiproject", result.toString())
+                                    p.id = result.id.toString()
+                                    viewModel.updateList(p)
+                                     },
+                                { error -> Log.d("mikkiproject", error.message) }
                         )
     }
 
 
+
     override fun getProjectList(viewModel: ProjectViewModel) {
-        Log.d("MyTag", "+++++++++++++++++++++++++++++++++++++++")
+        Log.d("mikkiproject", "+++++++++++++++++++++++++++++++++++++++")
         disposable =
                 apiServe.getProjectList()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 { result ->
-                                    for(item in result.projects!!){
-                                        viewModel.updateList(item!!)
+                                    for(item in result.projects!!)
+                                    {
+                                        item as ProjectsItem
+                                        if(!item.projectstatus.equals("2") ){
+                                            viewModel.updateList(item)
+                                        }
                                     }
-                                    Log.d("MyTag",result.projects.toString()
+                                    Log.d("mikkiproject",result.projects.toString()
                                     )
                                 },
-                                { error -> Log.d("MyTag", error.message) }
+                                { error -> Log.d("mikkiproject", error.message) }
                         )
     }
 
     override fun createNewSubTask(listener: IDataManager.OnAdminCreateSubTaskListener, subTask: ProjectSubTaskItem) {
         Log.d("Create SubTask", "+++++++++++++++++++++++++++++++++++++++")
+
+    override fun updateProject(p: ProjectsItem,
+                               viewModel: ProjectViewModel, index:Int) {
+        Log.d("mikkiproject", "+++++++++++++++++++++++++++++++++++++++")
         disposable =
                 apiServe.createNewSubTask(
                         subTask.projectid!!,
@@ -67,6 +89,14 @@ class NetworkHelper:INetworkHelper {
                         subTask.subtaskdesc!!,
                         subTask.startdate!!,
                         subTask.endstart!!)
+                apiServe.updateProject(
+                        p.id!!,
+                        p.projectname!!,
+                        p.projectstatus!!,
+                        p.projectdesc!!,
+                        p.startdate!!,
+                        p.endstart!!
+                )
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
@@ -171,10 +201,16 @@ class NetworkHelper:INetworkHelper {
                                 { error -> Log.d("StFragList Fail: ", error.message)
                                     listner.assignSubTask(error.localizedMessage)
                                 }
+                                { result ->viewModel.updateItem(index, p)
+                                    Log.d("mikkiproject","Message"
+                                            + result.toString()
+                                    )
+                                },
+                                { error -> Log.d("mikkiproject", error.message) }
                         )
     }
 
-    //adapter 
+    //adapter
     override fun viewSubTaskDetailByUser(listner: IDataManager.OnUserAdminViewSubTaskDetailListener,
                                          subTask: ProjectSubTaskItem) {
 
@@ -250,7 +286,7 @@ class NetworkHelper:INetworkHelper {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         { result -> Log.d("ninntag", result.toString())
-                                    listener.createTask()},
+                            listener.createTask()},
                         { error -> Log.d("ninntag", error.message) }
                 )
     }
@@ -263,11 +299,11 @@ class NetworkHelper:INetworkHelper {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe (
                         { result -> Log.d("ninntag", result.toString())
-                                    adminTaskList = result.projectAdminTask
-                                    Log.d("ninntag", adminTaskList.toString())
-                                    listener.getAdminTaskList(adminTaskList)},
+                            adminTaskList = result.projectAdminTask
+                            Log.d("ninntag", adminTaskList.toString())
+                            listener.getAdminTaskList(adminTaskList)},
                         { error -> Log.d("ninntag", error.message)
-                                    listener.getAdminTaskList(null)}
+                            listener.getAdminTaskList(null)}
                 )
     }
 
@@ -280,5 +316,75 @@ class NetworkHelper:INetworkHelper {
                         { error -> Log.d("ninntag", error.message) }
                 )
     }
+
+    override fun storeNewSubTaskToServer(subTask: ProjectSubTaskItem) {
+        Log.d("MyTag", "+++++++++++++++++++++++++++++++++++++++")
+        disposable =
+                apiServe.getCreateNewSubTaskStatus(
+                        subTask.projectid!!,
+                        subTask.taskid!!,
+                        subTask.subtaskname!!,
+                        subTask.subtaskstatus!!,
+                        subTask.subtaskdesc!!,
+                        subTask.startdate!!,
+                        subTask.endstart!!)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                { result -> Log.d("MyTag", result.toString()) },
+                                { error -> Log.d("MyTag", error.message) }
+                        )
+    }
+
+    /*
+    //should add this to activity class
+    override fun onPause() {
+        super.onPause()
+        disposable?.dispose()
+    }*/
+
+
+    /**************************************************************************
+     * Team Stuff Divider
+     **************************************************************************/
+
+    override fun createTeamForProject(projectId: Int,
+                                      team_member_userid: Int,
+                                      index: Int,
+                                      viewModel: TeamViewModel) {
+        disposable =
+                apiServe.createTeamForProject(
+                        projectId!!,
+                        team_member_userid!!)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                { result ->
+                                    Log.d(MIKKI_TEAM, result.toString())
+                                    viewModel.removeAddedEmployeeFromView(index)
+
+                                },
+                                { error -> Log.d(MIKKI_TEAM, error.message) }
+                        )
+    }
+
+    override fun getEmployeeList(viewModel: TeamViewModel) {
+        disposable = apiServe.getEmployeeList().
+                subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(
+                        {
+                            result ->
+                            Log.d(MIKKI_TEAM, result.employees.toString())
+                            for(item in result.employees!!){
+                                viewModel.updateList(item!!)
+                            }
+                        },
+                        {
+                            error -> Log.d(MIKKI_TEAM, error.message)
+                        }
+                )
+    }
+
 
 }

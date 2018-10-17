@@ -7,6 +7,7 @@ import com.example.mikki.projectmanagement.data.model.ProjectSubTaskItem
 import com.example.mikki.projectmanagement.data.model.ProjectsItem
 import com.example.mikki.projectmanagement.viewmodel.ViewModelSubTask
 import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
+import com.example.mikki.projectmanagement.viewmodel.TeamViewModel
 
 interface INetworkHelper {
 
@@ -30,9 +31,24 @@ interface INetworkHelper {
                                 subTask: ProjectSubTaskItem)
 
     fun getSubTasksList(subTaskViewModel: ViewModelSubTask)
+    fun storeNewProjectToServer(p: ProjectsItem, viewModel: ProjectViewModel)
     fun getProjectList(viewModel: ProjectViewModel)
+    fun updateProject(p:ProjectsItem, viewModel: ProjectViewModel, index:Int)
+
     fun createTask(listener: OnAdminCreateTaskListener, adminTaskItem: ProjectAdminTaskItem)
     fun getAdminTaskList(listener: OnAdminTaskListListener)
     fun getUserTaskList(id: String)
     //fun storeNewSubTaskToServer(subTask:ProjectSubTaskItem)
+    fun storeNewSubTaskToServer(subTask:ProjectSubTaskItem)
+
+    /******************************************************************
+     * Team Stuff
+     ******************************************************************/
+    fun createTeamForProject(projectId: Int,
+                             team_member_userid: Int,
+                             index:Int,
+                             viewModel: TeamViewModel)
+
+    fun getEmployeeList(viewModel: TeamViewModel)
+
 }

@@ -15,12 +15,23 @@
     <string name="tv_owners_cnp">OWNERS</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
-    <string name="set_date">Set date</string>
+    <string name="start_date">Start date</string>
+    <string name="end_date">End date</string>
     <string name="add_to_project_or_folder">Add to project or folder</string>
     <string name="owner_name">Owner Name</string>
     <string name="todo">indicated access mode is private</string>
     <string name="todo_id_img">replace with owner id</string>
     <string name="create">Create</string>
+    <string name="owners">Owners</string>
+
+    <!--Spinner for status-->
+    <string-array name="spinner_status">
+        <item>New</item>
+        <item>In Progress</item>
+        <item>Completed</item>
+        <item>On Hold</item>
+        <item>Cancelled</item>
+    </string-array>
 
     <!-- Login Fingerprint  -->
     <string name="authenticate_instructions">Click the button below to authenticate your fingerprint.</string>

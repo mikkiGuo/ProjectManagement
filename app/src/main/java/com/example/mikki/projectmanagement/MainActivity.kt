@@ -62,4 +62,16 @@ class MainActivity : AppCompatActivity() {
                     .commit()
         }
     }
+
+    override fun getAdminTaskList(adminTaskList: ArrayList<ProjectAdminTaskItem>?) {
+        this.adminTaskList = adminTaskList
+        if (this.adminTaskList != null) {
+            Log.d("ninntag", "fragment getadmintasklist: " + adminTaskList!!.size)
+        }
+        else
+            Log.d("ninntag", "fragment getadmintasklist: null")
+    }
+
+
+
 }
