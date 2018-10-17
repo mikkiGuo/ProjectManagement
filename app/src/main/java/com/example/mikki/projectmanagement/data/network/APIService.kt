@@ -42,13 +42,13 @@ interface APIService {
                       @Query("task_status") status: String?,
                       @Query("task_desc") desc: String?,
                       @Query("start_date") start: String?,
-                      @Query("end_date") end: String?): Observable<SuccessMsg>
+                      @Query("end_date") end: String?): Observable<TaskCreate>
 
     /* http://rjtmobile.com/aamir/pms/android-app/
      * pms_project_task_list.php?
      */
     @GET("pms_project_task_list.php?")
-    fun getAdminTaskList(): Observable<ProjectAdminTask>
+    fun getAdminTaskList(): Observable<TaskList>
 
     /* http://rjtmobile.com/aamir/pms/android-app/
      * pms_view_task.php?
@@ -56,6 +56,39 @@ interface APIService {
      */
     @GET("pms_view_task.php")
     fun getUserTaskList(@Query("user_id") id: String): Observable<ProjectUserTask>
+
+    /* http://rjtmobile.com/aamir/pms/android-app/
+     * pms_edit_task_update.php?
+     * taskid=1&
+     * project_id=27&
+     * userid=14&
+     * task_status=2&
+     * task_name=demo&
+     * task_desc=testing from postman&
+     * start_date=2019-01-01&
+     * end_date=2019-01-10
+     */
+    @GET("pms_edit_task_update.php")
+    fun updateTaskDetails(@Query("taskid") taskID: String,
+                 @Query("project_id") projectID: String,
+                 @Query("userid") userID: String,
+                 @Query("task_status") status: String,
+                 @Query("task_name") name: String,
+                 @Query("task_desc") desc: String,
+                 @Query("start_date") start: String,
+                 @Query("end_date") end: String): Observable<SuccessMsg>
+
+    /* http://rjtmobile.com/aamir/pms/android-app/
+     * pms_team_task.php?
+     * taskid=1&
+     * userid=14&
+     * projectid=27
+     */
+    @GET("pms_team_task.php")
+    fun getTeamListByTask(@Query("taskid") taskID: String,
+                          @Query("userid") userID: String,
+                          @Query("projectid") projectID: String): Observable<TaskMemberList>
+
     //http://rjtmobile.com/aamir/pms/android-app/
     // pms_create_sub_task.php?
     // project_id=27&
@@ -65,7 +98,6 @@ interface APIService {
     // sub_task_desc=xyz&
     // start_date=2018-04-03&
     // end_date=2018-04-15
-
     @GET("pms_create_sub_task.php")
     fun getCreateNewSubTaskStatus(@Query("project_id") pId:String,
                                   @Query("task_id") taskId:String,
@@ -75,7 +107,6 @@ interface APIService {
                                   @Query("start_date") subTaskSdate:String,
                                   @Query("end_date") subTaskEdate:String):
             Observable<SuccessMsg>
-
 
     companion object {
 

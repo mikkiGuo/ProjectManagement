@@ -4,13 +4,13 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
-class ProjectAdminTask() : Parcelable {
+data class TaskList(
 
 	@field:SerializedName("project task")
-	var projectAdminTask: ArrayList<ProjectAdminTaskItem>? = null
+	var task: ArrayList<TaskItem>? = null
 
+): Parcelable {
 	constructor(parcel: Parcel) : this() {
-
 	}
 
 	override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -22,16 +22,19 @@ class ProjectAdminTask() : Parcelable {
 	}
 
 	override fun toString(): String {
-		return "ProjectAdminTask(projectAdminTask=$projectAdminTask)"
+		return "TaskList(task=$task)"
 	}
 
-	companion object CREATOR : Parcelable.Creator<ProjectAdminTask> {
-		override fun createFromParcel(parcel: Parcel): ProjectAdminTask {
-			return ProjectAdminTask(parcel)
+	companion object CREATOR : Parcelable.Creator<TaskList> {
+		override fun createFromParcel(parcel: Parcel): TaskList {
+			return TaskList(parcel)
 		}
 
-		override fun newArray(size: Int): Array<ProjectAdminTask?> {
+		override fun newArray(size: Int): Array<TaskList?> {
 			return arrayOfNulls(size)
 		}
 	}
+
+
+
 }

@@ -1,17 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="20dp"
-    android:orientation="vertical"
-    android:background="@color/icons">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_taskList"
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.mikki.projectmanagement.viewmodel.TaskViewModel"/>
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="vertical">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        android:background="@color/icons">
 
-</LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_taskList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bt_updateTaskList"
+            android:scrollbars="vertical"
+            android:adapter="@{viewModel.adapter}"/>
+
+        <Button
+            android:id="@+id/bt_updateTaskList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="Update"/>
+
+    </RelativeLayout>
+</layout>

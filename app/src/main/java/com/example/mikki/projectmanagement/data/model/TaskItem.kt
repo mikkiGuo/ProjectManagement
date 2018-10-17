@@ -4,37 +4,41 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
-class ProjectAdminTaskItem() : Parcelable {
+data class TaskItem(
 
 	@field:SerializedName("taskstatus")
-	var taskstatus: String? = null
+	var taskstatus: String? = null,
 
 	@field:SerializedName("taskdesc")
-	var taskdesc: String? = null
+	var taskdesc: String? = null,
 
 	@field:SerializedName("endstart")
-	var endstart: String? = null
+	var endstart: String? = null,
 
 	@field:SerializedName("taskname")
-	var taskname: String? = null
+	var taskname: String? = null,
 
 	@field:SerializedName("startdate")
-	var startdate: String? = null
+	var startdate: String? = null,
 
 	@field:SerializedName("projectid")
-	var projectid: String? = null
+	var projectid: String? = null,
 
 	@field:SerializedName("taskid")
-	var taskid: String? = null
+	var taskid: String? = null,
 
-	constructor(parcel: Parcel) : this() {
-		taskstatus = parcel.readString()
-		taskdesc = parcel.readString()
-		endstart = parcel.readString()
-		taskname = parcel.readString()
-		startdate = parcel.readString()
-		projectid = parcel.readString()
-		taskid = parcel.readString()
+	@field:SerializedName("userid")
+	var userid: String? = null
+
+): Parcelable {
+	constructor(parcel: Parcel) : this(
+			parcel.readString(),
+			parcel.readString(),
+			parcel.readString(),
+			parcel.readString(),
+			parcel.readString(),
+			parcel.readString(),
+			parcel.readString()) {
 	}
 
 	override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -52,24 +56,27 @@ class ProjectAdminTaskItem() : Parcelable {
 	}
 
 	override fun toString(): String {
-		return "ProjectAdminTaskItem(" +
+		return "TaskItem(" +
 				"taskstatus=$taskstatus," +
 				" taskdesc=$taskdesc," +
 				" endstart=$endstart," +
 				" taskname=$taskname," +
 				" startdate=$startdate," +
 				" projectid=$projectid," +
-				" taskid=$taskid)"
+				" taskid=$taskid," +
+				" userid=$userid)"
 	}
 
 
-	companion object CREATOR : Parcelable.Creator<ProjectAdminTaskItem> {
-		override fun createFromParcel(parcel: Parcel): ProjectAdminTaskItem {
-			return ProjectAdminTaskItem(parcel)
+	companion object CREATOR : Parcelable.Creator<TaskItem> {
+		override fun createFromParcel(parcel: Parcel): TaskItem {
+			return TaskItem(parcel)
 		}
 
-		override fun newArray(size: Int): Array<ProjectAdminTaskItem?> {
+		override fun newArray(size: Int): Array<TaskItem?> {
 			return arrayOfNulls(size)
 		}
 	}
+
+
 }
