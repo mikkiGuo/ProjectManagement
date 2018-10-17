@@ -22,10 +22,14 @@ class TaskListFragment(): Fragment(), IDataManager.OnAdminTaskListListener {
     private val ninntag = AnkoLogger("ninntag")
 
     lateinit var viewmodel: TaskViewModel
+    var projectID: Int? = null
 
     override fun onAttach(context: Context?) {
+        var bundle = arguments
+        projectID = bundle.getInt("projectId")
+
         viewmodel = TaskViewModel(context!!)
-        viewmodel.getTaskListFromServer(this)
+        viewmodel.getTaskListFromServer(this, projectID!!)
 
         super.onAttach(context)
     }
@@ -45,9 +49,11 @@ class TaskListFragment(): Fragment(), IDataManager.OnAdminTaskListListener {
     }
 
     override fun getAdminTaskList() {
-        var manager = LinearLayoutManager(context.applicationContext)
+        val mLayoutManager = LinearLayoutManager(context)
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
 
-        view.rv_taskList.layoutManager = manager
+        view.rv_taskList.layoutManager = mLayoutManager
         view.rv_taskList.itemAnimator = DefaultItemAnimator()
         view.rv_taskList.adapter = viewmodel.taskRecyclerAdapter
     }

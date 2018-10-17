@@ -12,7 +12,7 @@
         <item name="actionBarDivider">@color/divider</item>
     </style>
 
-    <style name="addBottomLine"   parent="android:Widget.Holo.Light.TextView">
+    <style name="addBottomLine" parent="android:Widget.Holo.Light.TextView">
         <item name="android:drawableBottom">@drawable/add_bottom_line</item>
         <item name="android:drawablePadding">4dp</item>
         <item name="android:layout_marginTop">8dp</item>
@@ -20,5 +20,9 @@
         <item name="android:textAllCaps">true</item>
         <item name="android:textSize">14sp</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

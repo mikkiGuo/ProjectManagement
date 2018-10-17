@@ -45,6 +45,20 @@
                 android:text="Project List"
                 style="?android:attr/buttonBarButtonStyle" />
 
+            <Button
+                android:id="@+id/bt_createSubTask"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create SubTask"
+                style="?android:attr/buttonBarButtonStyle" />
+
+            <Button
+                android:id="@+id/bt_subTaskList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SubTask List"
+                style="?android:attr/buttonBarButtonStyle" />
+
         </LinearLayout>
 
     </FrameLayout>

@@ -46,8 +46,8 @@ class TaskViewModel(val context: Context): BaseObservable(), OnAddMemberDetailsL
         listener.createTask(s)
     }
 
-    fun getTaskListFromServer(listener: OnAdminTaskListListener) {
-        iDataManager.getAdminTaskList(this, listener)
+    fun getTaskListFromServer(listener: OnAdminTaskListListener, projectId: Int) {
+        iDataManager.getAdminTaskList(this, listener, projectId)
     }
 
     fun showTaskList(listener: OnAdminTaskListListener, taskList: ArrayList<TaskItem>?) {
