@@ -15,15 +15,26 @@ interface APIService {
     // pms_create_project.php?project_name=ecomm&project_status=1&project_desc=xyz&start_date=2018-04-03&end_date=2018-04-15
     @GET("pms_create_project.php")
     fun getCreateNewProjectStatus(@Query("project_name") projectName: String,
-                            @Query("project_name") project_status: String,
-                            @Query("project_name") project_desc: String,
-                            @Query("project_name") start_date: String,
-                            @Query("project_name") end_date: String):
-            Observable<SuccessMsg>
+                            @Query("project_status") project_status: String,
+                            @Query("project_desc") project_desc: String,
+                            @Query("start_date") start_date: String,
+                            @Query("end_date") end_date: String):
+            Observable<CreateProjectSuccessMsg>
 
     // pms_projects.php?
     @GET("pms_projects.php")
     fun getProjectList():Observable<ProjectList>
+
+    /// pms_create_task.php?project_id=30&task_name=blah&task_status=1&task_desc=xyz&start_date=2018-04-03&end_date=2018-04-15
+    @GET("pms_edit_project.php")
+    fun updateProject(@Query("project_id") project_id:String,
+                      @Query("project_name") project_name:String,
+                      @Query("project_status") project_status:String,
+                      @Query("project_desc") project_desc:String,
+                      @Query("start_date") start_date:String,
+                      @Query("end_end") end_end:String):
+            Observable<SuccessMsg>
+
 
     /// pms_create_task.php?project_id=30&task_name=blah&task_status=1&task_desc=xyz&start_date=2018-04-03&end_date=2018-04-15
     @GET("pms_create_task.php")
@@ -75,6 +86,23 @@ interface APIService {
                                   @Query("start_date") subTaskSdate:String,
                                   @Query("end_date") subTaskEdate:String):
             Observable<SuccessMsg>
+
+    /*http://rjtmobile.com/aamir/pms/android-app/
+     * pms_create_project_team.php?
+     * project_id=27&
+     * team_member_userid=14
+     */
+    @GET("pms_create_project_team.php")
+    fun createTeamForProject(@Query("project_id") project_id:Int,
+                             @Query("team_member_userid") team_member_userid:Int):
+            Observable<SuccessMsg>
+
+    /*http://rjtmobile.com/aamir/pms/android-app/
+     * pms_employee_list.php?
+     */
+    @GET("pms_employee_list.php")
+    fun getEmployeeList():Observable<EmployeeList>
+
 
     companion object {
 

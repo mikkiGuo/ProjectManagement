@@ -5,6 +5,7 @@ import com.example.mikki.projectmanagement.data.IDataManager.*
 import com.example.mikki.projectmanagement.data.model.*
 import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
 import com.example.mikki.projectmanagement.viewmodel.TaskViewModel
+import com.example.mikki.projectmanagement.viewmodel.TeamViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -12,6 +13,7 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.warn
 
 class NetworkHelper:INetworkHelper {
+    private val MIKKI_TEAM = "MikkiTeam"
 
     private val ninntag = AnkoLogger("ninntag")
 
@@ -20,8 +22,11 @@ class NetworkHelper:INetworkHelper {
         APIService.create()
     }
 
-    override fun storeNewProjectToServer(p:ProjectsItem) {
-        Log.d("MyTag", "+++++++++++++++++++++++++++++++++++++++")
+    override fun storeNewProjectToServer(p:ProjectsItem, viewModel: ProjectViewModel) {
+        Log.d("mikkiproject", "+++++++++++++++++++++++++++++++++++++++")
+        Log.d("mikkiproject", p.projectname)
+        Log.d("mikkiproject", p.projectstatus)
+        Log.d("mikkiproject", p.projectdesc)
         disposable =
                 apiServe.getCreateNewProjectStatus(
                         p.projectname!!,
@@ -32,45 +37,60 @@ class NetworkHelper:INetworkHelper {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                { result -> Log.d("MyTag", result.toString()) },
-                                { error -> Log.d("MyTag", error.message) }
+                                { result ->
+                                    Log.d("mikkiproject", result.toString())
+                                    p.id = result.id.toString()
+                                    viewModel.updateList(p)
+                                     },
+                                { error -> Log.d("mikkiproject", error.message) }
                         )
     }
 
+
     override fun getProjectList(viewModel: ProjectViewModel) {
-        Log.d("MyTag", "+++++++++++++++++++++++++++++++++++++++")
+        Log.d("mikkiproject", "+++++++++++++++++++++++++++++++++++++++")
         disposable =
                 apiServe.getProjectList()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 { result ->
-                                    for(item in result.projects!!){
-                                        viewModel.updateList(item!!)
+                                    for(item in result.projects!!)
+                                    {
+                                        item as ProjectsItem
+                                        if(!item.projectstatus.equals("2") ){
+                                            viewModel.updateList(item)
+                                        }
                                     }
-                                    Log.d("MyTag",result.projects.toString()
+                                    Log.d("mikkiproject",result.projects.toString()
                                     )
                                 },
-                                { error -> Log.d("MyTag", error.message) }
+                                { error -> Log.d("mikkiproject", error.message) }
                         )
     }
 
-    override fun storeNewSubTaskToServer(subTask: ProjectSubTaskItem) {
-        Log.d("MyTag", "+++++++++++++++++++++++++++++++++++++++")
+
+    override fun updateProject(p: ProjectsItem,
+                               viewModel: ProjectViewModel, index:Int) {
+        Log.d("mikkiproject", "+++++++++++++++++++++++++++++++++++++++")
         disposable =
-                apiServe.getCreateNewSubTaskStatus(
-                        subTask.projectid!!,
-                        subTask.taskid!!,
-                        subTask.subtaskname!!,
-                        subTask.subtaskstatus!!,
-                        subTask.subtaskdesc!!,
-                        subTask.startdate!!,
-                        subTask.endstart!!)
+                apiServe.updateProject(
+                        p.id!!,
+                        p.projectname!!,
+                        p.projectstatus!!,
+                        p.projectdesc!!,
+                        p.startdate!!,
+                        p.endstart!!
+                )
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                { result -> Log.d("MyTag", result.toString()) },
-                                { error -> Log.d("MyTag", error.message) }
+                                { result ->viewModel.updateItem(index, p)
+                                    Log.d("mikkiproject","Message"
+                                            + result.toString()
+                                    )
+                                },
+                                { error -> Log.d("mikkiproject", error.message) }
                         )
     }
 
@@ -182,4 +202,74 @@ class NetworkHelper:INetworkHelper {
                     )
         }
     }
+    override fun storeNewSubTaskToServer(subTask: ProjectSubTaskItem) {
+        Log.d("MyTag", "+++++++++++++++++++++++++++++++++++++++")
+        disposable =
+                apiServe.getCreateNewSubTaskStatus(
+                        subTask.projectid!!,
+                        subTask.taskid!!,
+                        subTask.subtaskname!!,
+                        subTask.subtaskstatus!!,
+                        subTask.subtaskdesc!!,
+                        subTask.startdate!!,
+                        subTask.endstart!!)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                { result -> Log.d("MyTag", result.toString()) },
+                                { error -> Log.d("MyTag", error.message) }
+                        )
+    }
+
+    /*
+    //should add this to activity class
+    override fun onPause() {
+        super.onPause()
+        disposable?.dispose()
+    }*/
+
+
+    /**************************************************************************
+     * Team Stuff Divider
+     **************************************************************************/
+
+    override fun createTeamForProject(projectId: Int,
+                                      team_member_userid: Int,
+                                      index: Int,
+                                      viewModel: TeamViewModel) {
+        disposable =
+                apiServe.createTeamForProject(
+                        projectId!!,
+                        team_member_userid!!)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                { result ->
+                                    Log.d(MIKKI_TEAM, result.toString())
+                                    viewModel.removeAddedEmployeeFromView(index)
+
+                                },
+                                { error -> Log.d(MIKKI_TEAM, error.message) }
+                        )
+    }
+
+    override fun getEmployeeList(viewModel: TeamViewModel) {
+        disposable = apiServe.getEmployeeList().
+                subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(
+                        {
+                            result ->
+                            Log.d(MIKKI_TEAM, result.employees.toString())
+                            for(item in result.employees!!){
+                                viewModel.updateList(item!!)
+                            }
+                        },
+                        {
+                            error -> Log.d(MIKKI_TEAM, error.message)
+                        }
+                )
+    }
+
+
 }
