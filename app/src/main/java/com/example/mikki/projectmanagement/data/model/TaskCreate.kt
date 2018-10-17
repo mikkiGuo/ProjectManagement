@@ -5,11 +5,18 @@ import com.google.gson.annotations.SerializedName
 data class TaskCreate(
 
 	@field:SerializedName("msg")
-	val msg: List<String?>? = null,
+	var msg: List<String?>? = null,
 
 	@field:SerializedName("project_id")
-	val projectId: String? = null,
+	var projectId: String? = null,
 
 	@field:SerializedName("task_id")
-	val taskId: Int? = null
-)
+	var taskId: Int? = null
+) {
+	override fun toString(): String {
+		return "TaskCreate(" +
+				"msg=$msg," +
+				" projectId=$projectId," +
+				" taskId=$taskId)"
+	}
+}
