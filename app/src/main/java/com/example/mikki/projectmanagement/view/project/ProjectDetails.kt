@@ -133,7 +133,7 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
                     DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 val selectedDate = GregorianCalendar(year, monthOfYear, dayOfMonth).time
                 it.tv_startdate_cnp.setText(sdf.format(selectedDate))
-            }, 2000, 0, 1)
+            }, 2018, 0, 1)
             dpd.show()
         }
 
@@ -143,7 +143,7 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
                 val selectedDate = GregorianCalendar(year, monthOfYear, dayOfMonth).time
                 it.tv_enddate_cnp.setText(sdf.format(selectedDate))
 
-            }, 2000, 0, 1)
+            }, 2018, 0, 1)
             dpd.show()
         }
     }
