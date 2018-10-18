@@ -37,8 +37,13 @@ class NetworkHelper : INetworkHelper {
         ).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
-                    Log.d(MIKKI_LOGIN, result.msg)
-                    listener.getUserInfo(result)
+                    Log.d(MIKKI_LOGIN, result.msg!![0].toString())
+                    if(result.msg!![0].toString() == "success"){
+                        listener.getUserInfo(result)
+                    }else{
+                        listener.errorMsg(result.msg!![0].toString())
+                    }
+
                 }, { error ->
                     Log.d(MIKKI_LOGIN, error.message)
                 })
