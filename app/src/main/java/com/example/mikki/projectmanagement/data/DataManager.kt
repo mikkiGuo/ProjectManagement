@@ -116,8 +116,8 @@ class DataManager:IDataManager {
         iNetworkHelper.editSubTaskStatus(listner, subTask)
     }
 
-    override fun getSubTasksList(subTaskViewModel: ViewModelSubTask) {
-        iNetworkHelper.getSubTasksList(subTaskViewModel)
+    override fun getSubTasksList(subTaskViewModel: ViewModelSubTask, taskId: String) {
+        iNetworkHelper.getSubTasksList(subTaskViewModel, taskId)
     }
 
     override fun getTeamMemberBySubTask(viewModelSubTask: ViewModelSubTask, listener: IDataManager.OnTaskMemberListener, subTaskItem: ProjectSubTaskItem) {

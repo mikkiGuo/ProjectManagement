@@ -44,19 +44,19 @@ interface INetworkHelper {
      * SubTask Stuff
      ******************************************************************/
 
-    fun createNewSubTask(listener: IDataManager.OnAdminCreateSubTaskListener, subTask:ProjectSubTaskItem)
-    fun editSubTask(listener: IDataManager.OnAdminEditSubTaskListener, subTask:ProjectSubTaskItem)
-    fun editSubTaskStatus(listner: OnUserEditSubTaskStatusListener, subTask: ProjectSubTaskItem)
-    fun assignSubTaskToUser(listner: OnAdminAssignSubTaskToUserListener, subTask: ProjectSubTaskItem, userId: Int, position: Int)
-    fun viewTeamMemberBySubTask(listener: OnAdminViewTeamMemeberBySubTask, subTask: ProjectSubTaskItem)
-    fun viewSubTaskDetailByUser(listner: OnUserAdminViewSubTaskDetailListener, subTask: ProjectSubTaskItem)
-    fun getSubTasksList(subTaskViewModel: ViewModelSubTask)
-    fun viewSubTaskListByUser(subTaskViewModel: ViewModelSubTask, userId: String, taskId: String)
     fun getTeamMemberBySubTask(viewModelSubTask: ViewModelSubTask, listener: OnTaskMemberListener, subTaskItem: ProjectSubTaskItem)
     fun getMemberDetailsSubTask(viewModelSubTask: ViewModelSubTask, addlistener: OnAddMemberDetailsListener,
                                 memberListListener: OnTaskMemberListener,
                                 memberList: ArrayList<TaskMemberItem>?)
-    fun storeNewSubTaskToServer(subTask:ProjectSubTaskItem)
+    fun storeNewSubTaskToServer(subTask: ProjectSubTaskItem)
+    fun createNewSubTask(listener: IDataManager.OnAdminCreateSubTaskListener, subTask: ProjectSubTaskItem)
+    fun editSubTask(listener: IDataManager.OnAdminEditSubTaskListener, subTask: ProjectSubTaskItem)
+    fun editSubTaskStatus(listner: OnUserEditSubTaskStatusListener, subTask: ProjectSubTaskItem)
+    fun assignSubTaskToUser(listner: OnAdminAssignSubTaskToUserListener, subTask: ProjectSubTaskItem, userId: Int, position: Int)
+    fun viewTeamMemberBySubTask(listener: OnAdminViewTeamMemeberBySubTask, subTask: ProjectSubTaskItem)
+    fun viewSubTaskDetailByUser(listner: OnUserAdminViewSubTaskDetailListener, subTask: ProjectSubTaskItem)
+    fun getSubTasksList(subTaskViewModel: ViewModelSubTask, taskId: String)
+    fun viewSubTaskListByUser(subTaskViewModel: ViewModelSubTask, userId: String, taskId: String)
 
 
     /******************************************************************

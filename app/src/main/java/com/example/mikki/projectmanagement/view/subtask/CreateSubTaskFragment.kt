@@ -1,5 +1,6 @@
 package com.example.mikki.projectmanagement.view.subtask
 
+import android.app.Activity
 import android.app.Fragment
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +10,9 @@ import android.widget.Toast
 import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.data.DataManager
 import com.example.mikki.projectmanagement.data.IDataManager
+import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectList
 import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectSubTaskItem
+import com.example.mikki.projectmanagement.view.project.ProjectListFragment
 import kotlinx.android.synthetic.main.fragment_create_sub_task.view.*
 
 class CreateSubTaskFragment: Fragment(), IDataManager.OnAdminCreateSubTaskListener {
@@ -40,6 +43,11 @@ class CreateSubTaskFragment: Fragment(), IDataManager.OnAdminCreateSubTaskListen
             subTask.endstart = v.etStEndDate.text.toString()
 
             dataManager.createNewSubTask(this, subTask)
+            val fragmentList = ProjectListFragment()
+            fragmentManager.beginTransaction()
+                    .add(R.id.mainActivity, fragmentList)
+                    .addToBackStack(null)
+                    .commit()
 
         }
 

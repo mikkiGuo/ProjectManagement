@@ -422,7 +422,7 @@ class NetworkHelper:INetworkHelper {
                                 })
     }
 
-    override fun getSubTasksList(subTaskViewModel: ViewModelSubTask) {
+    override fun getSubTasksList(subTaskViewModel: ViewModelSubTask, taskId: String) {
         Log.d("SubTaskList", "+++++++++++++++++++++++++++++++++++++++")
         disposable =
                 apiServe.getSubTaskList()
@@ -431,10 +431,12 @@ class NetworkHelper:INetworkHelper {
                         .subscribe(
                                 { result ->
                                     for(item in result.projectSubTask!!) {
-                                        subTaskViewModel.upadteSubTaskList(item!!)
+                                        if(item?.taskid.equals(taskId)) {
+                                            subTaskViewModel.upadteSubTaskList(item!!)
+                                        }
                                     }
                                     Log.d("StFragList Success: ",
-                                        result.projectSubTask?.get(result.projectSubTask.size-1).toString())
+                                        result.projectSubTask.get(result.projectSubTask.size-1).toString())
                                 },
                                 { error -> Log.d("StFragList Fail: ", error.message) }
                         )
@@ -481,6 +483,7 @@ class NetworkHelper:INetworkHelper {
                 )
     }
 
+
     override fun getMemberDetailsSubTask(viewModelSubTask: ViewModelSubTask,
                                          addlistener: OnAddMemberDetailsListener,
                                          memberListListener: OnTaskMemberListener,
@@ -502,6 +505,25 @@ class NetworkHelper:INetworkHelper {
                     )
         }
 
+    }
+
+    override fun storeNewSubTaskToServer(subTask: ProjectSubTaskItem) {
+        Log.d("MyTag", "+++++++++++++++++++++++++++++++++++++++")
+        disposable =
+                apiServe.getCreateNewSubTaskStatus(
+                        subTask.projectid!!,
+                        subTask.taskid!!,
+                        subTask.subtaskname!!,
+                        subTask.subtaskstatus!!,
+                        subTask.subtaskdesc!!,
+                        subTask.startdate!!,
+                        subTask.endstart!!)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                { result -> Log.d("MyTag", result.toString()) },
+                                { error -> Log.d("MyTag", error.message) }
+                        )
     }
 
     /**************************************************************************

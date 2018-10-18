@@ -35,7 +35,7 @@ class SubTaskFragmentListByUser : Fragment() {
         view.rvSubTaskByUser.adapter = adapter
 
         binding.subTaskViewModel = viewModelSubTask
-        viewModelSubTask.initList()
+        viewModelSubTask.initList("1")
 
 //        view.tvCreateSubTask.setOnClickListener {
 //            fragmentManager.beginTransaction()

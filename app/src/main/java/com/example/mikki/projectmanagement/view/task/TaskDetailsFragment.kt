@@ -64,6 +64,7 @@ class TaskDetailsFragment: Fragment(), OnAdminTaskUpdatedListener, OnTaskMemberL
             var fragment = SubTaskFragmentList()
             var bundle = Bundle()
             bundle.putInt("taskid", taskItem.taskid!!.toInt())
+            fragment.arguments = bundle
             (context as Activity).fragmentManager.beginTransaction().add(R.id.mainActivity, fragment).addToBackStack(null).commit()
         }
 
