@@ -13,6 +13,9 @@ import com.example.mikki.projectmanagement.viewmodel.TeamViewModel
 import kotlinx.coroutines.experimental.newCoroutineContext
 
 class DataManager:IDataManager {
+    override fun login(listener: IDataManager.OnLoginListener, loginInfo: LoginInfo) {
+        iNetworkHelper.login(listener, loginInfo)
+    }
 
     companion object {
         val iNetworkHelper = NetworkHelper()
@@ -26,16 +29,18 @@ class DataManager:IDataManager {
      * Project Stuff Divider
      ******************************************************************/
 
-    override fun storeNewProjectToServer(p: ProjectsItem, viewModel: ProjectViewModel) {
-        iNetworkHelper.storeNewProjectToServer(p, viewModel)
+    override fun storeNewProjectToServer(listener:IDataManager.OnCreateProjectListener,p: ProjectsItem) {
+        iNetworkHelper.storeNewProjectToServer(listener, p)
     }
 
-    override fun updateProject(p: ProjectsItem, viewModel: ProjectViewModel, index: Int) {
-        iNetworkHelper.updateProject(p, viewModel, index)
+    override fun updateProject(listener: IDataManager.OnProjectListListener,
+                               p: ProjectsItem,
+                               index: Int) {
+        iNetworkHelper.updateProject(listener, p, index)
     }
 
-    override fun getProjectList(viewModel: ProjectViewModel) {
-        iNetworkHelper.getProjectList(viewModel)
+    override fun getProjectList(listener: IDataManager.OnProjectListListener) {
+        iNetworkHelper.getProjectList(listener)
     }
 
     /******************************************************************
@@ -127,16 +132,28 @@ class DataManager:IDataManager {
     /******************************************************************
      * Team Stuff Divider
      ******************************************************************/
-
-    override fun createTeamForProject(projectId: Int,
+    override fun createTeamForProject(listener:IDataManager.OnCreateTeamForProject,
+                                      projectId: Int,
                                       team_member_userid: Int,
-                                      index: Int,
-                                      viewModel: TeamViewModel) {
-        iNetworkHelper.createTeamForProject(projectId, team_member_userid,
-                index, viewModel)
+                                      index: Int) {
+        iNetworkHelper.createTeamForProject(listener,
+                projectId,
+                team_member_userid,
+                index)
     }
 
-    override fun getEmployeeList(viewModel: TeamViewModel) {
-        iNetworkHelper.getEmployeeList(viewModel)
+    override fun getEmployeeList(listener:IDataManager.OnCreateTeamForProject) {
+        iNetworkHelper.getEmployeeList(listener)
     }
+
+    override fun getProjectTeamList(listener: IDataManager.OnDisplayProjectTeam,
+                                    projectId: Int) {
+        iNetworkHelper.getProjectTeamList(listener,projectId)
+    }
+
+    override fun getMemberDetailForProjectTeam(listener: IDataManager.OnDisplayProjectTeam,
+                                               memberId: String) {
+        iNetworkHelper.getMemberDetailForProjectTeam(listener, memberId)
+    }
+
 }

@@ -1,7 +1,6 @@
 package com.example.mikki.projectmanagement.view.team
 
 import android.app.Fragment
-import android.content.SharedPreferences
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -9,17 +8,24 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.adapter.EmployeeListAdapter
+import com.example.mikki.projectmanagement.data.IDataManager
 import com.example.mikki.projectmanagement.data.model.EmployeesItem
+import com.example.mikki.projectmanagement.data.model.ProjectsItem
 import com.example.mikki.projectmanagement.databinding.FragTeamCreateForProjectBinding
 import com.example.mikki.projectmanagement.viewmodel.TeamViewModel
 import kotlinx.android.synthetic.main.frag_team_create_for_project.view.*
 
-class CreateTeamForProject:Fragment() {
+class CreateTeamForProject:Fragment(), IDataManager.OnCreateTeamForProject {
+
     private val MIKKI_TEAM = "MikkiTeam"
     val viewModel = TeamViewModel()
     val adapter = EmployeeListAdapter()
+    lateinit var bundleFrom:Bundle
+    val bundleTo:Bundle = Bundle()
+    var projectId:Int = 0
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -32,13 +38,16 @@ class CreateTeamForProject:Fragment() {
         val view:View = binding.root
 
         binding.viewModel = viewModel
-        val bundle:Bundle = arguments
-        var projectId = bundle.get("projectId")
+        bundleFrom = arguments
+        var projectItem = bundleFrom.getParcelable<ProjectsItem>("data")
+        bundleTo.putParcelable("data", projectItem)
+
+        projectId = projectItem.id!!.toInt()
 
         showEmployeeList(view)
-        Log.d(MIKKI_TEAM, "project id : " + projectId as Int)
+        Log.d(MIKKI_TEAM, "project id : " + projectId)
 
-        setBtnClickHandler(projectId as Int, view)
+        setBtnClickHandler(projectId, view)
 
 
         return view
@@ -48,24 +57,31 @@ class CreateTeamForProject:Fragment() {
         adapter.setOnItemClickListener(object : EmployeeListAdapter.onItemClickListener{
             override fun onClick(view: View, employee: EmployeesItem, position: Int) {
                 var employeeId = employee.empid!!.toInt()
-                viewModel.addTeammateToProject(projectId, employeeId, position)
+                viewModel.addTeammateToProject(this@CreateTeamForProject,
+                        projectId, employeeId, position)
             }
 
         })
 
         view.btn_cancel.setOnClickListener {
             val fragment = TeamForProjectFragment()
+            fragment.arguments = bundleTo
             fragmentManager.beginTransaction().replace(R.id.mainActivity,
-                    fragment).addToBackStack(null).commit()
+                    fragment).commit()
+            fragmentManager.popBackStack()
         }
         view.btn_done.setOnClickListener {
 
             var userId = view.et_team_userId.text.toString().toInt()
             Log.d(MIKKI_TEAM, "project_id: " + projectId + "user id: " + userId)
-            viewModel.addTeammateToProject(projectId, userId, -1)
+            viewModel.addTeammateToProject(this@CreateTeamForProject,
+                    projectId, userId, -1)
+
             val fragment = TeamForProjectFragment()
+            fragment.arguments = bundleTo
             fragmentManager.beginTransaction().replace(R.id.mainActivity,
-                    fragment).addToBackStack(null).commit()
+                    fragment).commit()
+            fragmentManager.popBackStack()
         }
 
     }
@@ -76,8 +92,20 @@ class CreateTeamForProject:Fragment() {
         view.rv_employee_list.layoutManager = LinearLayoutManager(context)
         view.rv_employee_list.adapter = adapter
 
-        viewModel.initList()
+        viewModel.initList(this)
 
+    }
+
+    override fun finishedInitialEmployeeList(item: EmployeesItem) {
+        viewModel.updateList(item)
+    }
+
+    override fun finishedAddedMemberToProject(index: Int) {
+        viewModel.removeAddedEmployeeFromView(index)
+
+        Toast.makeText(context,
+                "successfully added member to project",
+                Toast.LENGTH_SHORT).show()
 
     }
 }

@@ -3,10 +3,15 @@ package com.example.mikki.projectmanagement.data
 import com.example.mikki.projectmanagement.data.model.MembersItem
 import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectSubTaskItem
 import com.example.mikki.projectmanagement.data.model.subtaskmodel.ViewsubtasksItem
+import com.example.mikki.projectmanagement.data.model.*
 import com.example.mikki.projectmanagement.data.network.INetworkHelper
 
 interface IDataManager:INetworkHelper {
 
+    interface OnLoginListener{
+        fun getUserInfo(result: LoginUserInfo)
+        fun errorMsg(msg:String)
+    }
     interface OnRegisterListener {
         fun isRegistered(boolean: Boolean)
     }
@@ -71,4 +76,44 @@ interface IDataManager:INetworkHelper {
         fun editSubTaskStatusByUser(message: String)
     }
 
+
+    interface OnAdminCreateTaskListener {
+        fun createTask(string: String)
+    }
+
+    interface OnAdminTaskListListener {
+        fun getAdminTaskList()
+    }
+
+    interface OnAdminTaskUpdatedListener {
+        fun updateTask(s: String)
+    }
+
+    interface OnTaskMemberListener {
+        fun getTaskMembers()
+    }
+
+    interface OnAddMemberDetailsListener {
+        fun finishedAdding(listener: OnTaskMemberListener)
+    }
+
+    interface OnCreateProjectListener{
+        fun finishedOnCreateProject(p: ProjectsItem)
+    }
+
+    interface OnProjectListListener{
+        fun finishedInitialList(p:ProjectsItem)
+        fun finishedUpdateProject(p: ProjectsItem,
+                                  index:Int)
+    }
+
+    interface OnCreateTeamForProject{
+        fun finishedInitialEmployeeList(item:EmployeesItem)
+        fun finishedAddedMemberToProject(index:Int)
+    }
+
+    interface OnDisplayProjectTeam{
+        fun finishedGetProjectTeamList(item:ProjectteamItem)
+        fun convertToEmployeeListFormat(item:TeamMemberDetail)
+    }
 }

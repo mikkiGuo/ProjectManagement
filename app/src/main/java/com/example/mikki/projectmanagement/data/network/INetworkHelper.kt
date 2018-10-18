@@ -14,19 +14,20 @@ import com.example.mikki.projectmanagement.viewmodel.TeamViewModel
 
 interface INetworkHelper {
 
+    fun login(listener:OnLoginListener, loginInfo:LoginInfo)
     fun register(listener: OnRegisterListener, register: Register)
 
     /******************************************************************
      * Project Stuff
      ******************************************************************/
 
-    fun storeNewProjectToServer(p: ProjectsItem, viewModel: ProjectViewModel)
-    fun getProjectList(viewModel: ProjectViewModel)
-    fun updateProject(p: ProjectsItem, viewModel: ProjectViewModel, index:Int)
-    fun createTeamForProject(projectId: Int,
-                             team_member_userid: Int,
-                             index:Int,
-                             viewModel: TeamViewModel)
+    fun storeNewProjectToServer(listener:OnCreateProjectListener,p: ProjectsItem)
+    //fun storeNewProjectToServer(p: ProjectsItem, viewModel: ProjectViewModel)
+    fun getProjectList(listener: IDataManager.OnProjectListListener)
+
+    fun updateProject(listener: IDataManager.OnProjectListListener, p:ProjectsItem, index:Int)
+
+    fun storeNewSubTaskToServer(subTask:ProjectSubTaskItem)
 
     /******************************************************************
      * Task Stuff
@@ -61,7 +62,15 @@ interface INetworkHelper {
     /******************************************************************
      * Team Stuff
      ******************************************************************/
+    fun createTeamForProject(listener:IDataManager.OnCreateTeamForProject,
+                             projectId: Int,
+                             team_member_userid: Int,
+                             index:Int)
 
-    fun getEmployeeList(viewModel: TeamViewModel)
+    fun getEmployeeList(listener:OnCreateTeamForProject)
+
+    fun getProjectTeamList(listener:OnDisplayProjectTeam, projectId: Int)
+
+    fun getMemberDetailForProjectTeam(listener:OnDisplayProjectTeam, memberId: String)
 
 }

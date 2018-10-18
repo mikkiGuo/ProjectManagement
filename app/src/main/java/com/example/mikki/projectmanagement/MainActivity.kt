@@ -17,6 +17,7 @@ import com.example.mikki.projectmanagement.view.project.ProjectListFragment
 import com.example.mikki.projectmanagement.view.task.TaskListFragment
 import io.github.yavski.fabspeeddial.FabSpeedDial
 import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter
+import com.example.mikki.projectmanagement.view.team.EmployeeListFragment
 import kotlinx.android.synthetic.main.floating_button.*
 import org.jetbrains.anko.intentFor
 
@@ -65,6 +66,12 @@ class MainActivity : AppCompatActivity() {
             fragmentManager.beginTransaction().add(R.id.mainActivity, createSubTaskFrag)
                     .addToBackStack(null).commit()
         }*/
+
+        btn_employee_list.setOnClickListener {
+            val subTaskListFrag = EmployeeListFragment()
+            fragmentManager.beginTransaction().add(R.id.mainActivity, subTaskListFrag)
+                    .addToBackStack(null).commit()
+        }
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

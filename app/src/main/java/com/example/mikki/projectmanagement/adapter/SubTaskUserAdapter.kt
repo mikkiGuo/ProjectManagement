@@ -11,12 +11,12 @@ import kotlinx.android.synthetic.main.sub_task_item_view.view.*
 class SubTaskUserAdapter : RecyclerView.Adapter<SubTaskUserAdapter.SubTaskUser>(),
         BindableAdapter<ViewsubtasksItem> {
 
-    var subTaskListByUser = listOf<ViewsubtasksItem>()
-
     override fun setData(items: List<ViewsubtasksItem>) {
         subTaskListByUser = items
         notifyDataSetChanged()
     }
+
+    var subTaskListByUser = listOf<ViewsubtasksItem>()
 
     override fun changedPositions(positions: Int) {
         notifyItemChanged(positions)

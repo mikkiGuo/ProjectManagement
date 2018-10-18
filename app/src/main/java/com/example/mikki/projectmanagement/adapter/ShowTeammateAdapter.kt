@@ -9,12 +9,11 @@ import com.example.mikki.projectmanagement.data.model.EmployeesItem
 import kotlinx.android.synthetic.main.item_btn_name_tag.view.*
 
 class ShowTeammateAdapter: RecyclerView.Adapter<ShowTeammateAdapter.ViewHolder>()
-        , BindableAdapter<EmployeesItem>
-{
-
-    lateinit var listener: onItemClickListener
+        ,BindableAdapter<EmployeesItem> {
     var employeeList = mutableListOf<EmployeesItem>()
 
+
+    lateinit var listener: onItemClickListener
     interface onItemClickListener {
         fun onClick(view: View, employee: EmployeesItem, position: Int)
     }
@@ -25,7 +24,8 @@ class ShowTeammateAdapter: RecyclerView.Adapter<ShowTeammateAdapter.ViewHolder>(
     }
 
     override fun changedPositions(positions: Int) {
-        notifyItemChanged(positions)
+        //notifyItemChanged(positions)
+        notifyItemRemoved(positions)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

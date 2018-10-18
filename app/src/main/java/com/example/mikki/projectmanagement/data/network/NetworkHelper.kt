@@ -9,7 +9,6 @@ import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectsItem
 import com.example.mikki.projectmanagement.data.model.taskmodel.TaskItem
 import com.example.mikki.projectmanagement.data.model.taskmodel.TaskMemberItem
 import com.example.mikki.projectmanagement.viewmodel.ViewModelSubTask
-import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
 import com.example.mikki.projectmanagement.viewmodel.TaskViewModel
 import com.example.mikki.projectmanagement.viewmodel.TeamViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -21,12 +20,28 @@ import org.jetbrains.anko.warn
 class NetworkHelper:INetworkHelper {
 
     private val MIKKI_TEAM = "MikkiTeam"
+    private val MIKKI_LOGIN = "MikkiLogin"
 
     private val ninntag = AnkoLogger("ninntag")
 
     var disposable: Disposable? = null
     val apiServe by lazy {
         APIService.create()
+    }
+
+    override fun login(listener: OnLoginListener, loginInfo: LoginInfo) {
+        disposable = apiServe.login(
+                loginInfo.email!!,
+                loginInfo.password!!
+                ).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    result->Log.d(MIKKI_LOGIN, result.msg)
+                    listener.getUserInfo(result)
+                },{
+                    error->Log.d(MIKKI_LOGIN, error.message)
+                })
+
     }
 
     override fun register(listener: OnRegisterListener, register: Register) {
@@ -59,6 +74,9 @@ class NetworkHelper:INetworkHelper {
      ***************************************/
 
     override fun updateProject(p: ProjectsItem, viewModel: ProjectViewModel, index:Int) {
+    override fun updateProject(listener: IDataManager.OnProjectListListener,
+                               p: ProjectsItem,
+                               index:Int) {
         Log.d("mikkiproject", "+++++++++++++++++++++++++++++++++++++++")
         disposable =
                 apiServe.updateProject(
@@ -72,7 +90,8 @@ class NetworkHelper:INetworkHelper {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                { result ->viewModel.updateItem(index, p)
+                                { result ->
+                                    listener.finishedUpdateProject(p, index)
                                     Log.d("mikkiproject","Message"
                                             + result.toString()
                                     )
@@ -81,7 +100,8 @@ class NetworkHelper:INetworkHelper {
                         )
     }
 
-    override fun storeNewProjectToServer(p: ProjectsItem, viewModel: ProjectViewModel) {
+    override fun storeNewProjectToServer(listener:OnCreateProjectListener,
+                                         p:ProjectsItem) {
         Log.d("mikkiproject", "+++++++++++++++++++++++++++++++++++++++")
         Log.d("mikkiproject", p.projectname)
         Log.d("mikkiproject", p.projectstatus)
@@ -99,13 +119,13 @@ class NetworkHelper:INetworkHelper {
                                 { result ->
                                     Log.d("mikkiproject", result.toString())
                                     p.id = result.id.toString()
-                                    viewModel.updateList(p)
+                                    listener.finishedOnCreateProject(p)
                                      },
                                 { error -> Log.d("mikkiproject", error.message) }
                         )
     }
 
-    override fun getProjectList(viewModel: ProjectViewModel) {
+    override fun getProjectList(listener: IDataManager.OnProjectListListener) {
         Log.d("mikkiproject", "+++++++++++++++++++++++++++++++++++++++")
         disposable =
                 apiServe.getProjectList()
@@ -117,7 +137,7 @@ class NetworkHelper:INetworkHelper {
                                     {
                                         item as ProjectsItem
                                         //if(!item.projectstatus.equals("2") ){
-                                            viewModel.updateList(item)
+                                            listener.finishedInitialList(item)
                                         //}
                                     }
                                     Log.d("mikkiproject",(result.projects.size.toString())
@@ -509,23 +529,75 @@ class NetworkHelper:INetworkHelper {
      * Team Stuff Divider
      **************************************************************************/
 
-    override fun getEmployeeList(viewModel: TeamViewModel) {
-        disposable = apiServe.getEmployeeList().
-                subscribeOn(Schedulers.io()).
-                observeOn(AndroidSchedulers.mainThread()).
-                subscribe(
-                        {
-                            result ->
-                            Log.d(MIKKI_TEAM, result.employees.toString())
-                            for(item in result.employees!!){
-                                viewModel.updateList(item!!)
-                            }
-                        },
-                        {
-                            error -> Log.d(MIKKI_TEAM, error.message)
-                        }
-                )
+    override fun createTeamForProject(listener:IDataManager.OnCreateTeamForProject,
+                                      projectId: Int,
+                                      team_member_userid: Int,
+                                      index: Int) {
+        disposable =
+                apiServe.createTeamForProject(
+                        projectId!!,
+                        team_member_userid!!)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                { result ->
+                                    Log.d(MIKKI_TEAM, result.toString())
+                                    listener.finishedAddedMemberToProject(index)
+
+                                },
+                                { error -> Log.d(MIKKI_TEAM, error.message) }
+                        )
     }
 
 
+
+        override fun getEmployeeList(listener:IDataManager.OnCreateTeamForProject) {
+            disposable = apiServe.getEmployeeList().
+                    subscribeOn(Schedulers.io()).
+                    observeOn(AndroidSchedulers.mainThread()).
+                    subscribe(
+                            {
+                                result ->
+                                Log.d(MIKKI_TEAM, result.employees.toString())
+                                for(item in result.employees!!){
+                                    listener.finishedInitialEmployeeList(item!!)
+                                }
+                            },
+                            {
+                                error -> Log.d(MIKKI_TEAM, error.message)
+                            }
+                    )
+        }
+
+    override fun getProjectTeamList(listener: OnDisplayProjectTeam, projectId: Int) {
+        disposable = apiServe.getProjectTeamList(
+                projectId!!)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        {
+                            result->Log.d(MIKKI_TEAM, "getProjectTeamList: "+result.toString())
+                            for(item in result.projectteam!!) {
+                                listener.finishedGetProjectTeamList(item!!)
+                            }
+                        },
+                        {
+                            error("result invalid")
+                        }
+                )
+
+        }
+
+    override fun getMemberDetailForProjectTeam(listener: OnDisplayProjectTeam,
+                                               memberId: String) {
+        disposable = apiServe.getMemberDetailForProject(memberId!!)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    result->Log.d(MIKKI_TEAM, result.toString())
+                    listener.convertToEmployeeListFormat(result)
+                },{
+                    error->Log.d(MIKKI_TEAM, error.message)
+                })
+    }
 }

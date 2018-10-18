@@ -9,14 +9,13 @@ import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.data.model.EmployeesItem
 import kotlinx.android.synthetic.main.item_name_tag.view.*
 
-class EmployeeListAdapter: RecyclerView.Adapter<EmployeeListAdapter.ViewHolder>(),
+class DisplayTeamListAdapter: RecyclerView.Adapter<DisplayTeamListAdapter.ViewHolder>(),
         BindableAdapter<EmployeesItem> {
 
-    lateinit var listener: onItemClickListener
     var employeeList = mutableListOf<EmployeesItem>()
-
-    interface onItemClickListener {
-        fun onClick(view: View, employee: EmployeesItem, position: Int)
+    lateinit var listener: OnItemClickListener
+    interface OnItemClickListener {
+        fun onClick(view: View, data: EmployeesItem)
     }
 
     override fun setData(items: List<EmployeesItem>) {
@@ -26,12 +25,11 @@ class EmployeeListAdapter: RecyclerView.Adapter<EmployeeListAdapter.ViewHolder>(
 
     override fun changedPositions(positions: Int) {
         notifyItemChanged(positions)
-        //notifyItemRemoved(positions)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return ViewHolder(inflater.inflate(R.layout.item_name_tag, parent, false))
+        return ViewHolder(inflater.inflate(R.layout.item_name_tag_no_add_btn, parent, false))
     }
 
     override fun getItemCount(): Int {
@@ -47,26 +45,23 @@ class EmployeeListAdapter: RecyclerView.Adapter<EmployeeListAdapter.ViewHolder>(
         var char2 = employee.emplastname?.firstOrNull()
         Log.d("MikkiTeam", "first char: " + char1
         +"sec first" + char2)
-
+        holder.itemView.setOnClickListener{
+            listener.onClick(it, employee )
+        }
         //holder.name_tag.text = char1 + char2
 
 
-        holder.btnAdd.setOnClickListener{
-            listener.onClick(it,employee,position)
-        }
+    }
 
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        this.listener = listener
     }
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var employeeId = itemView.tv_user_id
         var employeeName = itemView.tv_user_name
-        val btnAdd = itemView.btn_add_member
         var name_tag = itemView.icon_name_tag
-    }
-
-    fun setOnItemClickListener(listener: onItemClickListener){
-        this.listener = listener
     }
 
 }
