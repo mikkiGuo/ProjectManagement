@@ -11,9 +11,10 @@
     <color name="recyclerbackground">#c8dde0e2</color>
     <color name="warning_color">#F44336</color>
     <color name="hint_color">#000000</color>
-    <color name="success_color">#4CAF50</color>
+    <color name="success_color">#4caf50</color>
 
     <color name="spinner">#d6e1c0</color>
     <color name="blue">#FF5197FF</color>
     <color name="light_grey">#dcdbdb</color>
+
 </resources>

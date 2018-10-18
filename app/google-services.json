@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "679293801407",
+    "firebase_url": "https://projectmanagement-46ff8.firebaseio.com",
+    "project_id": "projectmanagement-46ff8",
+    "storage_bucket": "projectmanagement-46ff8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:679293801407:android:505a2d75d9680ada",
+        "android_client_info": {
+          "package_name": "com.example.mikki.projectmanagement.developer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "679293801407-aj5c72ae9j1qu45pa6k04koul86et1d6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mikki.projectmanagement.developer",
+            "certificate_hash": "3dce8a320804085eb5fd5931318e8db47fcf6025"
+          }
+        },
+        {
+          "client_id": "679293801407-q34rsc25ormmlo4tmn0j2l3rnkbi3931.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSAl-yx8WW42CRfguVyR15LvuA_QXefdQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "679293801407-q34rsc25ormmlo4tmn0j2l3rnkbi3931.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:679293801407:android:9c0e477315d632cc",
+        "android_client_info": {
+          "package_name": "com.example.mikki.projectmanagement.manager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "679293801407-v7fsusikkigp3vmcsg9dad0rada7ib5b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mikki.projectmanagement.manager",
+            "certificate_hash": "3dce8a320804085eb5fd5931318e8db47fcf6025"
+          }
+        },
+        {
+          "client_id": "679293801407-q34rsc25ormmlo4tmn0j2l3rnkbi3931.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSAl-yx8WW42CRfguVyR15LvuA_QXefdQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "679293801407-q34rsc25ormmlo4tmn0j2l3rnkbi3931.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

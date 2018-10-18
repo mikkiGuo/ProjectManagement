@@ -1,7 +1,10 @@
 package com.example.mikki.projectmanagement.view.project
 
 import android.app.Fragment
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,18 +15,30 @@ import com.example.mikki.projectmanagement.BuildConfig
 import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.data.IDataManager
 import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectsItem
+import com.example.mikki.projectmanagement.utils.validator.CustomNameValidator
+import com.example.mikki.projectmanagement.utils.validator.NonEmptyValidator
 import com.example.mikki.projectmanagement.view.task.TaskListFragment
 import com.example.mikki.projectmanagement.view.team.TeamForProjectFragment
 import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
+import com.github.phajduk.rxvalidator.RxValidator
 import kotlinx.android.synthetic.main.frag_project_details.view.*
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.firebase.storage.UploadTask
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import kotlinx.android.synthetic.main.activity_register.*
+import rx.android.schedulers.AndroidSchedulers
+
 
 class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
-
+    private val MIKKI_RXVALIDATOR = "MikkiValidator"
     private val viewModel = ProjectViewModel()
     lateinit var bundleFrom:Bundle
     val bundleTo:Bundle = Bundle()
     lateinit var projectItem: ProjectsItem
-
+    lateinit var mStorage : StorageReference
+    lateinit var uri : Uri
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
@@ -32,18 +47,20 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
 
         if (BuildConfig.FLAVOR.equals("manager")) {
             view.btn_update_project.visibility = View.INVISIBLE
-            //TODO: disable add teammate here
 
         } else if (BuildConfig.FLAVOR.equals("developer")) {
             view.btn_edit_project.visibility = View.GONE
             view.btn_update_project.visibility = View.GONE
+
         }
 
+        mStorage = FirebaseStorage.getInstance().getReference();
         bundleFrom = arguments
         projectItem = bundleFrom.getParcelable<ProjectsItem>("data")
 
         bundleTo.putParcelable("data", projectItem)
 
+        createInputRxValidator(view)
         setValueToUI(view)
         setEnableFalse(view)
 
@@ -78,10 +95,45 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
             fragmentManager.beginTransaction().add(R.id.mainActivity, fragment).addToBackStack(null).commit()
         }
 
+        view.tv_add_file.setOnClickListener {
+            val intent = Intent()
+            intent.setType ("image/*")
+            intent.setAction(Intent.ACTION_GET_CONTENT)
+            startActivityForResult(Intent.createChooser(intent,
+                    "Select Picture"), 1)
+        }
+
         return view
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == AppCompatActivity.RESULT_OK) {
+            if(requestCode == 1){
+                uri = data!!.data
+                upload ()
+            }
 
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+
+    private fun upload(){
+
+        var mReference = mStorage.child(uri.lastPathSegment)
+        try {
+            mReference.putFile(uri).addOnSuccessListener {
+                taskSnapshot: UploadTask.TaskSnapshot? ->
+                var url = mReference.downloadUrl!!.toString()
+                Log.d("mikkiUrl", url)
+                Toast.makeText(context,
+                        "Successfully Uploaded : $url",
+                        Toast.LENGTH_LONG).show()
+            }
+        }catch (e: Exception) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show()
+        }
+    }
 
     private fun setUpdatedProject(view: View):ProjectsItem {
         var updatedProject = ProjectsItem()
@@ -128,7 +180,6 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
     }
 
 
-
     override fun finishedInitialList(p: ProjectsItem) {
         //do nothing in this fragment
     }
@@ -141,6 +192,22 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
         fragmentManager.beginTransaction()
                 .replace(R.id.mainActivity, fragment)
                 .addToBackStack(null).commit()
+
+    }
+
+    private fun createInputRxValidator(view:View){
+        RxValidator.createFor(view.tv_title_cnp)
+                .nonEmpty()
+                .with(NonEmptyValidator())
+                .minLength(2, "Min length is 2")
+                .onValueChanged()
+                .toObservable()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result ->
+                    result.item.error = if (result.isProper) null else result.message
+                    Log.i(MIKKI_RXVALIDATOR, "Validation result " + result.toString())
+                }, { throwable -> Log.e(MIKKI_RXVALIDATOR, "Validation error", throwable) })
+
 
     }
 }

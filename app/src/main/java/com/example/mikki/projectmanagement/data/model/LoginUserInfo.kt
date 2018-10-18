@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
 data class LoginUserInfo(
 
 	@field:SerializedName("msg")
-	val msg: String? = null,
+	val msg: List<String?>? = null,
 
 	@field:SerializedName("userlastname")
 	val userlastname: String? = null,
@@ -15,11 +15,11 @@ data class LoginUserInfo(
 	@field:SerializedName("userfirstname")
 	val userfirstname: String? = null,
 
-	@field:SerializedName("appapikey ")
-	val appapikey: String? = null,
-
 	@field:SerializedName("userrole")
 	val userrole: String? = null,
+
+	@field:SerializedName("appapikey")
+	val appapikey: String? = null,
 
 	@field:SerializedName("userid")
 	val userid: String? = null,
@@ -28,7 +28,7 @@ data class LoginUserInfo(
 	val useremail: String? = null
 ):Parcelable {
 	constructor(parcel: Parcel) : this(
-			parcel.readString(),
+			parcel.createStringArrayList(),
 			parcel.readString(),
 			parcel.readString(),
 			parcel.readString(),
@@ -38,11 +38,11 @@ data class LoginUserInfo(
 	}
 
 	override fun writeToParcel(parcel: Parcel, flags: Int) {
-		parcel.writeString(msg)
+		parcel.writeStringList(msg)
 		parcel.writeString(userlastname)
 		parcel.writeString(userfirstname)
-		parcel.writeString(appapikey)
 		parcel.writeString(userrole)
+		parcel.writeString(appapikey)
 		parcel.writeString(userid)
 		parcel.writeString(useremail)
 	}

@@ -13,6 +13,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import android.support.design.widget.Snackbar
 import android.view.MenuItem
 import android.view.View
+import com.anychart.AnyChart
+import com.anychart.chart.common.dataentry.DataEntry
+import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.view.login.LoginActivity
 import com.example.mikki.projectmanagement.view.project.CreateProjectFragment
@@ -22,7 +25,9 @@ import io.github.yavski.fabspeeddial.FabSpeedDial
 import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter
 import com.example.mikki.projectmanagement.view.team.EmployeeListFragment
 import kotlinx.android.synthetic.main.floating_button.*
+import kotlinx.android.synthetic.main.frag_chart.view.*
 import org.jetbrains.anko.intentFor
+import java.util.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
@@ -75,6 +80,24 @@ class MainActivity : AppCompatActivity() {
             }
             false
         }
+        
+        var piechart = AnyChart.pie()
+        val dataEntryList = ArrayList<DataEntry>()
+        dataEntryList.add(ValueDataEntry("Completed", 13))
+        dataEntryList.add(ValueDataEntry("In progress", 25))
+        dataEntryList.add(ValueDataEntry("New", 3))
+
+        piechart.data(dataEntryList)
+
+        any_chart_view.setChart(piechart)
+
+        fab.setOnClickListener { view ->
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
+        }
+
+        val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
+        bottomNavigation.setOnNavigationItemSelectedListener(OnNavigationItemSelectedListener)
     }
 
 }
