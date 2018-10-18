@@ -78,7 +78,9 @@ class TeamForProjectFragment:Fragment(), IDataManager.OnDisplayProjectTeam {
             val fragment = ProjectDetails()
             fragment.arguments = bundleTo
             fragmentManager.beginTransaction().replace(R.id.mainActivity,
-                    fragment).addToBackStack(null).commit()
+                    fragment).commit()
+            fragmentManager.popBackStack()
+
         }
 
         adapter.setOnItemClickListener(object :DisplayTeamListAdapter.OnItemClickListener{

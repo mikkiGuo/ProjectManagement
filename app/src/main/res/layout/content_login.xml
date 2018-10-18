@@ -60,4 +60,14 @@
         android:layout_margin="30dp"
         android:background="@color/spinner"
         android:text="LogIn" />
+
+    <TextView
+        android:id="@+id/tv_login_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:text="Register"
+        android:textAlignment="center"
+        android:textColor="@color/success_color" />
 </LinearLayout>

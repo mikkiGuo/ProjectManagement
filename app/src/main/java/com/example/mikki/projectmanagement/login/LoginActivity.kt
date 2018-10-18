@@ -25,7 +25,6 @@ import rx.android.schedulers.AndroidSchedulers
 
 class LoginActivity : AppCompatActivity(), IDataManager.OnLoginListener {
 
-
     private val MIKKI_LOGIN = "MikkiLogin"
     val viewModel = AuthenticationViewModel()
 
@@ -41,6 +40,11 @@ class LoginActivity : AppCompatActivity(), IDataManager.OnLoginListener {
             getUserInput()
         }
 
+        tv_login_register.setOnClickListener {
+            intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+            startActivity(intent)
+        }
+
         fab.setOnClickListener { view ->
             val manager = FingerprintManagerCompat.from(this)
 
@@ -51,6 +55,8 @@ class LoginActivity : AppCompatActivity(), IDataManager.OnLoginListener {
             }
 
         }
+
+
     }
     private fun createInputRxValidator(){
         RxValidator.createFor(et_login_email)

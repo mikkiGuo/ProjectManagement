@@ -15,20 +15,24 @@ import com.example.mikki.projectmanagement.BuildConfig
 import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.data.IDataManager
 import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectsItem
+import com.example.mikki.projectmanagement.utils.validator.CustomNameValidator
+import com.example.mikki.projectmanagement.utils.validator.NonEmptyValidator
 import com.example.mikki.projectmanagement.view.task.TaskListFragment
 import com.example.mikki.projectmanagement.view.team.TeamForProjectFragment
 import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
+import com.github.phajduk.rxvalidator.RxValidator
 import kotlinx.android.synthetic.main.frag_project_details.view.*
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.firebase.storage.UploadTask
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-
+import kotlinx.android.synthetic.main.activity_register.*
+import rx.android.schedulers.AndroidSchedulers
 
 
 class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
-
+    private val MIKKI_RXVALIDATOR = "MikkiValidator"
     private val viewModel = ProjectViewModel()
     lateinit var bundleFrom:Bundle
     val bundleTo:Bundle = Bundle()
@@ -43,11 +47,11 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
 
         if (BuildConfig.FLAVOR.equals("manager")) {
             view.btn_update_project.visibility = View.INVISIBLE
-            //TODO: disable add teammate here
 
         } else if (BuildConfig.FLAVOR.equals("developer")) {
             view.btn_edit_project.visibility = View.GONE
             view.btn_update_project.visibility = View.GONE
+
         }
 
         mStorage = FirebaseStorage.getInstance().getReference();
@@ -56,6 +60,7 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
 
         bundleTo.putParcelable("data", projectItem)
 
+        createInputRxValidator(view)
         setValueToUI(view)
         setEnableFalse(view)
 
@@ -175,7 +180,6 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
     }
 
 
-
     override fun finishedInitialList(p: ProjectsItem) {
         //do nothing in this fragment
     }
@@ -188,6 +192,22 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
         fragmentManager.beginTransaction()
                 .replace(R.id.mainActivity, fragment)
                 .addToBackStack(null).commit()
+
+    }
+
+    private fun createInputRxValidator(view:View){
+        RxValidator.createFor(view.tv_title_cnp)
+                .nonEmpty()
+                .with(NonEmptyValidator())
+                .minLength(2, "Min length is 2")
+                .onValueChanged()
+                .toObservable()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result ->
+                    result.item.error = if (result.isProper) null else result.message
+                    Log.i(MIKKI_RXVALIDATOR, "Validation result " + result.toString())
+                }, { throwable -> Log.e(MIKKI_RXVALIDATOR, "Validation error", throwable) })
+
 
     }
 }

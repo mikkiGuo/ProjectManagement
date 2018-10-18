@@ -16,6 +16,7 @@ import com.example.mikki.projectmanagement.data.model.EmployeesItem
 import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectsItem
 import com.example.mikki.projectmanagement.databinding.FragTeamCreateForProjectBinding
 import com.example.mikki.projectmanagement.viewmodel.TeamViewModel
+import kotlinx.android.synthetic.main.frag_team_create_for_project.*
 import kotlinx.android.synthetic.main.frag_team_create_for_project.view.*
 
 class CreateTeamForProject:Fragment(), IDataManager.OnCreateTeamForProject {
@@ -74,14 +75,23 @@ class CreateTeamForProject:Fragment(), IDataManager.OnCreateTeamForProject {
 
             var userId = view.et_team_userId.text.toString().toInt()
             Log.d(MIKKI_TEAM, "project_id: " + projectId + "user id: " + userId)
-            viewModel.addTeammateToProject(this@CreateTeamForProject,
-                    projectId, userId, -1)
 
-            val fragment = TeamForProjectFragment()
-            fragment.arguments = bundleTo
-            fragmentManager.beginTransaction().replace(R.id.mainActivity,
-                    fragment).commit()
-            fragmentManager.popBackStack()
+            if(userId != null){
+                viewModel.addTeammateToProject(this@CreateTeamForProject,
+                        projectId, userId, -1)
+
+                val fragment = TeamForProjectFragment()
+                fragment.arguments = bundleTo
+                fragmentManager.beginTransaction().replace(R.id.mainActivity,
+                        fragment).commit()
+                fragmentManager.popBackStack()
+            }else{
+                Toast.makeText(context,
+                        "you must enter a user id",
+                        Toast.LENGTH_LONG).show()
+            }
+
+
         }
 
     }
