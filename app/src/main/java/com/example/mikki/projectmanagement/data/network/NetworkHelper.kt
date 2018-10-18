@@ -284,7 +284,7 @@ class NetworkHelper : INetworkHelper {
                 .subscribe(
                         { result ->
                             ninntag.warn { result.toString() }
-                            if (result.msg!!.equals("member added successfully in project task"))
+                            if (result.msg!![0].equals("member added successfully in project task"))
                                 viewModel.isAssigned(listener, true)
                             else
                                 viewModel.isAssigned(listener, false)

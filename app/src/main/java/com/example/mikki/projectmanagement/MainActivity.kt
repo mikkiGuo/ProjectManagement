@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
             }
             false
         }
-        
+
         var piechart = AnyChart.pie()
         val dataEntryList = ArrayList<DataEntry>()
         dataEntryList.add(ValueDataEntry("Completed", 13))
@@ -96,8 +96,27 @@ class MainActivity : AppCompatActivity() {
                     .setAction("Action", null).show()
         }
 
-        val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
-        bottomNavigation.setOnNavigationItemSelectedListener(OnNavigationItemSelectedListener)
+        (bottom_navigation as BottomNavigationView).setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.projects -> {
+                    val fragment = ProjectListFragment()
+                    fragmentManager.beginTransaction().add(R.id.mainActivity, fragment).addToBackStack(null).commit()
+                    true
+                }
+                R.id.employeeList -> {
+                    val subTaskListFrag = EmployeeListFragment()
+                    fragmentManager.beginTransaction().add(R.id.mainActivity, subTaskListFrag)
+                            .addToBackStack(null).commit()
+                    true
+                }
+                R.id.logout -> {
+                    startActivity(intentFor<LoginActivity>())
+                    finish()
+                    true
+                }
+            }
+            false
+        }
     }
 
 }
