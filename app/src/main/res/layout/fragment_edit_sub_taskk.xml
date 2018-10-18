@@ -147,6 +147,13 @@
             android:layout_marginTop="10dp"
             android:hint="SubTask Status"/>
 
+        <EditText
+            android:id="@+id/etUserUpdateStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Update Status"
+            android:visibility="gone"/>
+
         <TextView
             android:id="@+id/tvEditStDescription"
             android:layout_width="match_parent"
@@ -179,6 +186,16 @@
             android:background="#efbe78"/>
 
         <Button
+            android:id="@+id/btUserUpdateStatusSubTask"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:text="Update Status"
+            android:textStyle="bold"
+            android:background="#efbe78"/>
+
+        <Button
             android:id="@+id/btViewBackSubTask"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -196,5 +213,9 @@
             android:scrollbars="vertical" />
 
     </LinearLayout>
+
+
+
+
 
 </LinearLayout>

@@ -65,11 +65,14 @@ class EditSubTaskFragment : Fragment(), IDataManager.OnAdminEditSubTaskListener,
         }
 
         if (BuildConfig.FLAVOR.equals("manager")) {
-            Toast.makeText(context, "Manager LvL", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Manager LvL", Toast.LENGTH_SHORT).show()
             v.btShowEditSubTask.visibility = View.VISIBLE
-        } else if (BuildConfig.FLAVOR.equals("paid")) {
-            Toast.makeText(context, "Developer Lvl", Toast.LENGTH_SHORT).show()
+        } else if (BuildConfig.FLAVOR.equals("developer")) {
+            //Toast.makeText(context, "Developer Lvl", Toast.LENGTH_SHORT).show()
             v.btShowEditSubTask.visibility = View.GONE
+            v.tvEditStStatus.visibility = View.GONE
+            v.etUserUpdateStatus.visibility = View.VISIBLE
+            v.btUserUpdateStatusSubTask.visibility = View.VISIBLE
         }
 
         v.btShowEditSubTask.setOnClickListener {
