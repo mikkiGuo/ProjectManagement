@@ -19,12 +19,16 @@ data class TaskMemberItem(
 		@field:SerializedName("taskid")
 		var taskid: String? = null,
 
+		@field:SerializedName("subtaskid")
+		var subtaskid: String? = null,
+
 		@field:SerializedName("memberdetails")
 		var memberdetails: MemberDetails? = null
 
 ) : Parcelable {
 
 	constructor(source: Parcel) : this(
+			source.readString(),
 			source.readString(),
 			source.readString(),
 			source.readString(),
@@ -39,6 +43,7 @@ data class TaskMemberItem(
 		writeString(userid)
 		writeString(assignid)
 		writeString(taskid)
+		writeString(subtaskid)
 		writeParcelable(memberdetails, 0)
 	}
 
@@ -48,6 +53,7 @@ data class TaskMemberItem(
 				" userid=$userid," +
 				" assignid=$assignid," +
 				" taskid=$taskid," +
+				" taskid=$subtaskid," +
 				" memberdetails=$memberdetails)"
 	}
 

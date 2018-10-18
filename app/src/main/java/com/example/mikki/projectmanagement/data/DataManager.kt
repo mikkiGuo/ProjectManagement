@@ -120,6 +120,15 @@ class DataManager:IDataManager {
         iNetworkHelper.getSubTasksList(subTaskViewModel)
     }
 
+    override fun getTeamMemberBySubTask(viewModelSubTask: ViewModelSubTask, listener: IDataManager.OnTaskMemberListener, subTaskItem: ProjectSubTaskItem) {
+        iNetworkHelper.getTeamMemberBySubTask(viewModelSubTask, listener, subTaskItem)
+    }
+
+    override fun getMemberDetailsSubTask(viewModelSubTask: ViewModelSubTask,
+                                         addlistener: IDataManager.OnAddMemberDetailsListener, memberListListener: IDataManager.OnTaskMemberListener, memberList: ArrayList<TaskMemberItem>?) {
+        iNetworkHelper.getMemberDetailsSubTask(viewModelSubTask, addlistener,memberListListener, memberList)
+    }
+
     /******************************************************************
      * Team Stuff Divider
      ******************************************************************/

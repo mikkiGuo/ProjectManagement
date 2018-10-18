@@ -1,7 +1,10 @@
 package com.example.mikki.projectmanagement.view.subtask
 
 import android.app.Fragment
+import android.content.Context
 import android.os.Bundle
+import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,12 +14,10 @@ import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.data.DataManager
 import com.example.mikki.projectmanagement.data.IDataManager
 import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectSubTaskItem
-import kotlinx.android.synthetic.main.fragment_edit_sub_task.*
-import kotlinx.android.synthetic.main.fragment_edit_sub_task.view.*
+import com.example.mikki.projectmanagement.viewmodel.ViewModelSubTask
+import kotlinx.android.synthetic.main.fragment_edit_sub_taskk.view.*
 
-class EditSubTaskFragment: Fragment(), IDataManager.OnAdminEditSubTaskListener {
-
-
+class EditSubTaskFragment: Fragment(), IDataManager.OnAdminEditSubTaskListener, IDataManager.OnTaskMemberListener {
 
     companion object {
         fun newInstance(): EditSubTaskFragment {
@@ -24,6 +25,13 @@ class EditSubTaskFragment: Fragment(), IDataManager.OnAdminEditSubTaskListener {
         }
         val dataManager: IDataManager = DataManager()
         var subTask = ProjectSubTaskItem()
+        lateinit var viewmodel: ViewModelSubTask
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        viewmodel = ViewModelSubTask(context!!)//context?
+
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -32,6 +40,8 @@ class EditSubTaskFragment: Fragment(), IDataManager.OnAdminEditSubTaskListener {
 
         if(arguments != null) {
             subTask = arguments.getParcelable("subtask")
+
+            viewmodel.getTaskMemberListFromServer(this, subTask)
 
             v.etEditStProjectId.setText(subTask.projectid.toString())
             v.etEditStTaskId.setText(subTask.taskid.toString())
@@ -50,13 +60,13 @@ class EditSubTaskFragment: Fragment(), IDataManager.OnAdminEditSubTaskListener {
         }
 
         v.btShowEditSubTask.setOnClickListener {
-            viewSTLayout.visibility = View.GONE
-            editSTLayout.visibility = View.VISIBLE
+            v.viewSTLayout.visibility = View.GONE
+            v.editSTLayout.visibility = View.VISIBLE
         }
 
         v.btBackSubTask.setOnClickListener {
-            viewSTLayout.visibility = View.VISIBLE
-            editSTLayout.visibility = View.GONE
+            v.viewSTLayout.visibility = View.VISIBLE
+            v.visibility = View.GONE
         }
 
 
@@ -83,5 +93,13 @@ class EditSubTaskFragment: Fragment(), IDataManager.OnAdminEditSubTaskListener {
 
     override fun editTask(message: String) {
         Toast.makeText(view.context, message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun getTaskMembers() {
+        var manager = LinearLayoutManager(context.applicationContext)
+
+        view.rv_subTaskMembers.layoutManager = manager
+        view.rv_subTaskMembers.itemAnimator = DefaultItemAnimator()
+        view.rv_subTaskMembers.adapter = viewmodel.memberRecyclerAdapter
     }
 }
