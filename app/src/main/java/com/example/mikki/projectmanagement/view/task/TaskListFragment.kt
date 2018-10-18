@@ -1,5 +1,6 @@
 package com.example.mikki.projectmanagement.view.task
 
+import android.app.Activity
 import android.app.Fragment
 import android.content.Context
 import android.databinding.DataBindingUtil
@@ -42,8 +43,9 @@ class TaskListFragment(): Fragment(), IDataManager.OnAdminTaskListListener {
         var v = binding.root
         binding.viewModel = viewmodel
 
-        v.bt_updateTaskList.setOnClickListener {
-            viewmodel.taskRecyclerAdapter.notifyDataSetChanged()
+        v.bt_createTask.setOnClickListener {
+            var fragment = CreateTaskFragment()
+            (context as Activity).fragmentManager.beginTransaction().add(R.id.mainActivity, fragment).addToBackStack(null).commit()
         }
 
         return v

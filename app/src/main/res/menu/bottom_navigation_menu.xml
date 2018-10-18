@@ -7,13 +7,13 @@
         app:showAsAction="always|withText"
         android:icon="@drawable/ic_project_24dp"/>
     <item
-        android:id="@+id/mytasks"
-        android:title="@string/my_tasks"
+        android:id="@+id/employeeList"
+        android:title="@string/company_list"
         app:showAsAction="always|withText"
-        android:icon="@drawable/ic_my_task_24dp"/>
+        android:icon="@drawable/ic_people_24dp"/>
     <item
-        android:id="@+id/menu"
-        android:title="@string/menu"
+        android:id="@+id/logout"
+        android:title="@string/logout"
         app:showAsAction="always|withText"
-        android:icon="@drawable/ic_menu" />
+        android:icon="@drawable/ic_logout_24dp" />
 </menu>
