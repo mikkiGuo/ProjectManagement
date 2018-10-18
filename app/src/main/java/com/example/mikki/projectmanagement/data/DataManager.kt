@@ -25,13 +25,14 @@ class DataManager:IDataManager {
         iNetworkHelper.storeNewProjectToServer(listener, p)
     }
 
-    override fun updateProject(p: ProjectsItem,
-                               viewModel: ProjectViewModel, index: Int) {
-        iNetworkHelper.updateProject(p, viewModel, index)
+    override fun updateProject(listener: IDataManager.OnProjectListListener,
+                               p: ProjectsItem,
+                               index: Int) {
+        iNetworkHelper.updateProject(listener, p, index)
     }
 
-    override fun getProjectList(viewModel: ProjectViewModel) {
-        iNetworkHelper.getProjectList(viewModel)
+    override fun getProjectList(listener: IDataManager.OnProjectListListener) {
+        iNetworkHelper.getProjectList(listener)
     }
 
     /******************************************************************

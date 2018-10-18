@@ -25,7 +25,7 @@ interface INetworkHelper {
 
     fun storeNewProjectToServer(listener:OnCreateProjectListener,p: ProjectsItem)
     //fun storeNewProjectToServer(p: ProjectsItem, viewModel: ProjectViewModel)
-    fun getProjectList(viewModel: ProjectViewModel)
+    fun getProjectList(listener: IDataManager.OnProjectListListener)
 
     fun createTask(viewModel: TaskViewModel, listener: OnAdminCreateTaskListener, taskItem: TaskItem)
     fun getAdminTaskList(viewModel: TaskViewModel, listener: OnAdminTaskListListener, projectId: Int)
@@ -34,7 +34,7 @@ interface INetworkHelper {
     fun getTeamMemberByTask(viewModel: TaskViewModel, listener: OnTaskMemberListener, taskItem: TaskItem)
     fun getMemberDetails(viewModel: TaskViewModel, addlistener: OnAddMemberDetailsListener, memberListListener: OnTaskMemberListener, memberList: ArrayList<TaskMemberItem>?)
 
-    fun updateProject(p:ProjectsItem, viewModel: ProjectViewModel, index:Int)
+    fun updateProject(listener: IDataManager.OnProjectListListener, p:ProjectsItem, index:Int)
 
     fun storeNewSubTaskToServer(subTask:ProjectSubTaskItem)
 

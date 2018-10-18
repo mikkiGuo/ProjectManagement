@@ -7,14 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
+import com.example.mikki.projectmanagement.BuildConfig
 import com.example.mikki.projectmanagement.R
+import com.example.mikki.projectmanagement.data.IDataManager
 import com.example.mikki.projectmanagement.data.model.ProjectsItem
 import com.example.mikki.projectmanagement.view.task.TaskListFragment
 import com.example.mikki.projectmanagement.view.team.TeamForProjectFragment
 import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
 import kotlinx.android.synthetic.main.frag_project_details.view.*
 
-class ProjectDetails:Fragment() {
+class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
+
     private val viewModel = ProjectViewModel()
     lateinit var bundle:Bundle
     lateinit var projectItem:ProjectsItem
@@ -24,15 +28,6 @@ class ProjectDetails:Fragment() {
 
         val view = inflater!!.inflate(R.layout.frag_project_details,
                 container, false)
-
-       /* var statusData = resources.getStringArray(R.array.spinner_status)
-        // Create an ArrayAdapter using a simple spinner layout and languages array
-        val aa = ArrayAdapter(view.context, android.R.layout.simple_spinner_item,
-                statusData)
-        // Set layout to use when the list of choices appear
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        // Set Adapter to Spinner
-        view.spinner_project_status!!.setAdapter(aa)*/
 
         setValueToUI(view)
         setEnableFalse(view)
@@ -46,12 +41,8 @@ class ProjectDetails:Fragment() {
             var index = bundle.get("index")
             var updatedProject = setUpdatedProject(view)
 
-            viewModel.updateProject(updatedProject, index as Int)
+            viewModel.updateProject(this, updatedProject, index as Int)
 
-            var fragment = ProjectListFragment()
-            fragmentManager.beginTransaction()
-                    .replace(R.id.mainActivity, fragment)
-                    .addToBackStack(null).commit()
         }
 
         view.tv_add_teammates.setOnClickListener {
@@ -78,6 +69,8 @@ class ProjectDetails:Fragment() {
 
         return view
     }
+
+
 
     private fun setUpdatedProject(view: View):ProjectsItem {
         var updatedProject = ProjectsItem()
@@ -124,5 +117,20 @@ class ProjectDetails:Fragment() {
 
         var statusPos = projectItem.projectstatus!!.toInt()
         view.spinner_project_status.setSelection(statusPos)
+    }
+
+    override fun finishedInitialList(p: ProjectsItem) {
+        //do nothing in this fragment
+    }
+
+    override fun finishedUpdateProject(p: ProjectsItem, index: Int) {
+        Toast.makeText(context,
+                "Successfully updated project",
+                Toast.LENGTH_SHORT).show()
+        var fragment = ProjectListFragment()
+        fragmentManager.beginTransaction()
+                .replace(R.id.mainActivity, fragment)
+                .addToBackStack(null).commit()
+
     }
 }

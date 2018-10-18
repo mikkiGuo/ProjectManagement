@@ -30,9 +30,9 @@ class ProjectViewModel:BaseObservable() {
             notifyPropertyChanged(BR.changedPositions)
         }
 
-    fun initList() {
+    fun initList(listener:IDataManager.OnProjectListListener) {
         projectList = mutableListOf()
-        dataManager.getProjectList(this)
+        dataManager.getProjectList(listener)
     }
 
     fun updateList(projectsItem: ProjectsItem) {
@@ -46,8 +46,8 @@ class ProjectViewModel:BaseObservable() {
         dataManager.storeNewProjectToServer(listener, projectsItem)
     }
 
-    fun updateProject(projectsItem: ProjectsItem, index:Int){
-        dataManager.updateProject(projectsItem, this, index)
+    fun updateProject(listener: IDataManager.OnProjectListListener, projectsItem: ProjectsItem, index:Int){
+        dataManager.updateProject(listener, projectsItem, index)
     }
 
     fun updateItem(index:Int, p:ProjectsItem){
@@ -57,9 +57,10 @@ class ProjectViewModel:BaseObservable() {
 
     }
 
-    fun markCompleted(adapterPosition: Int) {
+    fun markCompleted(listener: IDataManager.OnProjectListListener,
+                      adapterPosition: Int) {
         projectList[adapterPosition].projectstatus = "2"
-        updateProject(projectList[adapterPosition],adapterPosition)
+        updateProject(listener, projectList[adapterPosition],adapterPosition)
     }
 
 

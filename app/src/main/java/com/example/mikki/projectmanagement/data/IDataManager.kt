@@ -64,4 +64,10 @@ interface IDataManager:INetworkHelper {
     interface OnCreateProjectListener{
         fun finishedOnCreateProject(p: ProjectsItem)
     }
+
+    interface OnProjectListListener{
+        fun finishedInitialList(p:ProjectsItem)
+        fun finishedUpdateProject(p: ProjectsItem,
+                                  index:Int)
+    }
 }

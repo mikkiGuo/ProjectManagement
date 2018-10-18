@@ -4,9 +4,7 @@ import android.util.Log
 import com.example.mikki.projectmanagement.data.IDataManager.*
 import com.example.mikki.projectmanagement.data.model.*
 import com.example.mikki.projectmanagement.data.IDataManager
-import com.example.mikki.projectmanagement.data.model.*
 import com.example.mikki.projectmanagement.viewmodel.ViewModelSubTask
-import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
 import com.example.mikki.projectmanagement.viewmodel.TaskViewModel
 import com.example.mikki.projectmanagement.viewmodel.TeamViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -51,8 +49,9 @@ class NetworkHelper:INetworkHelper {
                         }, { error -> ninntag.warn { error.message } })
     }
 
-    override fun updateProject(p: ProjectsItem,
-                               viewModel: ProjectViewModel, index:Int) {
+    override fun updateProject(listener: IDataManager.OnProjectListListener,
+                               p: ProjectsItem,
+                               index:Int) {
         Log.d("mikkiproject", "+++++++++++++++++++++++++++++++++++++++")
         disposable =
                 apiServe.updateProject(
@@ -66,7 +65,8 @@ class NetworkHelper:INetworkHelper {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                { result ->viewModel.updateItem(index, p)
+                                { result ->
+                                    listener.finishedUpdateProject(p, index)
                                     Log.d("mikkiproject","Message"
                                             + result.toString()
                                     )
@@ -102,7 +102,7 @@ class NetworkHelper:INetworkHelper {
 
 
 
-    override fun getProjectList(viewModel: ProjectViewModel) {
+    override fun getProjectList(listener: IDataManager.OnProjectListListener) {
         Log.d("mikkiproject", "+++++++++++++++++++++++++++++++++++++++")
         disposable =
                 apiServe.getProjectList()
@@ -114,7 +114,7 @@ class NetworkHelper:INetworkHelper {
                                     {
                                         item as ProjectsItem
                                         //if(!item.projectstatus.equals("2") ){
-                                            viewModel.updateList(item)
+                                            listener.finishedInitialList(item)
                                         //}
                                     }
                                     Log.d("mikkiproject",(result.projects.size.toString())
