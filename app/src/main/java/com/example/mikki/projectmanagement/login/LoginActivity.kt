@@ -39,11 +39,7 @@ class LoginActivity : AppCompatActivity(), IDataManager.OnLoginListener {
         btn_login.setOnClickListener {
             getUserInput()
         }
-
-        tv_login_register.setOnClickListener {
-            intent = Intent(this@LoginActivity, RegisterActivity::class.java)
-            startActivity(intent)
-        }
+        
 
         fab.setOnClickListener { view ->
             val manager = FingerprintManagerCompat.from(this)
