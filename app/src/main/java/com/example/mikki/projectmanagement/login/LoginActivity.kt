@@ -15,6 +15,8 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         setSupportActionBar(toolbar)
 
+
+
         fab.setOnClickListener { view ->
             val manager = FingerprintManagerCompat.from(this)
 

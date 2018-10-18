@@ -15,6 +15,16 @@ interface APIService {
 
     // BASE URL -> http://rjtmobile.com/aamir/pms/android-app/
 
+    /**
+     * http://rjtmobile.com/aamir/pms/android-app/
+     * pms_login.php?
+     * email=aa@aa.com&
+     * password=12345678
+     */
+    @GET("pms_login.php")
+    fun login(@Query("email") email:String,
+              @Query("password") password:String):Observable<LoginUserInfo>
+
     // pms_reg.php?first_name=aamir&last_name=husain&email=aa@aa.com&mobile=9876543210&password=12345678&company_size=500&your_role=TL
     @GET("pms_reg.php")
     fun register(@Query("first_name") fname: String,
@@ -159,7 +169,7 @@ interface APIService {
     fun viewTeamMemberBySubTask(@Query("taskid") taskId: String,
                                 @Query("subtask_id") subTaskId: String,
                                 @Query("project_id") projectId: String):
-            Observable<TeamMeber>
+            Observable<TeamMember>
 
     //http://rjtmobile.com/aamir/pms/android-app/pms_edit_sub_task_status.php?
     // taskid=1&
@@ -230,6 +240,24 @@ interface APIService {
      */
     @GET("pms_employee_list.php")
     fun getEmployeeList():Observable<EmployeeList>
+
+
+    /* http://rjtmobile.com/aamir/pms/android-app/
+     * pms_project_team.php?
+     * project_id=29
+     */
+    @GET("pms_project_team.php")
+    fun getProjectTeamList(@Query("project_id")project_id:Int):
+            Observable<ProjectTeam>
+
+    /***
+     * http://rjtmobile.com/aamir/pms/android-app/
+     * pms_team_member_deatil.php?
+     * memberuserid=15
+     */
+    @GET("pms_team_member_deatil.php")
+    fun getMemberDetailForProject(@Query("memberuserid") memberuserid:String):
+            Observable<TeamMemberDetail>
 
 
     companion object {

@@ -20,7 +20,8 @@ import kotlinx.android.synthetic.main.frag_project_details.view.*
 class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
 
     private val viewModel = ProjectViewModel()
-    lateinit var bundle:Bundle
+    lateinit var bundleFrom:Bundle
+    val bundleTo:Bundle = Bundle()
     lateinit var projectItem:ProjectsItem
 
 
@@ -37,6 +38,12 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
             view.btn_edit_project.visibility = View.GONE
             view.btn_update_project.visibility = View.GONE
         }
+
+        bundleFrom = arguments
+        projectItem = bundleFrom.getParcelable<ProjectsItem>("data")
+
+        bundleTo.putParcelable("data", projectItem)
+
         setValueToUI(view)
         setEnableFalse(view)
 
@@ -46,10 +53,7 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
 
         view.tv_add_teammates.setOnClickListener {
             var fragment = TeamForProjectFragment()
-
-            val bundle = Bundle()
-            bundle.putInt("projectId", projectItem.id!!.toInt())
-            fragment.arguments = bundle
+            fragment.arguments = bundleTo
 
             fragmentManager.beginTransaction()
                     .replace(R.id.mainActivity, fragment)
@@ -58,7 +62,7 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
 
         view.btn_update_project.setOnClickListener{
 
-            var index = bundle.get("index")
+            var index = bundleFrom.get("index")
             var updatedProject = setUpdatedProject(view)
 
             viewModel.updateProject(this, updatedProject, index as Int)
@@ -68,9 +72,8 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
         view.btn_view_tasks.setOnClickListener {
             var fragment = TaskListFragment()
 
-            val bundle = Bundle()
-            bundle.putInt("projectId", projectItem.id!!.toInt())
-            fragment.arguments = bundle
+            bundleTo.putInt("projectId", projectItem.id!!.toInt())
+            fragment.arguments = bundleTo
 
             fragmentManager.beginTransaction().add(R.id.mainActivity, fragment).addToBackStack(null).commit()
         }
@@ -114,8 +117,6 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
     }
 
     private fun setValueToUI(view:View){
-        bundle = arguments
-        projectItem = bundle.getParcelable<ProjectsItem>("data")
 
         view.tv_title_cnp.setText(projectItem.projectname)
         view.tv_despt_cnp.setText(projectItem.projectdesc)

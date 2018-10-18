@@ -5,6 +5,9 @@ import com.example.mikki.projectmanagement.data.network.INetworkHelper
 
 interface IDataManager:INetworkHelper {
 
+    interface OnLoginListener{
+        fun isValid(boolean:Boolean)
+    }
     interface OnRegisterListener {
         fun isRegistered(boolean: Boolean)
     }
@@ -71,5 +74,10 @@ interface IDataManager:INetworkHelper {
     interface OnCreateTeamForProject{
         fun finishedInitialEmployeeList(item:EmployeesItem)
         fun finishedAddedMemberToProject(index:Int)
+    }
+
+    interface OnDisplayProjectTeam{
+        fun finishedGetProjectTeamList(item:ProjectteamItem)
+        fun convertToEmployeeListFormat(item:TeamMemberDetail)
     }
 }

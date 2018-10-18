@@ -24,6 +24,11 @@ class NetworkHelper:INetworkHelper {
         APIService.create()
     }
 
+    override fun login(listener: OnLoginListener, loginInfo: LoginInfo) {
+
+
+    }
+
     override fun register(listener: OnRegisterListener, register: Register) {
         ninntag.warn { "in networkhelper, registering user..." }
         disposable = apiServe.register(
@@ -488,6 +493,8 @@ class NetworkHelper:INetworkHelper {
                         )
     }
 
+
+
     override fun getEmployeeList(listener:IDataManager.OnCreateTeamForProject) {
         disposable = apiServe.getEmployeeList().
                 subscribeOn(Schedulers.io()).
@@ -506,5 +513,35 @@ class NetworkHelper:INetworkHelper {
                 )
     }
 
+    override fun getProjectTeamList(listener: OnDisplayProjectTeam, projectId: Int) {
+        disposable = apiServe.getProjectTeamList(
+                projectId!!)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        {
+                            result->Log.d(MIKKI_TEAM, "getProjectTeamList: "+result.toString())
+                            for(item in result.projectteam!!) {
+                                listener.finishedGetProjectTeamList(item!!)
+                            }
+                        },
+                        {
+                            error("result invalid")
+                        }
+                )
 
+        }
+
+    override fun getMemberDetailForProjectTeam(listener: OnDisplayProjectTeam,
+                                               memberId: String) {
+        disposable = apiServe.getMemberDetailForProject(memberId!!)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    result->Log.d(MIKKI_TEAM, result.toString())
+                    listener.convertToEmployeeListFormat(result)
+                },{
+                    error->Log.d(MIKKI_TEAM, error.message)
+                })
+    }
 }

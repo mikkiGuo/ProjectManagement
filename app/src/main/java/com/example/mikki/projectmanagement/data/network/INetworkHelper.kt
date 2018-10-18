@@ -12,6 +12,7 @@ import com.example.mikki.projectmanagement.viewmodel.TeamViewModel
 
 interface INetworkHelper {
 
+    fun login(listener:OnLoginListener, loginInfo:LoginInfo)
     fun register(listener: OnRegisterListener, register: Register)
 
     fun createNewSubTask(listener: IDataManager.OnAdminCreateSubTaskListener, subTask:ProjectSubTaskItem)
@@ -47,5 +48,9 @@ interface INetworkHelper {
                              index:Int)
 
     fun getEmployeeList(listener:OnCreateTeamForProject)
+
+    fun getProjectTeamList(listener:OnDisplayProjectTeam, projectId: Int)
+
+    fun getMemberDetailForProjectTeam(listener:OnDisplayProjectTeam, memberId: String)
 
 }

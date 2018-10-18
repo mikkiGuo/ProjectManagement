@@ -1,5 +1,5 @@
 package com.example.mikki.projectmanagement.data.model
 
-data class TeamMeber(
+data class TeamMember(
 	val members: List<MembersItem?>? = null
 )

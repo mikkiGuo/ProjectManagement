@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.RecyclerView
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-</android.support.v7.widget.RecyclerView>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/icons">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.mikki.projectmanagement.viewmodel.TeamViewModel"/>
+    </data>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:padding="20dp"
+            android:text="Employee List"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.RecyclerView
+
+            android:id="@+id/rv_employee_list_without_add"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:data = "@{viewModel.employeeListFrag}"
+            app:changedPositions = "@{viewModel.changedIndex}">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+</layout>

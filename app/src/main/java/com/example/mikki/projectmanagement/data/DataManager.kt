@@ -8,6 +8,9 @@ import com.example.mikki.projectmanagement.viewmodel.TaskViewModel
 import com.example.mikki.projectmanagement.viewmodel.TeamViewModel
 
 class DataManager:IDataManager {
+    override fun login(listener: IDataManager.OnLoginListener, loginInfo: LoginInfo) {
+        iNetworkHelper.login(listener, loginInfo)
+    }
 
     companion object {
         val iNetworkHelper = NetworkHelper()
@@ -128,4 +131,15 @@ class DataManager:IDataManager {
     override fun getEmployeeList(listener:IDataManager.OnCreateTeamForProject) {
         iNetworkHelper.getEmployeeList(listener)
     }
+
+    override fun getProjectTeamList(listener: IDataManager.OnDisplayProjectTeam,
+                                    projectId: Int) {
+        iNetworkHelper.getProjectTeamList(listener,projectId)
+    }
+
+    override fun getMemberDetailForProjectTeam(listener: IDataManager.OnDisplayProjectTeam,
+                                               memberId: String) {
+        iNetworkHelper.getMemberDetailForProjectTeam(listener, memberId)
+    }
+
 }

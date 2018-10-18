@@ -11,6 +11,7 @@ import android.support.design.widget.Snackbar
 import com.example.mikki.projectmanagement.view.project.CreateProjectFragment
 import com.example.mikki.projectmanagement.view.project.ProjectListFragment
 import com.example.mikki.projectmanagement.view.task.TaskListFragment
+import com.example.mikki.projectmanagement.view.team.EmployeeListFragment
 import kotlinx.android.synthetic.main.floating_button.*
 
 class MainActivity : AppCompatActivity() {
@@ -67,6 +68,12 @@ class MainActivity : AppCompatActivity() {
 
         bt_subTaskList.setOnClickListener {
             val subTaskListFrag = SubTaskFragmentList()
+            fragmentManager.beginTransaction().add(R.id.mainActivity, subTaskListFrag)
+                    .addToBackStack(null).commit()
+        }
+
+        btn_employee_list.setOnClickListener {
+            val subTaskListFrag = EmployeeListFragment()
             fragmentManager.beginTransaction().add(R.id.mainActivity, subTaskListFrag)
                     .addToBackStack(null).commit()
         }
