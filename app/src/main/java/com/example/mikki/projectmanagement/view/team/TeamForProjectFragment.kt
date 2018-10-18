@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.mikki.projectmanagement.BuildConfig
 import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.adapter.DisplayTeamListAdapter
 import com.example.mikki.projectmanagement.adapter.EmployeeListAdapter
@@ -17,6 +18,7 @@ import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectsItem
 import com.example.mikki.projectmanagement.databinding.FragTeamForProjectBinding
 import com.example.mikki.projectmanagement.view.project.ProjectDetails
 import com.example.mikki.projectmanagement.viewmodel.TeamViewModel
+import kotlinx.android.synthetic.main.frag_project_details.view.*
 import kotlinx.android.synthetic.main.frag_team_for_project.view.*
 import kotlinx.android.synthetic.main.item_name_tag.view.*
 
@@ -50,6 +52,13 @@ class TeamForProjectFragment:Fragment(), IDataManager.OnDisplayProjectTeam {
         view.rv_project_team.adapter = adapter
 
         viewModel.initListProjectTeam(this, projectId)
+
+        if (BuildConfig.FLAVOR.equals("manager")) {
+
+
+        } else if (BuildConfig.FLAVOR.equals("developer")) {
+            view.icon_add_member_project.visibility = View.GONE
+        }
 
         btnClickHandler(view)
         return view
