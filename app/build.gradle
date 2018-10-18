@@ -5,6 +5,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 27
@@ -76,4 +77,7 @@ dependencies {
     implementation 'com.asksira.android:dropdownview:1.0.3'
 
     implementation 'io.github.yavski:fab-speed-dial:1.0.6'
+    implementation 'com.google.firebase:firebase-storage:16.0.3'
+    implementation 'com.google.firebase:firebase-auth:16.0.4'
+    implementation 'com.google.firebase:firebase-core:16.0.4'
 }

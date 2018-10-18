@@ -1,7 +1,10 @@
 package com.example.mikki.projectmanagement.view.project
 
 import android.app.Fragment
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +19,13 @@ import com.example.mikki.projectmanagement.view.task.TaskListFragment
 import com.example.mikki.projectmanagement.view.team.TeamForProjectFragment
 import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
 import kotlinx.android.synthetic.main.frag_project_details.view.*
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.firebase.storage.UploadTask
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+
+
 
 class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
 
@@ -23,7 +33,8 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
     lateinit var bundleFrom:Bundle
     val bundleTo:Bundle = Bundle()
     lateinit var projectItem: ProjectsItem
-
+    lateinit var mStorage : StorageReference
+    lateinit var uri : Uri
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
@@ -39,6 +50,7 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
             view.btn_update_project.visibility = View.GONE
         }
 
+        mStorage = FirebaseStorage.getInstance().getReference();
         bundleFrom = arguments
         projectItem = bundleFrom.getParcelable<ProjectsItem>("data")
 
@@ -78,10 +90,45 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
             fragmentManager.beginTransaction().add(R.id.mainActivity, fragment).addToBackStack(null).commit()
         }
 
+        view.tv_add_file.setOnClickListener {
+            val intent = Intent()
+            intent.setType ("image/*")
+            intent.setAction(Intent.ACTION_GET_CONTENT)
+            startActivityForResult(Intent.createChooser(intent,
+                    "Select Picture"), 1)
+        }
+
         return view
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == AppCompatActivity.RESULT_OK) {
+            if(requestCode == 1){
+                uri = data!!.data
+                upload ()
+            }
 
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+
+    private fun upload(){
+
+        var mReference = mStorage.child(uri.lastPathSegment)
+        try {
+            mReference.putFile(uri).addOnSuccessListener {
+                taskSnapshot: UploadTask.TaskSnapshot? ->
+                var url = mReference.downloadUrl!!.toString()
+                Log.d("mikkiUrl", url)
+                Toast.makeText(context,
+                        "Successfully Uploaded : $url",
+                        Toast.LENGTH_LONG).show()
+            }
+        }catch (e: Exception) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show()
+        }
+    }
 
     private fun setUpdatedProject(view: View):ProjectsItem {
         var updatedProject = ProjectsItem()
