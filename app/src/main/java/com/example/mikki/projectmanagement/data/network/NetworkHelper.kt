@@ -16,6 +16,7 @@ import org.jetbrains.anko.warn
 class NetworkHelper:INetworkHelper {
 
     private val MIKKI_TEAM = "MikkiTeam"
+    private val MIKKI_LOGIN = "MikkiLogin"
 
     private val ninntag = AnkoLogger("ninntag")
 
@@ -25,7 +26,17 @@ class NetworkHelper:INetworkHelper {
     }
 
     override fun login(listener: OnLoginListener, loginInfo: LoginInfo) {
-
+        disposable = apiServe.login(
+                loginInfo.email!!,
+                loginInfo.password!!
+                ).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    result->Log.d(MIKKI_LOGIN, result.msg)
+                    listener.getUserInfo(result)
+                },{
+                    error->Log.d(MIKKI_LOGIN, error.message)
+                })
 
     }
 

@@ -6,7 +6,8 @@ import com.example.mikki.projectmanagement.data.network.INetworkHelper
 interface IDataManager:INetworkHelper {
 
     interface OnLoginListener{
-        fun isValid(boolean:Boolean)
+        fun getUserInfo(result: LoginUserInfo)
+        fun errorMsg(msg:String)
     }
     interface OnRegisterListener {
         fun isRegistered(boolean: Boolean)
