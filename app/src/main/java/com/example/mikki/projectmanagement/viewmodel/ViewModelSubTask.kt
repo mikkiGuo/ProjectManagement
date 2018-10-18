@@ -11,6 +11,8 @@ import com.example.mikki.projectmanagement.data.IDataManager
 import com.example.mikki.projectmanagement.data.model.*
 import com.example.mikki.projectmanagement.view.task.TaskMemberRecyclerAdapter
 import org.jetbrains.anko.warn
+import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectSubTaskItem
+import com.example.mikki.projectmanagement.data.model.subtaskmodel.ViewsubtasksItem
 
 class ViewModelSubTask(context: Context) : BaseObservable(),
         IDataManager.OnUserAdminViewSubTaskDetailListener, IDataManager.OnAddMemberDetailsListener {

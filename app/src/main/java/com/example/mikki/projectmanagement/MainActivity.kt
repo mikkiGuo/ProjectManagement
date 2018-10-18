@@ -8,6 +8,7 @@ import com.example.mikki.projectmanagement.view.subtask.SubTaskFragmentList
 import com.example.mikki.projectmanagement.view.task.CreateTaskFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import android.support.design.widget.Snackbar
+import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.view.project.CreateProjectFragment
 import com.example.mikki.projectmanagement.view.project.ProjectListFragment
 import com.example.mikki.projectmanagement.view.task.TaskListFragment

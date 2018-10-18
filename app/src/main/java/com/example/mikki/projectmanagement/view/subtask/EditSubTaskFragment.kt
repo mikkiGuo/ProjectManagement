@@ -11,13 +11,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.mikki.projectmanagement.R
-import com.example.mikki.projectmanagement.adapter.SubTaskAdapter
 import com.example.mikki.projectmanagement.data.DataManager
 import com.example.mikki.projectmanagement.data.IDataManager
 import com.example.mikki.projectmanagement.data.model.ProjectSubTaskItem
 import com.example.mikki.projectmanagement.viewmodel.TaskViewModel
 import com.example.mikki.projectmanagement.viewmodel.ViewModelSubTask
 import kotlinx.android.synthetic.main.fragment_edit_sub_taskk.view.*
+import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectSubTaskItem
+import kotlinx.android.synthetic.main.fragment_edit_sub_task.*
+import kotlinx.android.synthetic.main.fragment_edit_sub_task.view.*
+
+class EditSubTaskFragment: Fragment(), IDataManager.OnAdminEditSubTaskListener {
 
 class EditSubTaskFragment: Fragment(), IDataManager.OnAdminEditSubTaskListener, IDataManager.OnTaskMemberListener {
 

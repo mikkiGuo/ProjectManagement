@@ -30,21 +30,18 @@ class SubTaskFragmentList : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-
-
         val binding: FragmentSubTaskListBinding
                 = DataBindingUtil.inflate(inflater,
                 R.layout.fragment_sub_task_list, container, false)
 
         val view:View = binding.root
 
-
         val adapter = SubTaskAdapter(context)
 
         val mLayoutManager = LinearLayoutManager(context)
         mLayoutManager.setReverseLayout(true);
         mLayoutManager.setStackFromEnd(true);
-        
+
         view.rvSubTask.layoutManager = mLayoutManager
         view.rvSubTask.adapter = adapter
 

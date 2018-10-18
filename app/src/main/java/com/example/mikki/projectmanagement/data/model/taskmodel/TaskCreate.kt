@@ -1,4 +1,4 @@
-package com.example.mikki.projectmanagement.data.model
+package com.example.mikki.projectmanagement.data.model.taskmodel
 
 import com.google.gson.annotations.SerializedName
 

@@ -6,9 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import com.example.mikki.projectmanagement.R
-import com.example.mikki.projectmanagement.data.model.ProjectsItem
+import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectsItem
 import kotlinx.android.synthetic.main.item_project.view.*
 
 class ProjectListAdapter: RecyclerView.Adapter<ProjectListAdapter.ViewHolder>(),
@@ -18,7 +17,7 @@ class ProjectListAdapter: RecyclerView.Adapter<ProjectListAdapter.ViewHolder>(),
     var prodjectList = mutableListOf<ProjectsItem>()
 
     interface onItemClickListener{
-        fun onClick(view:View, project:ProjectsItem, position: Int)
+        fun onClick(view:View, project: ProjectsItem, position: Int)
     }
 
     override fun changedPositions(positions: Int) {

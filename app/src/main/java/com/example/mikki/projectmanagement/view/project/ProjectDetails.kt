@@ -2,13 +2,11 @@ package com.example.mikki.projectmanagement.view.project
 
 import android.app.Fragment
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import com.example.mikki.projectmanagement.R
-import com.example.mikki.projectmanagement.data.model.ProjectsItem
+import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectsItem
 import com.example.mikki.projectmanagement.view.task.TaskListFragment
 import com.example.mikki.projectmanagement.view.team.TeamForProjectFragment
 import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
@@ -17,7 +15,7 @@ import kotlinx.android.synthetic.main.frag_project_details.view.*
 class ProjectDetails:Fragment() {
     private val viewModel = ProjectViewModel()
     lateinit var bundle:Bundle
-    lateinit var projectItem:ProjectsItem
+    lateinit var projectItem: ProjectsItem
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -79,7 +77,7 @@ class ProjectDetails:Fragment() {
         return view
     }
 
-    private fun setUpdatedProject(view: View):ProjectsItem {
+    private fun setUpdatedProject(view: View): ProjectsItem {
         var updatedProject = ProjectsItem()
         updatedProject.id = projectItem.id
         updatedProject.projectname = view.tv_title_cnp.text.toString()

@@ -1,6 +1,7 @@
-package com.example.mikki.projectmanagement.data.model
+package com.example.mikki.projectmanagement.data.model.subtaskmodel
 
 
+import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectSubTaskItem
 import com.google.gson.annotations.SerializedName
 
 

@@ -6,9 +6,7 @@ import android.util.Log
 import com.example.mikki.projectmanagement.BR
 import com.example.mikki.projectmanagement.data.DataManager
 import com.example.mikki.projectmanagement.data.IDataManager
-import com.example.mikki.projectmanagement.data.model.ProjectList
-import com.example.mikki.projectmanagement.data.model.ProjectsItem
-import kotlin.math.log
+import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectsItem
 
 
 class ProjectViewModel:BaseObservable() {
@@ -50,7 +48,7 @@ class ProjectViewModel:BaseObservable() {
         dataManager.updateProject(projectsItem, this, index)
     }
 
-    fun updateItem(index:Int, p:ProjectsItem){
+    fun updateItem(index:Int, p: ProjectsItem){
         var i = index+1
         projectList[index].copy(p.projectname,p.endstart,
                 p.projectdesc,p.id,p.startdate,p.projectstatus)

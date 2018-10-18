@@ -1,11 +1,16 @@
 package com.example.mikki.projectmanagement.data
 
 import com.example.mikki.projectmanagement.data.model.*
+import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectSubTaskItem
+import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectsItem
+import com.example.mikki.projectmanagement.data.model.taskmodel.TaskItem
+import com.example.mikki.projectmanagement.data.model.taskmodel.TaskMemberItem
 import com.example.mikki.projectmanagement.data.network.NetworkHelper
 import com.example.mikki.projectmanagement.viewmodel.ViewModelSubTask
 import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
 import com.example.mikki.projectmanagement.viewmodel.TaskViewModel
 import com.example.mikki.projectmanagement.viewmodel.TeamViewModel
+import kotlinx.coroutines.experimental.newCoroutineContext
 
 class DataManager:IDataManager {
 
@@ -32,6 +37,41 @@ class DataManager:IDataManager {
 
     override fun getProjectList(viewModel: ProjectViewModel) {
         iNetworkHelper.getProjectList(viewModel)
+    }
+
+    /******************************************************************
+     * Task Stuff Divider
+     ******************************************************************/
+
+    override fun createTask(viewModel: TaskViewModel, listener: IDataManager.OnAdminCreateTaskListener, taskItem: TaskItem) {
+        iNetworkHelper.createTask(viewModel, listener, taskItem)
+    }
+
+    override fun getAdminTaskList(viewModel: TaskViewModel, listener: IDataManager.OnAdminTaskListListener, projectId: Int) {
+        return iNetworkHelper.getAdminTaskList(viewModel, listener, projectId)
+    }
+
+    override fun getUserTaskList(viewModel: TaskViewModel, id: String) {
+        iNetworkHelper.getUserTaskList(viewModel, id)
+    }
+
+    override fun updateTaskDetails(viewModel: TaskViewModel, listener: IDataManager.OnAdminTaskUpdatedListener, taskItem: TaskItem) {
+        iNetworkHelper.updateTaskDetails(viewModel, listener, taskItem)
+    }
+
+    override fun getTeamMemberByTask(viewModel: TaskViewModel, listener: IDataManager.OnTaskMemberListener, taskItem: TaskItem) {
+        iNetworkHelper.getTeamMemberByTask(viewModel, listener, taskItem)
+    }
+
+    override fun getMemberDetails(viewModel: TaskViewModel,
+                                  listener: IDataManager.OnAddMemberDetailsListener,
+                                  memberListListener: IDataManager.OnTaskMemberListener,
+                                  memberList: ArrayList<TaskMemberItem>?) {
+        iNetworkHelper.getMemberDetails(viewModel, listener, memberListListener, memberList)
+    }
+
+    override fun assignMemberToTask(viewModel: TaskViewModel, listener: IDataManager.OnAssignMemberListener, memberItem: TaskMemberItem) {
+        iNetworkHelper.assignMemberToTask(viewModel, listener, memberItem)
     }
 
     /******************************************************************

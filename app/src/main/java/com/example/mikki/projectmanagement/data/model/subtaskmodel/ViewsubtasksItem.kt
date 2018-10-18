@@ -1,4 +1,4 @@
-package com.example.mikki.projectmanagement.data.model
+package com.example.mikki.projectmanagement.data.model.subtaskmodel
 
 data class ViewsubtasksItem(
 	val subtaskid: String? = null,

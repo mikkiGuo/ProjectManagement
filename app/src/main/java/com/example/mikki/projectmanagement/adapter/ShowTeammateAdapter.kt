@@ -9,7 +9,7 @@ import com.example.mikki.projectmanagement.data.model.EmployeesItem
 import kotlinx.android.synthetic.main.item_btn_name_tag.view.*
 
 class ShowTeammateAdapter: RecyclerView.Adapter<ShowTeammateAdapter.ViewHolder>()
-        ,BindableAdapter<EmployeesItem>
+        , BindableAdapter<EmployeesItem>
 {
 
     lateinit var listener: onItemClickListener

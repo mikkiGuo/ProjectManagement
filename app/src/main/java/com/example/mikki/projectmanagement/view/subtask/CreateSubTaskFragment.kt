@@ -9,7 +9,7 @@ import android.widget.Toast
 import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.data.DataManager
 import com.example.mikki.projectmanagement.data.IDataManager
-import com.example.mikki.projectmanagement.data.model.ProjectSubTaskItem
+import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectSubTaskItem
 import kotlinx.android.synthetic.main.fragment_create_sub_task.view.*
 
 class CreateSubTaskFragment: Fragment(), IDataManager.OnAdminCreateSubTaskListener {
