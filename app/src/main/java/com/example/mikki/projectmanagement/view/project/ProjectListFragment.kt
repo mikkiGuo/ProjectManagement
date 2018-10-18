@@ -62,16 +62,15 @@ class ProjectListFragment(): Fragment() {
             }
         }
 
+
         val mLayoutManager = LinearLayoutManager(context)
         mLayoutManager.setReverseLayout(true);
         mLayoutManager.setStackFromEnd(true);
-
         view.rv_project_list.layoutManager = mLayoutManager
         view.rv_project_list.adapter = adapter
 
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
         itemTouchHelper.attachToRecyclerView(view.rv_project_list)
-
 
 
         viewModel.initList()

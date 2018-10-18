@@ -62,8 +62,12 @@ class TeamViewModel: BaseObservable() {
     fun removeAddedEmployeeFromView(position:Int){
         Log.d(MIKKI_TEAM, "remove employee from list")
         employeeList.removeAt(position)
+
+
         if(position != -1){
-            changedIndex = position
+            for(i in position..employeeList.size) {
+                changedIndex = i
+            }
         }
 
     }

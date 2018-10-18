@@ -75,7 +75,8 @@ class NetworkHelper:INetworkHelper {
                         )
     }
 
-    override fun storeNewProjectToServer(p:ProjectsItem, viewModel: ProjectViewModel) {
+    override fun storeNewProjectToServer(listener:OnCreateProjectListener,
+                                         p:ProjectsItem) {
         Log.d("mikkiproject", "+++++++++++++++++++++++++++++++++++++++")
         Log.d("mikkiproject", p.projectname)
         Log.d("mikkiproject", p.projectstatus)
@@ -93,7 +94,7 @@ class NetworkHelper:INetworkHelper {
                                 { result ->
                                     Log.d("mikkiproject", result.toString())
                                     p.id = result.id.toString()
-                                    viewModel.updateList(p)
+                                    listener.finishedOnCreateProject(p)
                                      },
                                 { error -> Log.d("mikkiproject", error.message) }
                         )

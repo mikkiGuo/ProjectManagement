@@ -2,6 +2,7 @@ package com.example.mikki.projectmanagement.data
 
 import com.example.mikki.projectmanagement.data.model.MembersItem
 import com.example.mikki.projectmanagement.data.model.ProjectSubTaskItem
+import com.example.mikki.projectmanagement.data.model.ProjectsItem
 import com.example.mikki.projectmanagement.data.model.ViewsubtasksItem
 import com.example.mikki.projectmanagement.data.network.INetworkHelper
 
@@ -58,5 +59,9 @@ interface IDataManager:INetworkHelper {
 
     interface OnAddMemberDetailsListener {
         fun finishedAdding(listener: OnTaskMemberListener)
+    }
+
+    interface OnCreateProjectListener{
+        fun finishedOnCreateProject(p: ProjectsItem)
     }
 }

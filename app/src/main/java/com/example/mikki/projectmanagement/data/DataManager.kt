@@ -21,8 +21,8 @@ class DataManager:IDataManager {
      * Project Stuff Divider
      ******************************************************************/
 
-    override fun storeNewProjectToServer(p: ProjectsItem, viewModel: ProjectViewModel) {
-        iNetworkHelper.storeNewProjectToServer(p, viewModel)
+    override fun storeNewProjectToServer(listener:IDataManager.OnCreateProjectListener,p: ProjectsItem) {
+        iNetworkHelper.storeNewProjectToServer(listener, p)
     }
 
     override fun updateProject(p: ProjectsItem,
