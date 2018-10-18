@@ -100,8 +100,6 @@ class NetworkHelper:INetworkHelper {
                         )
     }
 
-
-
     override fun getProjectList(listener: IDataManager.OnProjectListListener) {
         Log.d("mikkiproject", "+++++++++++++++++++++++++++++++++++++++")
         disposable =
@@ -470,10 +468,10 @@ class NetworkHelper:INetworkHelper {
      * Team Stuff Divider
      **************************************************************************/
 
-    override fun createTeamForProject(projectId: Int,
+    override fun createTeamForProject(listener:IDataManager.OnCreateTeamForProject,
+                                      projectId: Int,
                                       team_member_userid: Int,
-                                      index: Int,
-                                      viewModel: TeamViewModel) {
+                                      index: Int) {
         disposable =
                 apiServe.createTeamForProject(
                         projectId!!,
@@ -483,14 +481,14 @@ class NetworkHelper:INetworkHelper {
                         .subscribe(
                                 { result ->
                                     Log.d(MIKKI_TEAM, result.toString())
-                                    viewModel.removeAddedEmployeeFromView(index)
+                                    listener.finishedAddedMemberToProject(index)
 
                                 },
                                 { error -> Log.d(MIKKI_TEAM, error.message) }
                         )
     }
 
-    override fun getEmployeeList(viewModel: TeamViewModel) {
+    override fun getEmployeeList(listener:IDataManager.OnCreateTeamForProject) {
         disposable = apiServe.getEmployeeList().
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
@@ -499,7 +497,7 @@ class NetworkHelper:INetworkHelper {
                             result ->
                             Log.d(MIKKI_TEAM, result.employees.toString())
                             for(item in result.employees!!){
-                                viewModel.updateList(item!!)
+                                listener.finishedInitialEmployeeList(item!!)
                             }
                         },
                         {

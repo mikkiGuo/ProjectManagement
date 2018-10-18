@@ -115,15 +115,17 @@ class DataManager:IDataManager {
     /******************************************************************
      * Team Stuff Divider
      ******************************************************************/
-    override fun createTeamForProject(projectId: Int,
+    override fun createTeamForProject(listener:IDataManager.OnCreateTeamForProject,
+                                      projectId: Int,
                                       team_member_userid: Int,
-                                      index: Int,
-                                      viewModel: TeamViewModel) {
-        iNetworkHelper.createTeamForProject(projectId, team_member_userid,
-                index, viewModel)
+                                      index: Int) {
+        iNetworkHelper.createTeamForProject(listener,
+                projectId,
+                team_member_userid,
+                index)
     }
 
-    override fun getEmployeeList(viewModel: TeamViewModel) {
-        iNetworkHelper.getEmployeeList(viewModel)
+    override fun getEmployeeList(listener:IDataManager.OnCreateTeamForProject) {
+        iNetworkHelper.getEmployeeList(listener)
     }
 }

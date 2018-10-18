@@ -29,20 +29,19 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
         val view = inflater!!.inflate(R.layout.frag_project_details,
                 container, false)
 
+        if (BuildConfig.FLAVOR.equals("manager")) {
+            view.btn_update_project.visibility = View.INVISIBLE
+            //TODO: disable add teammate here
+
+        } else if (BuildConfig.FLAVOR.equals("developer")) {
+            view.btn_edit_project.visibility = View.GONE
+            view.btn_update_project.visibility = View.GONE
+        }
         setValueToUI(view)
         setEnableFalse(view)
 
         view.btn_edit_project.setOnClickListener{
             setEnableTrue(view)
-        }
-
-        view.btn_update_project.setOnClickListener{
-
-            var index = bundle.get("index")
-            var updatedProject = setUpdatedProject(view)
-
-            viewModel.updateProject(this, updatedProject, index as Int)
-
         }
 
         view.tv_add_teammates.setOnClickListener {
@@ -55,6 +54,15 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
             fragmentManager.beginTransaction()
                     .replace(R.id.mainActivity, fragment)
                     .addToBackStack(null).commit()
+        }
+
+        view.btn_update_project.setOnClickListener{
+
+            var index = bundle.get("index")
+            var updatedProject = setUpdatedProject(view)
+
+            viewModel.updateProject(this, updatedProject, index as Int)
+
         }
 
         view.btn_view_tasks.setOnClickListener {
@@ -92,7 +100,6 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
         view.tv_despt_cnp.isEnabled = false
         view.tv_enddate_cnp.isEnabled = false
         view.tv_startdate_cnp.isEnabled = false
-        view.btn_update_project.visibility = View.INVISIBLE
         view.spinner_project_status.isEnabled = false
     }
 
@@ -118,6 +125,8 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
         var statusPos = projectItem.projectstatus!!.toInt()
         view.spinner_project_status.setSelection(statusPos)
     }
+
+
 
     override fun finishedInitialList(p: ProjectsItem) {
         //do nothing in this fragment

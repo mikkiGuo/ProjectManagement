@@ -41,11 +41,11 @@ interface INetworkHelper {
     /******************************************************************
      * Team Stuff
      ******************************************************************/
-    fun createTeamForProject(projectId: Int,
+    fun createTeamForProject(listener:IDataManager.OnCreateTeamForProject,
+                             projectId: Int,
                              team_member_userid: Int,
-                             index:Int,
-                             viewModel: TeamViewModel)
+                             index:Int)
 
-    fun getEmployeeList(viewModel: TeamViewModel)
+    fun getEmployeeList(listener:OnCreateTeamForProject)
 
 }

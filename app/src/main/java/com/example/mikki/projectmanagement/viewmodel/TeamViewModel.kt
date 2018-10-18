@@ -31,10 +31,10 @@ class TeamViewModel: BaseObservable() {
     }
 
 
-    fun initList(){
+    fun initList(listener:IDataManager.OnCreateTeamForProject){
         Log.d(MIKKI_TEAM, "initList in view model")
         employeeList = mutableListOf()
-        iDataManager.getEmployeeList(this)
+        iDataManager.getEmployeeList(listener)
     }
 
     fun updateList(employeesItem: EmployeesItem){
@@ -42,9 +42,10 @@ class TeamViewModel: BaseObservable() {
         changedIndex = 0;
     }
 
-    fun addTeammateToProject(projectId:Int, userId:Int, position: Int){
+    fun addTeammateToProject(listener:IDataManager.OnCreateTeamForProject,
+                             projectId:Int, userId:Int, position: Int){
         Log.d(MIKKI_TEAM, "add teammate in view model")
-        iDataManager.createTeamForProject(projectId, userId, position, this)
+        iDataManager.createTeamForProject(listener, projectId, userId, position)
 
     }
 
@@ -63,12 +64,18 @@ class TeamViewModel: BaseObservable() {
         Log.d(MIKKI_TEAM, "remove employee from list")
         employeeList.removeAt(position)
 
+        var newList = employeeList.toMutableList()
+        employeeList = mutableListOf()
 
-        if(position != -1){
+        for(item in newList){
+            updateList(item)
+        }
+
+        /*if(position != -1){
             for(i in position..employeeList.size) {
                 changedIndex = i
             }
-        }
+        }*/
 
     }
 

@@ -9,14 +9,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.adapter.EmployeeListAdapter
+import com.example.mikki.projectmanagement.data.IDataManager
 import com.example.mikki.projectmanagement.data.model.EmployeesItem
 import com.example.mikki.projectmanagement.databinding.FragTeamCreateForProjectBinding
 import com.example.mikki.projectmanagement.viewmodel.TeamViewModel
 import kotlinx.android.synthetic.main.frag_team_create_for_project.view.*
 
-class CreateTeamForProject:Fragment() {
+class CreateTeamForProject:Fragment(), IDataManager.OnCreateTeamForProject {
+
+
     private val MIKKI_TEAM = "MikkiTeam"
     val viewModel = TeamViewModel()
     val adapter = EmployeeListAdapter()
@@ -48,7 +52,8 @@ class CreateTeamForProject:Fragment() {
         adapter.setOnItemClickListener(object : EmployeeListAdapter.onItemClickListener{
             override fun onClick(view: View, employee: EmployeesItem, position: Int) {
                 var employeeId = employee.empid!!.toInt()
-                viewModel.addTeammateToProject(projectId, employeeId, position)
+                viewModel.addTeammateToProject(this@CreateTeamForProject,
+                        projectId, employeeId, position)
             }
 
         })
@@ -62,7 +67,8 @@ class CreateTeamForProject:Fragment() {
 
             var userId = view.et_team_userId.text.toString().toInt()
             Log.d(MIKKI_TEAM, "project_id: " + projectId + "user id: " + userId)
-            viewModel.addTeammateToProject(projectId, userId, -1)
+            viewModel.addTeammateToProject(this@CreateTeamForProject,
+                    projectId, userId, -1)
             val fragment = TeamForProjectFragment()
             fragmentManager.beginTransaction().replace(R.id.mainActivity,
                     fragment).addToBackStack(null).commit()
@@ -76,8 +82,18 @@ class CreateTeamForProject:Fragment() {
         view.rv_employee_list.layoutManager = LinearLayoutManager(context)
         view.rv_employee_list.adapter = adapter
 
-        viewModel.initList()
+        viewModel.initList(this)
 
+    }
+
+    override fun finishedInitialEmployeeList(item: EmployeesItem) {
+        viewModel.updateList(item)
+    }
+    override fun finishedAddedMemberToProject(index: Int) {
+        viewModel.removeAddedEmployeeFromView(index)
+        Toast.makeText(context,
+                "successfully added member to project",
+                Toast.LENGTH_SHORT).show()
 
     }
 }

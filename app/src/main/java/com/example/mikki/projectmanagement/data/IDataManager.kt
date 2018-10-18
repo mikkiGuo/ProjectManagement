@@ -1,9 +1,6 @@
 package com.example.mikki.projectmanagement.data
 
-import com.example.mikki.projectmanagement.data.model.MembersItem
-import com.example.mikki.projectmanagement.data.model.ProjectSubTaskItem
-import com.example.mikki.projectmanagement.data.model.ProjectsItem
-import com.example.mikki.projectmanagement.data.model.ViewsubtasksItem
+import com.example.mikki.projectmanagement.data.model.*
 import com.example.mikki.projectmanagement.data.network.INetworkHelper
 
 interface IDataManager:INetworkHelper {
@@ -69,5 +66,10 @@ interface IDataManager:INetworkHelper {
         fun finishedInitialList(p:ProjectsItem)
         fun finishedUpdateProject(p: ProjectsItem,
                                   index:Int)
+    }
+
+    interface OnCreateTeamForProject{
+        fun finishedInitialEmployeeList(item:EmployeesItem)
+        fun finishedAddedMemberToProject(index:Int)
     }
 }
