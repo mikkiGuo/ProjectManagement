@@ -13,6 +13,7 @@ import com.example.mikki.projectmanagement.data.model.MemberDetails
 import com.example.mikki.projectmanagement.data.model.taskmodel.TaskMemberItem
 import com.example.mikki.projectmanagement.databinding.FragMemberDetailsBinding
 import com.example.mikki.projectmanagement.viewmodel.TaskViewModel
+import kotlinx.android.synthetic.main.frag_member_details.view.*
 
 class MemberDetailsDialogFragment(): DialogFragment() {
 
@@ -50,6 +51,10 @@ class MemberDetailsDialogFragment(): DialogFragment() {
 
         binding.memberdetails = memberDetails
         binding.executePendingBindings()
+
+        v.bt_details_back.setOnClickListener {
+            dismiss()
+        }
 
         return v
     }

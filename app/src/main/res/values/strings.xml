@@ -47,6 +47,7 @@
     <string name="create_subtask">Create SubTask</string>
     <string name="users_assigned_to_this_task">Users Assigned To This Task</string>
     <string name="members_assigned_to_this_task">Members Assigned To This Task</string>
+    <string name="go_back"><![CDATA[<- Go Back]]></string>
 
 
 </resources>

@@ -1,47 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/icons"
+    android:gravity="center"
     android:orientation="vertical"
-    android:background="@color/icons">
+    android:padding="20dp">
 
-    <EditText
-        android:id="@+id/et_create_projectID"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Project ID"/>
-    <EditText
-        android:id="@+id/et_create_taskName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Task Name"/>
-    <EditText
-        android:id="@+id/et_create_taskDesc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Task Description"/>
-    <EditText
-        android:id="@+id/et_create_taskStatus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Task Status"/>
-    <EditText
-        android:id="@+id/et_create_taskStart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Task Start Date"/>
-    <EditText
-        android:id="@+id/et_create_taskEnd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Task End Date"/>
-    <Button
-        android:id="@+id/bt_createTask"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Create Task"
-        style="?android:attr/buttonBarButtonStyle" />
+        android:background="@drawable/background_card"
+        android:paddingBottom="20dp">
 
+        <Button
+            android:id="@+id/bt_create_cancel"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignTop="@id/details_layout"
+            android:layout_alignEnd="@+id/details_layout"
+            android:background="@drawable/ic_cancel_24dp" />
+
+        <LinearLayout
+            android:id="@+id/details_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_create_name"
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:hint="Task Name"
+                    android:textColor="@color/primary_text"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="User ID:"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/et_create_userID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:gravity="center_horizontal"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Project ID:"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/et_create_projID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:gravity="center_horizontal"
+                    android:textSize="16sp" />
+
+                <Space
+                    android:layout_width="15dp"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Status:"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/et_create_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:gravity="center_horizontal"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <EditText
+                android:id="@+id/et_create_desc"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/background_taskdetails"
+                android:enabled="false"
+                android:gravity="start"
+                android:padding="10dp"
+                android:textColor="@color/secondary_text"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Start Date:"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/et_create_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:gravity="center_horizontal"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="End Date:"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/et_create_end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:gravity="center_horizontal"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/bt_createTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/details_layout"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/background_button"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="Show SubTasks"
+            android:textColor="@color/icons" />
+    </RelativeLayout>
 </LinearLayout>
+
+
