@@ -133,8 +133,8 @@ interface APIService {
 
     // pms_assign_sub_task_project.php?taskid=1&subtaskid=1&project_id=27&team_member_userid=14
     @GET("pms_assign_sub_task_project.php")
-    fun assignSubTaskToUser(@Query("taskid") taskId: String,
-                            @Query("subtaskid") subTaskId: String,
+    fun assignSubTaskToUser(@Query("task_id") taskId: String,
+                            @Query("subtask_id") subTaskId: String,
                             @Query("project_id") projectId: String,
                             @Query("team_member_userid") userId: String):
             Observable<SuccessMsg>

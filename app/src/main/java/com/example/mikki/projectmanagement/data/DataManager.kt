@@ -84,8 +84,8 @@ class DataManager:IDataManager {
     }
 
     override fun assignSubTaskToUser(listner: IDataManager.OnAdminAssignSubTaskToUserListener,
-                                     subTask: ProjectSubTaskItem, userId: Int, position: Int) {
-        iNetworkHelper.assignSubTaskToUser(listner, subTask, userId, position)
+                                     subTask: ProjectSubTaskItem, userId: String) {
+        iNetworkHelper.assignSubTaskToUser(listner, subTask, userId)
 
     }
 
@@ -112,8 +112,8 @@ class DataManager:IDataManager {
         iNetworkHelper.editSubTask(listener, subTask)
     }
 
-    override fun editSubTaskStatus(listner: IDataManager.OnUserEditSubTaskStatusListener, subTask: ProjectSubTaskItem) {
-        iNetworkHelper.editSubTaskStatus(listner, subTask)
+    override fun editSubTaskStatus(listner: IDataManager.OnUserEditSubTaskStatusListener, subTask: ProjectSubTaskItem, userIdStatus: String) {
+        iNetworkHelper.editSubTaskStatus(listner, subTask, userIdStatus)
     }
 
     override fun getSubTasksList(subTaskViewModel: ViewModelSubTask, taskId: String) {

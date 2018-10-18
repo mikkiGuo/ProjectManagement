@@ -21,7 +21,11 @@ import kotlinx.android.synthetic.main.fragment_edit_sub_taskk.view.*
 import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectSubTaskItem
 import com.example.mikki.projectmanagement.view.project.ProjectListFragment
 
-class EditSubTaskFragment : Fragment(), IDataManager.OnAdminEditSubTaskListener, IDataManager.OnTaskMemberListener {
+class EditSubTaskFragment : Fragment(), IDataManager.OnAdminEditSubTaskListener,
+        IDataManager.OnTaskMemberListener, IDataManager.OnAdminAssignSubTaskToUserListener,
+        IDataManager.OnUserEditSubTaskStatusListener {
+
+
 
     companion object {
         fun newInstance(): EditSubTaskFragment {
@@ -109,13 +113,45 @@ class EditSubTaskFragment : Fragment(), IDataManager.OnAdminEditSubTaskListener,
             dataManager.editSubTask(this, subTask)
         }
 
+        v.btAssignSubTask.setOnClickListener {
+            subTask.taskid = v.etEditStTaskId.text.toString()
+            subTask.subtaskid
+            subTask.projectid = v.etEditStProjectId.text.toString()
+            var userId = v.etAssignSubTask.text.toString()
+
+            dataManager.assignSubTaskToUser(this, subTask, userId)
+        }
+
+        v.btUserUpdateStatusSubTask.setOnClickListener {
+//            subTask.projectid = v.etEditStProjectId.text.toString()
+//            subTask.taskid = v.etEditStTaskId.text.toString()
+//            subTask.subtaskname = v.etEditStName.text.toString()
+//
+//            subTask.subtaskdesc = v.etEditStDescription.text.toString()
+//            subTask.startdate = v.etEditStStartDate.text.toString()
+//            subTask.endstart = v.etEditStEndDate.text.toString()
+
+            subTask.subtaskstatus = v.etUserUpdateStatus.text.toString()
+            val userIdStatus = v.etUserIDUpdateStatus.text.toString()
+
+            dataManager.editSubTaskStatus(this, subTask, userIdStatus)
+        }
+
 
         //taskid=1&project_id=27&userid=14&task_status=2&task_name=demo&task_desc=testing
 
         return v
     }
 
+    override fun editSubTaskStatusByUser(message: String) {
+        Toast.makeText(view.context, message, Toast.LENGTH_LONG).show()
+    }
+
     override fun editTask(message: String) {
+        Toast.makeText(view.context, message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun assignSubTask(message: String) {
         Toast.makeText(view.context, message, Toast.LENGTH_LONG).show()
     }
 

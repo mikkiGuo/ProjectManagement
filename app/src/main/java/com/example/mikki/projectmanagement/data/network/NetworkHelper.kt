@@ -316,19 +316,21 @@ class NetworkHelper:INetworkHelper {
 
     }
 
-    override fun editSubTaskStatus(listner: IDataManager.OnUserEditSubTaskStatusListener, subTask: ProjectSubTaskItem) {
-        Log.d("editSTStatus", "+++++++++++++++++++++++++++++++++++++++")
+    override fun editSubTaskStatus(listner: IDataManager.OnUserEditSubTaskStatusListener, subTask: ProjectSubTaskItem, userIdStatus: String) {
+        Log.d("editSTStatus", "+++++++++++++++++++++++++++++++++++++++"+ userIdStatus)
+        Log.d("editSTStatus", "taskid " +subTask.taskid + "subtaskid " + subTask.subtaskid +
+                "projectid " + subTask.projectid + "subtaskstatus " + subTask.subtaskstatus)
         disposable =
                 apiServe.updateSubTaskStatus(
                         subTask.taskid!!,
                         subTask.subtaskid!!,
                         subTask.projectid!!,
-                        "14",
+                        userIdStatus,
                         subTask.subtaskstatus!!)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                { result -> Log.d("UpdateStatus Success: ",
+                                { result -> Log.d("UpdateStatus Success ",
                                         result.msg?.get(0).toString())
                                     listner.editSubTaskStatusByUser(result.msg?.get(0).toString())
                                 },
@@ -339,7 +341,7 @@ class NetworkHelper:INetworkHelper {
     }
 
     override fun assignSubTaskToUser(listner: IDataManager.OnAdminAssignSubTaskToUserListener,
-                                     subTask: ProjectSubTaskItem, userId: Int, position: Int) {
+                                     subTask: ProjectSubTaskItem, userId: String) {
         Log.d("SubTaskAssign", "+++++++++++++++++++++++++++++++++++++++")
         disposable =
                 apiServe.assignSubTaskToUser(

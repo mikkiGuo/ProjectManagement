@@ -49,9 +49,9 @@ class TeamViewModel: BaseObservable() {
     }
 
     fun addTeammateToSubTask(listener: IDataManager.OnAdminAssignSubTaskToUserListener,
-                             subTaskItem: ProjectSubTaskItem, userId:Int, position: Int){
+                             subTaskItem: ProjectSubTaskItem, userId:String, position: Int){
         Log.d(MIKKI_TEAM, "add teammate in view model")
-        iDataManager.assignSubTaskToUser(listener, subTaskItem, userId, position)
+        iDataManager.assignSubTaskToUser(listener, subTaskItem, userId)
 
     }
 
