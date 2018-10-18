@@ -12,11 +12,16 @@ import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.data.IDataManager
 import com.example.mikki.projectmanagement.data.model.LoginInfo
 import com.example.mikki.projectmanagement.data.model.LoginUserInfo
+import com.example.mikki.projectmanagement.utils.validator.NonEmptyValidator
 import com.example.mikki.projectmanagement.viewmodel.AuthenticationViewModel
+import com.github.phajduk.rxvalidator.RxValidator
 
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.content_login.*
 import org.jetbrains.anko.toast
+import rx.android.schedulers.AndroidSchedulers
+
+
 
 class LoginActivity : AppCompatActivity(), IDataManager.OnLoginListener {
 
@@ -29,6 +34,8 @@ class LoginActivity : AppCompatActivity(), IDataManager.OnLoginListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         setSupportActionBar(toolbar)
+
+        createInputRxValidator()
 
         btn_login.setOnClickListener {
             getUserInput()
@@ -45,8 +52,33 @@ class LoginActivity : AppCompatActivity(), IDataManager.OnLoginListener {
 
         }
     }
+    private fun createInputRxValidator(){
+        RxValidator.createFor(et_login_email)
+                .nonEmpty()
+                .email()
+                .onValueChanged()
+                .toObservable()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result ->
+                    result.item.error = if (result.isProper) null else result.message
+                    Log.i(MIKKI_LOGIN, "Validation result " + result.toString())
+                }, { throwable -> Log.e(MIKKI_LOGIN, "Validation error", throwable) })
+
+        RxValidator.createFor(et_login_pw)
+                .nonEmpty()
+                .with(NonEmptyValidator())
+                .minLength(3, "Min length is 2")
+                .onValueChanged()
+                .toObservable()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result ->
+                    result.item.error = if (result.isProper) null else result.message
+                    Log.i(MIKKI_LOGIN, "Validation result " + result.toString())
+                }, { throwable -> Log.e(MIKKI_LOGIN, "Validation error", throwable) })
+    }
 
     private fun getUserInput() {
+
         var email = et_login_email.text.toString()
         var password = et_login_pw.text.toString()
         Log.d(MIKKI_LOGIN, "email: $email, password: $password")
