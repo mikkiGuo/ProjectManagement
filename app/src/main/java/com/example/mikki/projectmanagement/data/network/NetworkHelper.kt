@@ -8,6 +8,7 @@ import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectSubTas
 import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectsItem
 import com.example.mikki.projectmanagement.data.model.taskmodel.TaskItem
 import com.example.mikki.projectmanagement.data.model.taskmodel.TaskMemberItem
+import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
 import com.example.mikki.projectmanagement.viewmodel.ViewModelSubTask
 import com.example.mikki.projectmanagement.viewmodel.TaskViewModel
 import com.example.mikki.projectmanagement.viewmodel.TeamViewModel
@@ -17,7 +18,7 @@ import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.warn
 
-class NetworkHelper:INetworkHelper {
+class NetworkHelper : INetworkHelper {
 
     private val MIKKI_TEAM = "MikkiTeam"
     private val MIKKI_LOGIN = "MikkiLogin"
@@ -33,13 +34,13 @@ class NetworkHelper:INetworkHelper {
         disposable = apiServe.login(
                 loginInfo.email!!,
                 loginInfo.password!!
-                ).subscribeOn(Schedulers.io())
+        ).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    result->Log.d(MIKKI_LOGIN, result.msg)
+                .subscribe({ result ->
+                    Log.d(MIKKI_LOGIN, result.msg)
                     listener.getUserInfo(result)
-                },{
-                    error->Log.d(MIKKI_LOGIN, error.message)
+                }, { error ->
+                    Log.d(MIKKI_LOGIN, error.message)
                 })
 
     }
@@ -61,8 +62,7 @@ class NetworkHelper:INetworkHelper {
                             if (result.msg!!.get(0).equals("successfully registered")) {
                                 ninntag.warn { "registered user " + register.toString() }
                                 listener.isRegistered(true)
-                            }
-                            else {
+                            } else {
                                 ninntag.warn { result.toString() }
                                 listener.isRegistered(false)
                             }
@@ -73,10 +73,9 @@ class NetworkHelper:INetworkHelper {
      *          Project Stuff
      ***************************************/
 
-    override fun updateProject(p: ProjectsItem, viewModel: ProjectViewModel, index:Int) {
     override fun updateProject(listener: IDataManager.OnProjectListListener,
                                p: ProjectsItem,
-                               index:Int) {
+                               index: Int) {
         Log.d("mikkiproject", "+++++++++++++++++++++++++++++++++++++++")
         disposable =
                 apiServe.updateProject(
@@ -92,7 +91,7 @@ class NetworkHelper:INetworkHelper {
                         .subscribe(
                                 { result ->
                                     listener.finishedUpdateProject(p, index)
-                                    Log.d("mikkiproject","Message"
+                                    Log.d("mikkiproject", "Message"
                                             + result.toString()
                                     )
                                 },
@@ -100,8 +99,8 @@ class NetworkHelper:INetworkHelper {
                         )
     }
 
-    override fun storeNewProjectToServer(listener:OnCreateProjectListener,
-                                         p:ProjectsItem) {
+    override fun storeNewProjectToServer(listener: OnCreateProjectListener,
+                                         p: ProjectsItem) {
         Log.d("mikkiproject", "+++++++++++++++++++++++++++++++++++++++")
         Log.d("mikkiproject", p.projectname)
         Log.d("mikkiproject", p.projectstatus)
@@ -120,7 +119,7 @@ class NetworkHelper:INetworkHelper {
                                     Log.d("mikkiproject", result.toString())
                                     p.id = result.id.toString()
                                     listener.finishedOnCreateProject(p)
-                                     },
+                                },
                                 { error -> Log.d("mikkiproject", error.message) }
                         )
     }
@@ -133,34 +132,16 @@ class NetworkHelper:INetworkHelper {
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 { result ->
-                                    for(item in result.projects!!)
-                                    {
+                                    for (item in result.projects!!) {
                                         item as ProjectsItem
                                         //if(!item.projectstatus.equals("2") ){
-                                            listener.finishedInitialList(item)
+                                        listener.finishedInitialList(item)
                                         //}
                                     }
-                                    Log.d("mikkiproject",(result.projects.size.toString())
+                                    Log.d("mikkiproject", (result.projects.size.toString())
                                     )
                                 },
                                 { error -> Log.d("mikkiproject", error.message) }
-                        )
-    }
-
-    override fun createTeamForProject(projectId: Int, team_member_userid: Int, index: Int, viewModel: TeamViewModel) {
-        disposable =
-                apiServe.createTeamForProject(
-                        projectId!!,
-                        team_member_userid!!)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                { result ->
-                                    Log.d(MIKKI_TEAM, result.toString())
-                                    viewModel.removeAddedEmployeeFromView(index)
-
-                                },
-                                { error -> Log.d(MIKKI_TEAM, error.message) }
                         )
     }
 
@@ -195,7 +176,7 @@ class NetworkHelper:INetworkHelper {
         disposable = apiServe.getAdminTaskList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe (
+                .subscribe(
                         { result ->
                             for (item in result.task!!) {
                                 if (item.projectid!!.toInt() == projectId)
@@ -211,9 +192,10 @@ class NetworkHelper:INetworkHelper {
         disposable = apiServe.getUserTaskList(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe (
+                .subscribe(
                         { result ->
-                            ninntag.warn { "result: " + result.toString() } },
+                            ninntag.warn { "result: " + result.toString() }
+                        },
                         { error -> ninntag.warn { "error: " + error.message } }
                 )
     }
@@ -256,7 +238,7 @@ class NetworkHelper:INetworkHelper {
                             ninntag.warn { "nh: showed member list" }
                         },
                         { error ->
-                            viewModel.showTaskMemberList(listener,null)
+                            viewModel.showTaskMemberList(listener, null)
                             ninntag.warn { "error: " + error.message }
                         }
                 )
@@ -277,7 +259,7 @@ class NetworkHelper:INetworkHelper {
                                 ninntag.warn { "nh: got result" }
                                 viewModel.addMemberDetailsToList(result, index)
                                 ninntag.warn { "nh: added details to vm list" }
-                                if (index == memberList.size-1)
+                                if (index == memberList.size - 1)
                                     listener.finishedAdding(memberListListener)
                                 ninntag.warn { "result: " + result.toString() }
                             },
@@ -317,10 +299,12 @@ class NetworkHelper:INetworkHelper {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                { result -> Log.d("SubTask Success: ", result.msg?.get(0).toString())
+                                { result ->
+                                    Log.d("SubTask Success: ", result.msg?.get(0).toString())
                                     listener.createTask(result.msg?.get(0).toString())
                                 },
-                                { error -> Log.d("SubTask Fail: ", error.message)
+                                { error ->
+                                    Log.d("SubTask Fail: ", error.message)
                                     listener.createTask(error.message.toString())
                                 }
                         )
@@ -342,10 +326,12 @@ class NetworkHelper:INetworkHelper {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                { result -> Log.d("SubTaskEdit Success: ", result.msg?.get(0).toString())
+                                { result ->
+                                    Log.d("SubTaskEdit Success: ", result.msg?.get(0).toString())
                                     listener.editTask(result.msg?.get(0).toString())
                                 },
-                                { error -> Log.d("SubTaskEdit Fail: ", error.message)
+                                { error ->
+                                    Log.d("SubTaskEdit Fail: ", error.message)
                                     listener.editTask(error.message.toString())
                                 }
                         )
@@ -365,11 +351,13 @@ class NetworkHelper:INetworkHelper {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                { result -> Log.d("UpdateStatus Success: ",
-                                        result.msg?.get(0).toString())
+                                { result ->
+                                    Log.d("UpdateStatus Success: ",
+                                            result.msg?.get(0).toString())
                                     listner.editSubTaskStatusByUser(result.msg?.get(0).toString())
                                 },
-                                { error -> Log.d("UpdateStatus Fail: ", error.message)
+                                { error ->
+                                    Log.d("UpdateStatus Fail: ", error.message)
                                     listner.editSubTaskStatusByUser(error.localizedMessage)
                                 }
                         )
@@ -387,11 +375,13 @@ class NetworkHelper:INetworkHelper {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                { result -> Log.d("StFragList Success: ",
-                                        result.msg?.get(0).toString())
+                                { result ->
+                                    Log.d("StFragList Success: ",
+                                            result.msg?.get(0).toString())
                                     listner.assignSubTask(result.msg?.get(0).toString())
                                 },
-                                { error -> Log.d("StFragList Fail: ", error.message)
+                                { error ->
+                                    Log.d("StFragList Fail: ", error.message)
                                     listner.assignSubTask(error.localizedMessage)
                                 }
                         )
@@ -401,16 +391,16 @@ class NetworkHelper:INetworkHelper {
 
         disposable =
                 apiServe.viewSubTaskDetailByUser(
-                    subTask.taskid!!,
-                    subTask.subtaskid!!,
-                    subTask.projectid!!)
+                        subTask.taskid!!,
+                        subTask.subtaskid!!,
+                        subTask.projectid!!)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                {result ->
+                                { result ->
                                     Log.d("ViewSTDetail Success: ", result.toString())
                                 },
-                                {error ->
+                                { error ->
                                     Log.d("ViewSTDetail Fail: ", error.localizedMessage)
                                 })
 
@@ -428,13 +418,13 @@ class NetworkHelper:INetworkHelper {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                {result ->
+                                { result ->
                                     Log.d("ViewSTDetail Success: ", result.viewsubtasks.toString())
 //                                    for(item in result.viewsubtasks!!) {
 //                                        viewModelSubTask.upadteSubTaskListByUser(item!!)
 //                                    }
                                 },
-                                {error ->
+                                { error ->
                                     Log.d("ViewSTDetail Fail: ", error.localizedMessage)
                                 })
     }
@@ -448,13 +438,13 @@ class NetworkHelper:INetworkHelper {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                {result ->
+                                { result ->
                                     Log.d("ViewSTDetail Success: ", result.members.toString())
                                     var members: ArrayList<MembersItem>?
                                     members = result.members as ArrayList<MembersItem>?
                                     listener.viewTeamMemberBySubTask(members)
                                 },
-                                {error ->
+                                { error ->
                                     Log.d("ViewSTDetail Fail: ", error.localizedMessage)
                                 })
     }
@@ -467,13 +457,13 @@ class NetworkHelper:INetworkHelper {
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 { result ->
-                                    for(item in result.projectSubTask!!) {
-                                        if(item?.taskid.equals(taskId)) {
+                                    for (item in result.projectSubTask!!) {
+                                        if (item?.taskid.equals(taskId)) {
                                             subTaskViewModel.upadteSubTaskList(item!!)
                                         }
                                     }
                                     Log.d("StFragList Success: ",
-                                        result.projectSubTask.get(result.projectSubTask.size-1).toString())
+                                            result.projectSubTask.get(result.projectSubTask.size - 1).toString())
                                 },
                                 { error -> Log.d("StFragList Fail: ", error.message) }
                         )
@@ -494,7 +484,7 @@ class NetworkHelper:INetworkHelper {
                             Log.d("nh getTeamMembSubTask", "successrittttoooo " + result.members.toString())
                         },
                         { error ->
-                            viewModelSubTask.showTaskMemberList(listener,null)
+                            viewModelSubTask.showTaskMemberList(listener, null)
                             Log.d("nh getTeamMembSubTask", "got an error")
                             ninntag.warn { "error: " + error.message }
                         }
@@ -515,7 +505,7 @@ class NetworkHelper:INetworkHelper {
                             { result ->
                                 viewModelSubTask.addMemberDetailsToList(result, index)
                                 Log.d("nh getMemberDetails", result.toString())
-                                if (index == memberList.size-1)
+                                if (index == memberList.size - 1)
                                     addlistener.finishedAdding(memberListListener)
                                 ninntag.warn { "result: " + result.toString() }
                             },
@@ -529,7 +519,7 @@ class NetworkHelper:INetworkHelper {
      * Team Stuff Divider
      **************************************************************************/
 
-    override fun createTeamForProject(listener:IDataManager.OnCreateTeamForProject,
+    override fun createTeamForProject(listener: IDataManager.OnCreateTeamForProject,
                                       projectId: Int,
                                       team_member_userid: Int,
                                       index: Int) {
@@ -550,24 +540,19 @@ class NetworkHelper:INetworkHelper {
     }
 
 
-
-        override fun getEmployeeList(listener:IDataManager.OnCreateTeamForProject) {
-            disposable = apiServe.getEmployeeList().
-                    subscribeOn(Schedulers.io()).
-                    observeOn(AndroidSchedulers.mainThread()).
-                    subscribe(
-                            {
-                                result ->
-                                Log.d(MIKKI_TEAM, result.employees.toString())
-                                for(item in result.employees!!){
-                                    listener.finishedInitialEmployeeList(item!!)
-                                }
-                            },
-                            {
-                                error -> Log.d(MIKKI_TEAM, error.message)
-                            }
-                    )
-        }
+    override fun getEmployeeList(listener: IDataManager.OnCreateTeamForProject) {
+        disposable = apiServe.getEmployeeList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
+                { result ->
+                    Log.d(MIKKI_TEAM, result.employees.toString())
+                    for (item in result.employees!!) {
+                        listener.finishedInitialEmployeeList(item!!)
+                    }
+                },
+                { error ->
+                    Log.d(MIKKI_TEAM, error.message)
+                }
+        )
+    }
 
     override fun getProjectTeamList(listener: OnDisplayProjectTeam, projectId: Int) {
         disposable = apiServe.getProjectTeamList(
@@ -575,9 +560,9 @@ class NetworkHelper:INetworkHelper {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        {
-                            result->Log.d(MIKKI_TEAM, "getProjectTeamList: "+result.toString())
-                            for(item in result.projectteam!!) {
+                        { result ->
+                            Log.d(MIKKI_TEAM, "getProjectTeamList: " + result.toString())
+                            for (item in result.projectteam!!) {
                                 listener.finishedGetProjectTeamList(item!!)
                             }
                         },
@@ -586,18 +571,19 @@ class NetworkHelper:INetworkHelper {
                         }
                 )
 
-        }
+    }
 
     override fun getMemberDetailForProjectTeam(listener: OnDisplayProjectTeam,
                                                memberId: String) {
         disposable = apiServe.getMemberDetailForProject(memberId!!)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    result->Log.d(MIKKI_TEAM, result.toString())
+                .subscribe({ result ->
+                    Log.d(MIKKI_TEAM, result.toString())
                     listener.convertToEmployeeListFormat(result)
-                },{
-                    error->Log.d(MIKKI_TEAM, error.message)
+                }, { error ->
+                    Log.d(MIKKI_TEAM, error.message)
                 })
     }
+
 }

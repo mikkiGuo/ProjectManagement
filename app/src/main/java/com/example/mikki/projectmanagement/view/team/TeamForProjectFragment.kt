@@ -13,6 +13,7 @@ import com.example.mikki.projectmanagement.adapter.DisplayTeamListAdapter
 import com.example.mikki.projectmanagement.adapter.EmployeeListAdapter
 import com.example.mikki.projectmanagement.data.IDataManager
 import com.example.mikki.projectmanagement.data.model.*
+import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectsItem
 import com.example.mikki.projectmanagement.databinding.FragTeamForProjectBinding
 import com.example.mikki.projectmanagement.view.project.ProjectDetails
 import com.example.mikki.projectmanagement.viewmodel.TeamViewModel

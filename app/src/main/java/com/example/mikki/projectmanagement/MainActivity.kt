@@ -31,7 +31,9 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.employeeList -> {
-
+                val subTaskListFrag = EmployeeListFragment()
+                fragmentManager.beginTransaction().add(R.id.mainActivity, subTaskListFrag)
+                        .addToBackStack(null).commit()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.logout -> {
@@ -66,12 +68,6 @@ class MainActivity : AppCompatActivity() {
             fragmentManager.beginTransaction().add(R.id.mainActivity, createSubTaskFrag)
                     .addToBackStack(null).commit()
         }*/
-
-        btn_employee_list.setOnClickListener {
-            val subTaskListFrag = EmployeeListFragment()
-            fragmentManager.beginTransaction().add(R.id.mainActivity, subTaskListFrag)
-                    .addToBackStack(null).commit()
-        }
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

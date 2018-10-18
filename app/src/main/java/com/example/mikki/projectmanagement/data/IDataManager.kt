@@ -4,6 +4,7 @@ import com.example.mikki.projectmanagement.data.model.MembersItem
 import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectSubTaskItem
 import com.example.mikki.projectmanagement.data.model.subtaskmodel.ViewsubtasksItem
 import com.example.mikki.projectmanagement.data.model.*
+import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectsItem
 import com.example.mikki.projectmanagement.data.network.INetworkHelper
 
 interface IDataManager:INetworkHelper {
@@ -74,27 +75,6 @@ interface IDataManager:INetworkHelper {
 
     interface OnUserEditSubTaskStatusListener {
         fun editSubTaskStatusByUser(message: String)
-    }
-
-
-    interface OnAdminCreateTaskListener {
-        fun createTask(string: String)
-    }
-
-    interface OnAdminTaskListListener {
-        fun getAdminTaskList()
-    }
-
-    interface OnAdminTaskUpdatedListener {
-        fun updateTask(s: String)
-    }
-
-    interface OnTaskMemberListener {
-        fun getTaskMembers()
-    }
-
-    interface OnAddMemberDetailsListener {
-        fun finishedAdding(listener: OnTaskMemberListener)
     }
 
     interface OnCreateProjectListener{

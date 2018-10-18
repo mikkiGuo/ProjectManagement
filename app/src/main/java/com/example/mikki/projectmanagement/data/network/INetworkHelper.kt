@@ -24,11 +24,7 @@ interface INetworkHelper {
     fun storeNewProjectToServer(listener:OnCreateProjectListener,p: ProjectsItem)
     //fun storeNewProjectToServer(p: ProjectsItem, viewModel: ProjectViewModel)
     fun getProjectList(listener: IDataManager.OnProjectListListener)
-
     fun updateProject(listener: IDataManager.OnProjectListListener, p:ProjectsItem, index:Int)
-
-    fun storeNewSubTaskToServer(subTask:ProjectSubTaskItem)
-
     /******************************************************************
      * Task Stuff
      ******************************************************************/

@@ -11,7 +11,7 @@ import android.widget.Toast
 import com.example.mikki.projectmanagement.BuildConfig
 import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.data.IDataManager
-import com.example.mikki.projectmanagement.data.model.ProjectsItem
+import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectsItem
 import com.example.mikki.projectmanagement.view.task.TaskListFragment
 import com.example.mikki.projectmanagement.view.team.TeamForProjectFragment
 import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
@@ -22,7 +22,7 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
     private val viewModel = ProjectViewModel()
     lateinit var bundleFrom:Bundle
     val bundleTo:Bundle = Bundle()
-    lateinit var projectItem:ProjectsItem
+    lateinit var projectItem: ProjectsItem
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {

@@ -55,8 +55,7 @@ class SubTaskFragmentList : Fragment() {
         if (BuildConfig.FLAVOR.equals("manager")) {
             Toast.makeText(context, "Manager LvL", Toast.LENGTH_SHORT).show()
             view.tvCreateSubTask.visibility = View.VISIBLE
-        } else if (BuildConfig.FLAVOR.equals("paid")) {
-            Toast.makeText(context, "Developer Lvl", Toast.LENGTH_SHORT).show()
+        } else if (BuildConfig.FLAVOR.equals("developer")) {
             view.tvCreateSubTask.visibility = View.GONE
         }
 
