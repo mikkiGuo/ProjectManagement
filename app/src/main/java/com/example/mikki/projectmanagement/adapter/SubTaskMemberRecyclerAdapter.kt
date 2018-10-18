@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.mikki.projectmanagement.BR
 import com.example.mikki.projectmanagement.R
-import com.example.mikki.projectmanagement.data.model.TaskMemberItem
+import com.example.mikki.projectmanagement.data.model.taskmodel.TaskMemberItem
 import com.example.mikki.projectmanagement.databinding.ItemTaskmemberLayoutBinding
 import com.example.mikki.projectmanagement.view.task.MemberDetailsDialogFragment
 import com.example.mikki.projectmanagement.viewmodel.TaskViewModel

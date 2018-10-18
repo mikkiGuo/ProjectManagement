@@ -9,11 +9,14 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.example.mikki.projectmanagement.BuildConfig
 import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.adapter.SubTaskAdapter
 import com.example.mikki.projectmanagement.databinding.FragmentSubTaskListBinding
 
 import com.example.mikki.projectmanagement.viewmodel.ViewModelSubTask
+import kotlinx.android.synthetic.main.fragment_edit_sub_taskk.view.*
 import kotlinx.android.synthetic.main.fragment_sub_task_list.view.*
 
 class SubTaskFragmentList : Fragment() {
@@ -37,6 +40,7 @@ class SubTaskFragmentList : Fragment() {
         val view:View = binding.root
 
         val adapter = SubTaskAdapter(context)
+        var taskId = arguments.getInt("taskid").toString()
 
         val mLayoutManager = LinearLayoutManager(context)
         mLayoutManager.setReverseLayout(true);
@@ -46,7 +50,15 @@ class SubTaskFragmentList : Fragment() {
         view.rvSubTask.adapter = adapter
 
         binding.subTaskViewModel = viewModelSubTask
-        viewModelSubTask.initList()
+        viewModelSubTask.initList(taskId)
+
+        if (BuildConfig.FLAVOR.equals("manager")) {
+            Toast.makeText(context, "Manager LvL", Toast.LENGTH_SHORT).show()
+            view.tvCreateSubTask.visibility = View.VISIBLE
+        } else if (BuildConfig.FLAVOR.equals("paid")) {
+            Toast.makeText(context, "Developer Lvl", Toast.LENGTH_SHORT).show()
+            view.tvCreateSubTask.visibility = View.GONE
+        }
 
         view.tvCreateSubTask.setOnClickListener {
             fragmentManager.beginTransaction()

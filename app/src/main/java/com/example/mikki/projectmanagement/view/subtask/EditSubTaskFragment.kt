@@ -1,5 +1,6 @@
 package com.example.mikki.projectmanagement.view.subtask
 
+import android.app.Activity
 import android.app.Fragment
 import android.content.Context
 import android.os.Bundle
@@ -10,25 +11,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.mikki.projectmanagement.BuildConfig
+import com.example.mikki.projectmanagement.MainActivity
 import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.data.DataManager
 import com.example.mikki.projectmanagement.data.IDataManager
-import com.example.mikki.projectmanagement.data.model.ProjectSubTaskItem
-import com.example.mikki.projectmanagement.viewmodel.TaskViewModel
 import com.example.mikki.projectmanagement.viewmodel.ViewModelSubTask
 import kotlinx.android.synthetic.main.fragment_edit_sub_taskk.view.*
 import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectSubTaskItem
-import kotlinx.android.synthetic.main.fragment_edit_sub_task.*
-import kotlinx.android.synthetic.main.fragment_edit_sub_task.view.*
+import com.example.mikki.projectmanagement.view.project.ProjectListFragment
 
-class EditSubTaskFragment: Fragment(), IDataManager.OnAdminEditSubTaskListener {
-
-class EditSubTaskFragment: Fragment(), IDataManager.OnAdminEditSubTaskListener, IDataManager.OnTaskMemberListener {
+class EditSubTaskFragment : Fragment(), IDataManager.OnAdminEditSubTaskListener, IDataManager.OnTaskMemberListener {
 
     companion object {
         fun newInstance(): EditSubTaskFragment {
             return EditSubTaskFragment()
         }
+
         val dataManager: IDataManager = DataManager()
         var subTask = ProjectSubTaskItem()
         lateinit var viewmodel: ViewModelSubTask
@@ -44,7 +43,7 @@ class EditSubTaskFragment: Fragment(), IDataManager.OnAdminEditSubTaskListener, 
         Log.d("onCreateView", "started")
         val v = inflater!!.inflate(R.layout.fragment_edit_sub_taskk, container, false)
 
-        if(arguments != null) {
+        if (arguments != null) {
             subTask = arguments.getParcelable("subtask")
 
             viewmodel.getTaskMemberListFromServer(this, subTask)
@@ -65,6 +64,14 @@ class EditSubTaskFragment: Fragment(), IDataManager.OnAdminEditSubTaskListener, 
             v.tvEditStStartDate.setText(subTask.startdate + " - " + subTask.endstart)
         }
 
+        if (BuildConfig.FLAVOR.equals("manager")) {
+            Toast.makeText(context, "Manager LvL", Toast.LENGTH_SHORT).show()
+            v.btShowEditSubTask.visibility = View.VISIBLE
+        } else if (BuildConfig.FLAVOR.equals("paid")) {
+            Toast.makeText(context, "Developer Lvl", Toast.LENGTH_SHORT).show()
+            v.btShowEditSubTask.visibility = View.GONE
+        }
+
         v.btShowEditSubTask.setOnClickListener {
             v.viewSTLayout.visibility = View.GONE
             v.editSTLayout.visibility = View.VISIBLE
@@ -72,7 +79,15 @@ class EditSubTaskFragment: Fragment(), IDataManager.OnAdminEditSubTaskListener, 
 
         v.btBackSubTask.setOnClickListener {
             v.viewSTLayout.visibility = View.VISIBLE
-            v.visibility = View.GONE
+            v.editSTLayout.visibility = View.GONE
+        }
+
+        v.btViewBackSubTask.setOnClickListener {
+            val fragmentList = ProjectListFragment()
+            fragmentManager.beginTransaction()
+                    .add(R.id.mainActivity, fragmentList)
+                    .addToBackStack(null)
+                    .commit()
         }
 
 

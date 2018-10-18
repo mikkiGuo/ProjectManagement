@@ -422,7 +422,7 @@ class NetworkHelper:INetworkHelper {
                                 })
     }
 
-    override fun getSubTasksList(subTaskViewModel: ViewModelSubTask) {
+    override fun getSubTasksList(subTaskViewModel: ViewModelSubTask, taskId: String) {
         Log.d("SubTaskList", "+++++++++++++++++++++++++++++++++++++++")
         disposable =
                 apiServe.getSubTaskList()
@@ -431,89 +431,17 @@ class NetworkHelper:INetworkHelper {
                         .subscribe(
                                 { result ->
                                     for(item in result.projectSubTask!!) {
-                                        subTaskViewModel.upadteSubTaskList(item!!)
+                                        if(item?.taskid.equals(taskId)) {
+                                            subTaskViewModel.upadteSubTaskList(item!!)
+                                        }
                                     }
                                     Log.d("StFragList Success: ",
-                                        result.projectSubTask?.get(result.projectSubTask.size-1).toString())
+                                        result.projectSubTask.get(result.projectSubTask.size-1).toString())
                                 },
                                 { error -> Log.d("StFragList Fail: ", error.message) }
                         )
     }
 
-    override fun createTask(viewModel: TaskViewModel,
-                            listener: OnAdminCreateTaskListener,
-                            taskItem: TaskItem) {
-        disposable = apiServe.createNewTask(
-                taskItem.projectid!!,
-                taskItem.taskname!!,
-                taskItem.taskstatus,
-                taskItem.taskdesc,
-                taskItem.startdate,
-                taskItem.endstart)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        { result ->
-                            if (result.msg!![0].equals("project not found")) {
-                                viewModel.isTaskCreated(listener, false)
-                            } else {
-                                viewModel.isTaskCreated(listener, true)
-                            }
-                        },
-                        { error -> ninntag.warn { "error: " + error.message } }
-                )
-    }
-
-    override fun getAdminTaskList(viewModel: TaskViewModel, listener: OnAdminTaskListListener, projectId: Int) {
-        var taskList = ArrayList<TaskItem>()
-        disposable = apiServe.getAdminTaskList()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe (
-                        { result ->
-                            for (item in result.task!!) {
-                                if (item.projectid!!.toInt() == projectId)
-                                    taskList.add(item)
-                            }
-                            viewModel.showTaskList(listener, taskList)
-                        },
-                        { error -> viewModel.showTaskList(listener, null) }
-                )
-    }
-
-    override fun getUserTaskList(viewModel: TaskViewModel, id: String) {
-        disposable = apiServe.getUserTaskList(id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe (
-                        { result ->
-                            ninntag.warn { "result: " + result.toString() } },
-                        { error -> ninntag.warn { "error: " + error.message } }
-                )
-    }
-
-    override fun updateTaskDetails(viewModel: TaskViewModel, listener: OnAdminTaskUpdatedListener, taskItem: TaskItem) {
-        disposable = apiServe.updateTaskDetails(
-                taskItem.taskid!!,
-                taskItem.projectid!!,
-                taskItem.userid!!,
-                taskItem.taskstatus!!,
-                taskItem.taskname!!,
-                taskItem.taskdesc!!,
-                taskItem.startdate!!,
-                taskItem.endstart!!)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        { result ->
-                            if (result.msg!![0].equals("status updated"))
-                                viewModel.isTaskUpdated(listener, true)
-                            else
-                                viewModel.isTaskUpdated(listener, false)
-                        },
-                        { error -> ninntag.warn { "error: " + error.message } }
-                )
-    }
 
     override fun getTeamMemberBySubTask(viewModelSubTask: ViewModelSubTask,
                                      listener: OnTaskMemberListener, subTaskItem: ProjectSubTaskItem) {
@@ -537,24 +465,6 @@ class NetworkHelper:INetworkHelper {
                 )
     }
 
-    override fun getTeamMemberByTask(viewModel: TaskViewModel, listener: OnTaskMemberListener,
-                                     taskItem: TaskItem) {
-        disposable = apiServe.getTeamListByTask(
-                taskItem.taskid!!,
-                "99",
-                taskItem.projectid!!)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        { result ->
-                            viewModel.showTaskMemberList(listener, result.members)
-                        },
-                        { error ->
-                            viewModel.showTaskMemberList(listener,null)
-                            ninntag.warn { "error: " + error.message }
-                        }
-                )
-    }
 
     override fun getMemberDetailsSubTask(viewModelSubTask: ViewModelSubTask,
                                   addlistener: OnAddMemberDetailsListener,
@@ -579,26 +489,6 @@ class NetworkHelper:INetworkHelper {
 
     }
 
-    override fun getMemberDetails(viewModel: TaskViewModel,
-                                  addlistener: OnAddMemberDetailsListener,
-                                  memberListListener: OnTaskMemberListener,
-                                  memberList: ArrayList<TaskMemberItem>?) {
-        Log.d("getMemberDetails w NINN", "got in")
-        for ((index, value) in memberList!!.withIndex()) {
-            disposable = apiServe.getMemberDetails(value.userid!!)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                            { result ->
-                                viewModel.addMemberDetailsToList(result, index)
-                                if (index == memberList.size-1)
-                                    addlistener.finishedAdding(memberListListener)
-                                ninntag.warn { "result: " + result.toString() }
-                            },
-                            { error -> ninntag.warn { "error: " + error.message } }
-                    )
-        }
-    }
     override fun storeNewSubTaskToServer(subTask: ProjectSubTaskItem) {
         Log.d("MyTag", "+++++++++++++++++++++++++++++++++++++++")
         disposable =

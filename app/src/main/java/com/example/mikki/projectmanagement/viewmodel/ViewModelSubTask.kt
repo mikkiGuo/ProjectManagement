@@ -13,6 +13,7 @@ import com.example.mikki.projectmanagement.view.task.TaskMemberRecyclerAdapter
 import org.jetbrains.anko.warn
 import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectSubTaskItem
 import com.example.mikki.projectmanagement.data.model.subtaskmodel.ViewsubtasksItem
+import com.example.mikki.projectmanagement.data.model.taskmodel.TaskMemberItem
 
 class ViewModelSubTask(context: Context) : BaseObservable(),
         IDataManager.OnUserAdminViewSubTaskDetailListener, IDataManager.OnAddMemberDetailsListener {
@@ -46,8 +47,9 @@ class ViewModelSubTask(context: Context) : BaseObservable(),
             notifyPropertyChanged(BR.changedPositions)
         }
 
-    fun initList() {
-        dataManager.getSubTasksList(this)
+    fun initList(taskId: String) {
+        Log.d("initList", taskId)
+        dataManager.getSubTasksList(this, taskId)
         //dataManager.viewSubTaskListByUser(this, "3", "3")
     }
 

@@ -41,9 +41,6 @@ interface INetworkHelper {
     fun assignMemberToTask(viewModel: TaskViewModel, listener: OnAssignMemberListener, memberItem: TaskMemberItem)
     fun getTeamMemberBySubTask(viewModelSubTask: ViewModelSubTask, listener: OnTaskMemberListener, subTaskItem: ProjectSubTaskItem)
 
-    fun getMemberDetails(viewModel: TaskViewModel, addlistener: OnAddMemberDetailsListener,
-                         memberListListener: OnTaskMemberListener, memberList: ArrayList<TaskMemberItem>?)
-
     fun getMemberDetailsSubTask(viewModelSubTask: ViewModelSubTask, addlistener: OnAddMemberDetailsListener,
                          memberListListener: OnTaskMemberListener,
                          memberList: ArrayList<TaskMemberItem>?)
@@ -59,7 +56,7 @@ interface INetworkHelper {
     fun assignSubTaskToUser(listner: OnAdminAssignSubTaskToUserListener, subTask: ProjectSubTaskItem, userId: Int, position: Int)
     fun viewTeamMemberBySubTask(listener: OnAdminViewTeamMemeberBySubTask, subTask: ProjectSubTaskItem)
     fun viewSubTaskDetailByUser(listner: OnUserAdminViewSubTaskDetailListener, subTask: ProjectSubTaskItem)
-    fun getSubTasksList(subTaskViewModel: ViewModelSubTask)
+    fun getSubTasksList(subTaskViewModel: ViewModelSubTask, taskId: String)
     fun viewSubTaskListByUser(subTaskViewModel: ViewModelSubTask, userId: String, taskId: String)
 
     /******************************************************************
