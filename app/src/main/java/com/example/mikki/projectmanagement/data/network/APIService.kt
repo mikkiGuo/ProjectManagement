@@ -157,9 +157,9 @@ interface APIService {
     // projectid=27
     @GET("pms_team_sub_task.php")
     fun viewTeamMemberBySubTask(@Query("taskid") taskId: String,
-                                @Query("subtask_id") subTaskId: String,
-                                @Query("project_id") projectId: String):
-            Observable<TeamMeber>
+                                @Query("subtaskid") subTaskId: String,
+                                @Query("projectid") projectId: String):
+            Observable<TaskMemberList>
 
     //http://rjtmobile.com/aamir/pms/android-app/pms_edit_sub_task_status.php?
     // taskid=1&

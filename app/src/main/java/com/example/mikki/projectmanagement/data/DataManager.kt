@@ -100,8 +100,17 @@ class DataManager:IDataManager {
         iNetworkHelper.updateTaskDetails(viewModel, listener, taskItem)
     }
 
+    override fun getTeamMemberBySubTask(viewModelSubTask: ViewModelSubTask, listener: IDataManager.OnTaskMemberListener, subTaskItem: ProjectSubTaskItem) {
+        iNetworkHelper.getTeamMemberBySubTask(viewModelSubTask, listener, subTaskItem)
+    }
+
     override fun getTeamMemberByTask(viewModel: TaskViewModel, listener: IDataManager.OnTaskMemberListener, taskItem: TaskItem) {
         iNetworkHelper.getTeamMemberByTask(viewModel, listener, taskItem)
+    }
+
+    override fun getMemberDetailsSubTask(viewModelSubTask: ViewModelSubTask,
+                                  addlistener: IDataManager.OnAddMemberDetailsListener, memberListListener: IDataManager.OnTaskMemberListener, memberList: ArrayList<TaskMemberItem>?) {
+        iNetworkHelper.getMemberDetailsSubTask(viewModelSubTask, addlistener,memberListListener, memberList)
     }
 
     override fun getMemberDetails(viewModel: TaskViewModel,

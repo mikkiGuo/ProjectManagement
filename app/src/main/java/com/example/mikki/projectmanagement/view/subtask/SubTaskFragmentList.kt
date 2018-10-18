@@ -1,6 +1,7 @@
 package com.example.mikki.projectmanagement.view.subtask
 
 import android.app.Fragment
+import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 
@@ -17,7 +18,14 @@ import kotlinx.android.synthetic.main.fragment_sub_task_list.view.*
 
 class SubTaskFragmentList : Fragment() {
 
-    private val viewModelSubTask = ViewModelSubTask()
+    lateinit var viewModelSubTask : ViewModelSubTask
+
+    override fun onAttach(context: Context?) {
+        viewModelSubTask = ViewModelSubTask(context!!)
+        super.onAttach(context)
+    }
+
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

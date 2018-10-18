@@ -30,8 +30,16 @@ interface INetworkHelper {
     fun getAdminTaskList(viewModel: TaskViewModel, listener: OnAdminTaskListListener, projectId: Int)
     fun getUserTaskList(viewModel: TaskViewModel, id: String)
     fun updateTaskDetails(viewModel: TaskViewModel, listener: OnAdminTaskUpdatedListener, taskItem: TaskItem)
+
     fun getTeamMemberByTask(viewModel: TaskViewModel, listener: OnTaskMemberListener, taskItem: TaskItem)
-    fun getMemberDetails(viewModel: TaskViewModel, addlistener: OnAddMemberDetailsListener, memberListListener: OnTaskMemberListener, memberList: ArrayList<TaskMemberItem>?)
+    fun getTeamMemberBySubTask(viewModelSubTask: ViewModelSubTask, listener: OnTaskMemberListener, subTaskItem: ProjectSubTaskItem)
+
+    fun getMemberDetails(viewModel: TaskViewModel, addlistener: OnAddMemberDetailsListener,
+                         memberListListener: OnTaskMemberListener, memberList: ArrayList<TaskMemberItem>?)
+
+    fun getMemberDetailsSubTask(viewModelSubTask: ViewModelSubTask, addlistener: OnAddMemberDetailsListener,
+                         memberListListener: OnTaskMemberListener,
+                         memberList: ArrayList<TaskMemberItem>?)
 
     fun updateProject(p:ProjectsItem, viewModel: ProjectViewModel, index:Int)
 

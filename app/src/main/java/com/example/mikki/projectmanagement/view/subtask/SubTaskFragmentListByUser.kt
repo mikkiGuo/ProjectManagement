@@ -9,18 +9,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.mikki.projectmanagement.R
-import com.example.mikki.projectmanagement.adapter.SubTaskAdapter
 import com.example.mikki.projectmanagement.adapter.SubTaskUserAdapter
-import com.example.mikki.projectmanagement.databinding.FragmentSubTaskListBinding
 import com.example.mikki.projectmanagement.databinding.FragmentSubTaskListByUserBinding
 
 import com.example.mikki.projectmanagement.viewmodel.ViewModelSubTask
-import kotlinx.android.synthetic.main.fragment_sub_task_list.view.*
 import kotlinx.android.synthetic.main.fragment_sub_task_list_by_user.view.*
 
 class SubTaskFragmentListByUser : Fragment() {
 
-    private val viewModelSubTask = ViewModelSubTask()
+    private val viewModelSubTask = ViewModelSubTask(context)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
