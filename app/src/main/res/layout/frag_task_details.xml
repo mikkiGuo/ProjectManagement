@@ -5,7 +5,7 @@
     <data>
         <variable
             name="task"
-            type="com.example.mikki.projectmanagement.data.model.TaskItem"/>
+            type="com.example.mikki.projectmanagement.data.model.taskmodel.TaskItem"/>
     </data>
 
     <LinearLayout
@@ -101,11 +101,11 @@
             android:text="Edit Task Details"/>
 
         <Button
-            android:id="@+id/bt_details_assignMember"
+            android:id="@+id/bt_details_showSubTasks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Assign Member to This Task"/>
+            android:text="Show SubTasks"/>
 
     </LinearLayout>
 </layout>

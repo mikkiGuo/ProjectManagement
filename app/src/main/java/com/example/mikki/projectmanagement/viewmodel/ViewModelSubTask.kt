@@ -5,8 +5,8 @@ import android.databinding.Bindable
 import com.example.mikki.projectmanagement.BR
 import com.example.mikki.projectmanagement.data.DataManager
 import com.example.mikki.projectmanagement.data.IDataManager
-import com.example.mikki.projectmanagement.data.model.ProjectSubTaskItem
-import com.example.mikki.projectmanagement.data.model.ViewsubtasksItem
+import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectSubTaskItem
+import com.example.mikki.projectmanagement.data.model.subtaskmodel.ViewsubtasksItem
 
 class ViewModelSubTask : BaseObservable(), IDataManager.OnUserAdminViewSubTaskDetailListener {
 

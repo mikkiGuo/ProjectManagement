@@ -13,6 +13,7 @@ import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.data.IDataManager
 import com.example.mikki.projectmanagement.databinding.FragTaskListBinding
 import com.example.mikki.projectmanagement.viewmodel.TaskViewModel
+import kotlinx.android.synthetic.main.frag_task_details.view.*
 import kotlinx.android.synthetic.main.frag_task_list.view.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.warn

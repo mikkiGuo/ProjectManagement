@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.mikki.projectmanagement.R
-import com.example.mikki.projectmanagement.data.model.ProjectSubTaskItem
+import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectSubTaskItem
 import com.example.mikki.projectmanagement.view.subtask.EditSubTaskFragment
 import kotlinx.android.synthetic.main.sub_task_item_view.view.*
 

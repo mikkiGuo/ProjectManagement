@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.data.IDataManager
-import com.example.mikki.projectmanagement.data.model.TaskItem
+import com.example.mikki.projectmanagement.data.model.taskmodel.TaskItem
 import com.example.mikki.projectmanagement.viewmodel.TaskViewModel
 import kotlinx.android.synthetic.main.frag_task_create.view.*
 

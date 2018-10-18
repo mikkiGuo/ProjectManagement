@@ -4,7 +4,10 @@ import android.util.Log
 import com.example.mikki.projectmanagement.data.IDataManager.*
 import com.example.mikki.projectmanagement.data.model.*
 import com.example.mikki.projectmanagement.data.IDataManager
-import com.example.mikki.projectmanagement.data.model.*
+import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectSubTaskItem
+import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectsItem
+import com.example.mikki.projectmanagement.data.model.taskmodel.TaskItem
+import com.example.mikki.projectmanagement.data.model.taskmodel.TaskMemberItem
 import com.example.mikki.projectmanagement.viewmodel.ViewModelSubTask
 import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
 import com.example.mikki.projectmanagement.viewmodel.TaskViewModel
@@ -51,8 +54,11 @@ class NetworkHelper:INetworkHelper {
                         }, { error -> ninntag.warn { error.message } })
     }
 
-    override fun updateProject(p: ProjectsItem,
-                               viewModel: ProjectViewModel, index:Int) {
+    /***************************************
+     *          Project Stuff
+     ***************************************/
+
+    override fun updateProject(p: ProjectsItem, viewModel: ProjectViewModel, index:Int) {
         Log.d("mikkiproject", "+++++++++++++++++++++++++++++++++++++++")
         disposable =
                 apiServe.updateProject(
@@ -75,7 +81,7 @@ class NetworkHelper:INetworkHelper {
                         )
     }
 
-    override fun storeNewProjectToServer(p:ProjectsItem, viewModel: ProjectViewModel) {
+    override fun storeNewProjectToServer(p: ProjectsItem, viewModel: ProjectViewModel) {
         Log.d("mikkiproject", "+++++++++++++++++++++++++++++++++++++++")
         Log.d("mikkiproject", p.projectname)
         Log.d("mikkiproject", p.projectstatus)
@@ -99,8 +105,6 @@ class NetworkHelper:INetworkHelper {
                         )
     }
 
-
-
     override fun getProjectList(viewModel: ProjectViewModel) {
         Log.d("mikkiproject", "+++++++++++++++++++++++++++++++++++++++")
         disposable =
@@ -123,211 +127,11 @@ class NetworkHelper:INetworkHelper {
                         )
     }
 
-    override fun createNewSubTask(listener: IDataManager.OnAdminCreateSubTaskListener, subTask: ProjectSubTaskItem) {
-        Log.d("Create SubTask", "+++++++++++++++++++++++++++++++++++++++")
-        disposable =
-                apiServe.createNewSubTask(
-                        subTask.projectid!!,
-                        subTask.taskid!!,
-                        subTask.subtaskname!!,
-                        subTask.subtaskstatus!!,
-                        subTask.subtaskdesc!!,
-                        subTask.startdate!!,
-                        subTask.endstart!!)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                { result -> Log.d("SubTask Success: ", result.msg?.get(0).toString())
-                                    listener.createTask(result.msg?.get(0).toString())
-                                },
-                                { error -> Log.d("SubTask Fail: ", error.message)
-                                    listener.createTask(error.message.toString())
-                                }
-                        )
-    }
+    /***************************************
+     *          Task Stuff
+     ***************************************/
 
-
-    //http://rjtmobile.com/aamir/pms/android-app/pms_edit_sub_task_update.php?
-    // taskid=1&
-    // project_id=27&
-    // userid=14&
-    // sub_task_status=2&
-    // sub_task_name=sub%20task%202&
-    // sub_task_desc=testing%20from%20postman%202&
-    // start_date=2019-01-01&
-    // end_date=2019-01-10&
-    // subtaskid=1
-    override fun editSubTask(listener: IDataManager.OnAdminEditSubTaskListener,
-                             subTask: ProjectSubTaskItem) {
-        Log.d("Edit SubTask", "+++++++++++++++++++++++++++++++++++++++")
-        disposable =
-                apiServe.editNewSubTask(
-                        subTask.taskid!!,
-                        subTask.projectid!!,
-                        "14",
-                        subTask.subtaskstatus!!,
-                        subTask.subtaskname!!,
-                        subTask.subtaskdesc!!,
-                        subTask.startdate!!,
-                        subTask.endstart!!,
-                        subTask.subtaskid!!)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                { result -> Log.d("SubTaskEdit Success: ", result.msg?.get(0).toString())
-                                    listener.editTask(result.msg?.get(0).toString())
-                                },
-                                { error -> Log.d("SubTaskEdit Fail: ", error.message)
-                                    listener.editTask(error.message.toString())
-                                }
-                        )
-        //listener.editTask("You did it!!")
-
-    }
-
-    // taskid=1&
-    // subtaskid=1&
-    // project_id=27&
-    // userid=14&
-    // subtask_status=2
-    override fun editSubTaskStatus(listner: IDataManager.OnUserEditSubTaskStatusListener,
-                                   subTask: ProjectSubTaskItem) {
-        Log.d("editSTStatus", "+++++++++++++++++++++++++++++++++++++++")
-        disposable =
-                apiServe.updateSubTaskStatus(
-                        subTask.taskid!!,
-                        subTask.subtaskid!!,
-                        subTask.projectid!!,
-                        "14",
-                        subTask.subtaskstatus!!)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                { result -> Log.d("UpdateStatus Success: ",
-                                        result.msg?.get(0).toString())
-                                    listner.editSubTaskStatusByUser(result.msg?.get(0).toString())
-                                },
-                                { error -> Log.d("UpdateStatus Fail: ", error.message)
-                                    listner.editSubTaskStatusByUser(error.localizedMessage)
-                                }
-                        )
-    }
-
-
-    //http://rjtmobile.com/aamir/pms/android-app/pms_assign_sub_task_project.php?
-    // taskid=1&
-    // subtaskid=1&
-    // project_id=27&
-    // team_member_userid=14
-    override fun assignSubTaskToUser(listner: IDataManager.OnAdminAssignSubTaskToUserListener,
-                                     subTask: ProjectSubTaskItem, userId: Int, position: Int) {
-        Log.d("SubTaskAssign", "+++++++++++++++++++++++++++++++++++++++")
-        disposable =
-                apiServe.assignSubTaskToUser(
-                        subTask.taskid!!,
-                        subTask.subtaskid!!,
-                        subTask.projectid!!,
-                        userId.toString())
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                { result -> Log.d("StFragList Success: ",
-                                        result.msg?.get(0).toString())
-                                    listner.assignSubTask(result.msg?.get(0).toString())
-                                },
-                                { error -> Log.d("StFragList Fail: ", error.message)
-                                    listner.assignSubTask(error.localizedMessage)
-                                }
-                        )
-    }
-
-    //adapter
-    override fun viewSubTaskDetailByUser(listner: IDataManager.OnUserAdminViewSubTaskDetailListener,
-                                         subTask: ProjectSubTaskItem) {
-
-        disposable =
-                apiServe.viewSubTaskDetailByUser(
-                    subTask.taskid!!,
-                    subTask.subtaskid!!,
-                    subTask.projectid!!)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                {result ->
-                                    Log.d("ViewSTDetail Success: ", result.toString())
-                                },
-                                {error ->
-                                    Log.d("ViewSTDetail Fail: ", error.localizedMessage)
-                                })
-
-//        @Query("taskid") taskId: String,
-//        @Query("subtask_id") subTaskId: String,
-//        @Query("project_id") projectId: String)
-    }
-
-    override fun viewSubTaskListByUser(viewModelSubTask: ViewModelSubTask,
-                                       userId: String, taskId: String) {
-
-        disposable =
-                apiServe.viewAllSubTaskListByUser(
-                        userId,
-                        taskId)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                {result ->
-                                    Log.d("ViewSTDetail Success: ", result.viewsubtasks.toString())
-//                                    for(item in result.viewsubtasks!!) {
-//                                        viewModelSubTask.upadteSubTaskListByUser(item!!)
-//                                    }
-                                },
-                                {error ->
-                                    Log.d("ViewSTDetail Fail: ", error.localizedMessage)
-                                })
-    }
-
-    override fun viewTeamMemberBySubTask(listener: IDataManager.OnAdminViewTeamMemeberBySubTask,
-                                         subTask: ProjectSubTaskItem) {
-        disposable =
-                apiServe.viewTeamMemberBySubTask(
-                        subTask.taskid!!,
-                        subTask.subtaskid!!,
-                        subTask.projectid!!)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                {result ->
-                                    Log.d("ViewSTDetail Success: ", result.members.toString())
-                                    var members: ArrayList<MembersItem>?
-                                    members = result.members as ArrayList<MembersItem>?
-                                    listener.viewTeamMemberBySubTask(members)
-                                },
-                                {error ->
-                                    Log.d("ViewSTDetail Fail: ", error.localizedMessage)
-                                })
-    }
-
-    override fun getSubTasksList(subTaskViewModel: ViewModelSubTask) {
-        Log.d("SubTaskList", "+++++++++++++++++++++++++++++++++++++++")
-        disposable =
-                apiServe.getSubTaskList()
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                { result ->
-                                    for(item in result.projectSubTask!!) {
-                                        subTaskViewModel.upadteSubTaskList(item!!)
-                                    }
-                                    Log.d("StFragList Success: ",
-                                        result.projectSubTask?.get(result.projectSubTask.size-1).toString())
-                                },
-                                { error -> Log.d("StFragList Fail: ", error.message) }
-                        )
-    }
-
-    override fun createTask(viewModel: TaskViewModel,
-                            listener: OnAdminCreateTaskListener,
-                            taskItem: TaskItem) {
+    override fun createTask(viewModel: TaskViewModel, listener: OnAdminCreateTaskListener, taskItem: TaskItem) {
         disposable = apiServe.createNewTask(
                 taskItem.projectid!!,
                 taskItem.taskname!!,
@@ -401,6 +205,7 @@ class NetworkHelper:INetworkHelper {
     }
 
     override fun getTeamMemberByTask(viewModel: TaskViewModel, listener: OnTaskMemberListener, taskItem: TaskItem) {
+        ninntag.warn { "nh: getting team member by task" }
         disposable = apiServe.getTeamListByTask(
                 taskItem.taskid!!,
                 "99",
@@ -409,7 +214,9 @@ class NetworkHelper:INetworkHelper {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         { result ->
+                            ninntag.warn { "nh: got result going to show member list" }
                             viewModel.showTaskMemberList(listener, result.members)
+                            ninntag.warn { "nh: showed member list" }
                         },
                         { error ->
                             viewModel.showTaskMemberList(listener,null)
@@ -419,25 +226,220 @@ class NetworkHelper:INetworkHelper {
     }
 
     override fun getMemberDetails(viewModel: TaskViewModel,
-                                  addlistener: OnAddMemberDetailsListener,
+                                  listener: OnAddMemberDetailsListener,
                                   memberListListener: OnTaskMemberListener,
                                   memberList: ArrayList<TaskMemberItem>?) {
 
+        ninntag.warn { "nh: getting member details" }
         for ((index, value) in memberList!!.withIndex()) {
             disposable = apiServe.getMemberDetails(value.userid!!)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                             { result ->
+                                ninntag.warn { "nh: got result" }
                                 viewModel.addMemberDetailsToList(result, index)
+                                ninntag.warn { "nh: added details to vm list" }
                                 if (index == memberList.size-1)
-                                    addlistener.finishedAdding(memberListListener)
+                                    listener.finishedAdding(memberListListener)
                                 ninntag.warn { "result: " + result.toString() }
                             },
                             { error -> ninntag.warn { "error: " + error.message } }
                     )
         }
     }
+
+    override fun assignMemberToTask(viewModel: TaskViewModel, listener: OnAssignMemberListener, memberItem: TaskMemberItem) {
+        disposable = apiServe.assignMemberToTask(
+                memberItem.taskid!!,
+                memberItem.projectid!!,
+                memberItem.userid!!)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { result -> ninntag.warn { result.toString() } },
+                        { error -> ninntag.warn { error.message } }
+                )
+    }
+
+    /***************************************
+     *          SubTask Stuff
+     ***************************************/
+
+    override fun createNewSubTask(listener: IDataManager.OnAdminCreateSubTaskListener, subTask: ProjectSubTaskItem) {
+        Log.d("Create SubTask", "+++++++++++++++++++++++++++++++++++++++")
+        disposable =
+                apiServe.createNewSubTask(
+                        subTask.projectid!!,
+                        subTask.taskid!!,
+                        subTask.subtaskname!!,
+                        subTask.subtaskstatus!!,
+                        subTask.subtaskdesc!!,
+                        subTask.startdate!!,
+                        subTask.endstart!!)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                { result -> Log.d("SubTask Success: ", result.msg?.get(0).toString())
+                                    listener.createTask(result.msg?.get(0).toString())
+                                },
+                                { error -> Log.d("SubTask Fail: ", error.message)
+                                    listener.createTask(error.message.toString())
+                                }
+                        )
+    }
+
+    override fun editSubTask(listener: IDataManager.OnAdminEditSubTaskListener, subTask: ProjectSubTaskItem) {
+        Log.d("Edit SubTask", "+++++++++++++++++++++++++++++++++++++++")
+        disposable =
+                apiServe.editNewSubTask(
+                        subTask.taskid!!,
+                        subTask.projectid!!,
+                        "14",
+                        subTask.subtaskstatus!!,
+                        subTask.subtaskname!!,
+                        subTask.subtaskdesc!!,
+                        subTask.startdate!!,
+                        subTask.endstart!!,
+                        subTask.subtaskid!!)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                { result -> Log.d("SubTaskEdit Success: ", result.msg?.get(0).toString())
+                                    listener.editTask(result.msg?.get(0).toString())
+                                },
+                                { error -> Log.d("SubTaskEdit Fail: ", error.message)
+                                    listener.editTask(error.message.toString())
+                                }
+                        )
+        //listener.editTask("You did it!!")
+
+    }
+
+    override fun editSubTaskStatus(listner: IDataManager.OnUserEditSubTaskStatusListener, subTask: ProjectSubTaskItem) {
+        Log.d("editSTStatus", "+++++++++++++++++++++++++++++++++++++++")
+        disposable =
+                apiServe.updateSubTaskStatus(
+                        subTask.taskid!!,
+                        subTask.subtaskid!!,
+                        subTask.projectid!!,
+                        "14",
+                        subTask.subtaskstatus!!)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                { result -> Log.d("UpdateStatus Success: ",
+                                        result.msg?.get(0).toString())
+                                    listner.editSubTaskStatusByUser(result.msg?.get(0).toString())
+                                },
+                                { error -> Log.d("UpdateStatus Fail: ", error.message)
+                                    listner.editSubTaskStatusByUser(error.localizedMessage)
+                                }
+                        )
+    }
+
+    override fun assignSubTaskToUser(listner: IDataManager.OnAdminAssignSubTaskToUserListener,
+                                     subTask: ProjectSubTaskItem, userId: Int, position: Int) {
+        Log.d("SubTaskAssign", "+++++++++++++++++++++++++++++++++++++++")
+        disposable =
+                apiServe.assignSubTaskToUser(
+                        subTask.taskid!!,
+                        subTask.subtaskid!!,
+                        subTask.projectid!!,
+                        userId.toString())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                { result -> Log.d("StFragList Success: ",
+                                        result.msg?.get(0).toString())
+                                    listner.assignSubTask(result.msg?.get(0).toString())
+                                },
+                                { error -> Log.d("StFragList Fail: ", error.message)
+                                    listner.assignSubTask(error.localizedMessage)
+                                }
+                        )
+    }
+
+    override fun viewSubTaskDetailByUser(listner: IDataManager.OnUserAdminViewSubTaskDetailListener, subTask: ProjectSubTaskItem) {
+
+        disposable =
+                apiServe.viewSubTaskDetailByUser(
+                    subTask.taskid!!,
+                    subTask.subtaskid!!,
+                    subTask.projectid!!)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                {result ->
+                                    Log.d("ViewSTDetail Success: ", result.toString())
+                                },
+                                {error ->
+                                    Log.d("ViewSTDetail Fail: ", error.localizedMessage)
+                                })
+
+//        @Query("taskid") taskId: String,
+//        @Query("subtask_id") subTaskId: String,
+//        @Query("project_id") projectId: String)
+    }
+
+    override fun viewSubTaskListByUser(viewModelSubTask: ViewModelSubTask, userId: String, taskId: String) {
+
+        disposable =
+                apiServe.viewAllSubTaskListByUser(
+                        userId,
+                        taskId)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                {result ->
+                                    Log.d("ViewSTDetail Success: ", result.viewsubtasks.toString())
+//                                    for(item in result.viewsubtasks!!) {
+//                                        viewModelSubTask.upadteSubTaskListByUser(item!!)
+//                                    }
+                                },
+                                {error ->
+                                    Log.d("ViewSTDetail Fail: ", error.localizedMessage)
+                                })
+    }
+
+    override fun viewTeamMemberBySubTask(listener: IDataManager.OnAdminViewTeamMemeberBySubTask, subTask: ProjectSubTaskItem) {
+        disposable =
+                apiServe.viewTeamMemberBySubTask(
+                        subTask.taskid!!,
+                        subTask.subtaskid!!,
+                        subTask.projectid!!)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                {result ->
+                                    Log.d("ViewSTDetail Success: ", result.members.toString())
+                                    var members: ArrayList<MembersItem>?
+                                    members = result.members as ArrayList<MembersItem>?
+                                    listener.viewTeamMemberBySubTask(members)
+                                },
+                                {error ->
+                                    Log.d("ViewSTDetail Fail: ", error.localizedMessage)
+                                })
+    }
+
+    override fun getSubTasksList(subTaskViewModel: ViewModelSubTask) {
+        Log.d("SubTaskList", "+++++++++++++++++++++++++++++++++++++++")
+        disposable =
+                apiServe.getSubTaskList()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                { result ->
+                                    for(item in result.projectSubTask!!) {
+                                        subTaskViewModel.upadteSubTaskList(item!!)
+                                    }
+                                    Log.d("StFragList Success: ",
+                                        result.projectSubTask?.get(result.projectSubTask.size-1).toString())
+                                },
+                                { error -> Log.d("StFragList Fail: ", error.message) }
+                        )
+    }
+
     override fun storeNewSubTaskToServer(subTask: ProjectSubTaskItem) {
         Log.d("MyTag", "+++++++++++++++++++++++++++++++++++++++")
         disposable =
@@ -457,22 +459,11 @@ class NetworkHelper:INetworkHelper {
                         )
     }
 
-    /*
-    //should add this to activity class
-    override fun onPause() {
-        super.onPause()
-        disposable?.dispose()
-    }*/
-
-
     /**************************************************************************
      * Team Stuff Divider
      **************************************************************************/
 
-    override fun createTeamForProject(projectId: Int,
-                                      team_member_userid: Int,
-                                      index: Int,
-                                      viewModel: TeamViewModel) {
+    override fun createTeamForProject(projectId: Int, team_member_userid: Int, index: Int, viewModel: TeamViewModel) {
         disposable =
                 apiServe.createTeamForProject(
                         projectId!!,

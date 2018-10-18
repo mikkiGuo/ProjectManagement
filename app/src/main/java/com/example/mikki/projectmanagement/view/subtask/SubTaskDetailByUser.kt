@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.data.DataManager
 import com.example.mikki.projectmanagement.data.IDataManager
-import com.example.mikki.projectmanagement.data.model.ProjectSubTaskItem
+import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectSubTaskItem
 
 class SubTaskDetailByUser: Fragment(), IDataManager.OnUserAdminViewSubTaskDetailListener {
 

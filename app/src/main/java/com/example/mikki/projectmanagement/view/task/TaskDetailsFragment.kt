@@ -1,5 +1,6 @@
 package com.example.mikki.projectmanagement.view.task
 
+import android.app.Activity
 import android.app.Fragment
 import android.content.Context
 import android.databinding.DataBindingUtil
@@ -13,9 +14,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.data.IDataManager.*
-import com.example.mikki.projectmanagement.data.model.TaskItem
-import com.example.mikki.projectmanagement.data.model.TaskMemberList
+import com.example.mikki.projectmanagement.data.model.taskmodel.TaskItem
+import com.example.mikki.projectmanagement.data.model.taskmodel.TaskMemberList
 import com.example.mikki.projectmanagement.databinding.FragTaskDetailsBinding
+import com.example.mikki.projectmanagement.view.subtask.SubTaskFragmentList
 import com.example.mikki.projectmanagement.viewmodel.TaskViewModel
 import kotlinx.android.synthetic.main.frag_task_details.view.*
 
@@ -56,6 +58,13 @@ class TaskDetailsFragment: Fragment(), OnAdminTaskUpdatedListener, OnTaskMemberL
                 v.bt_details_update.text = "Edit Task Details"
                 onBackPressed(v)
             }
+        }
+
+        v.bt_details_showSubTasks.setOnClickListener {
+            var fragment = SubTaskFragmentList()
+            var bundle = Bundle()
+            bundle.putInt("taskid", taskItem.taskid!!.toInt())
+            (context as Activity).fragmentManager.beginTransaction().add(R.id.mainActivity, fragment).addToBackStack(null).commit()
         }
 
         return v

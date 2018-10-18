@@ -5,11 +5,11 @@ import android.databinding.BaseObservable
 import android.databinding.Bindable
 import com.example.mikki.projectmanagement.BR
 import com.example.mikki.projectmanagement.data.DataManager
+import com.example.mikki.projectmanagement.data.IDataManager
 import com.example.mikki.projectmanagement.data.IDataManager.*
 import com.example.mikki.projectmanagement.data.model.MemberDetails
-import com.example.mikki.projectmanagement.data.model.TaskItem
-import com.example.mikki.projectmanagement.data.model.TaskMemberItem
-import com.example.mikki.projectmanagement.data.model.TaskMemberList
+import com.example.mikki.projectmanagement.data.model.taskmodel.TaskItem
+import com.example.mikki.projectmanagement.data.model.taskmodel.TaskMemberItem
 import com.example.mikki.projectmanagement.view.task.TaskMemberRecyclerAdapter
 import com.example.mikki.projectmanagement.view.task.TaskRecyclerAdapter
 import org.jetbrains.anko.AnkoLogger
@@ -66,25 +66,39 @@ class TaskViewModel(val context: Context): BaseObservable(), OnAddMemberDetailsL
     }
 
     fun getTaskMemberListFromServer(listener: OnTaskMemberListener, taskItem: TaskItem) {
+        ninntag.warn { "vm: getting task member list from server" }
         iDataManager.getTeamMemberByTask(this, listener, taskItem)
     }
 
     fun showTaskMemberList(listener: OnTaskMemberListener, memberList: ArrayList<TaskMemberItem>?) {
+        ninntag.warn { "vm: trying to show member list" }
         if (memberList == null) {
+            ninntag.warn { "vm: member list is null" }
             var memberItem = TaskMemberItem(memberdetails = MemberDetails(userfirstname = "None", userlastname = ""))
             this.taskMemberList.add(memberItem)
             listener.getTaskMembers()
-            ninntag.warn { "showtaskmemberlist: " + taskMemberList[0].memberdetails.toString() }
+            ninntag.warn { "vm: showtaskmemberlist: " + taskMemberList[0].memberdetails.toString() }
         } else {
+            ninntag.warn { "vm: member list is not null going to get member details" }
             this.taskMemberList = memberList
             iDataManager.getMemberDetails(this, this, listener, taskMemberList)
-            ninntag.warn { "in viewmodel"}
+            ninntag.warn { "vm: got member details"}
         }
     }
 
     fun addMemberDetailsToList(memberDetails: MemberDetails, position: Int) {
         taskMemberList.get(position).memberdetails = memberDetails
-        ninntag.warn { "in addmemberdetails: " + taskMemberList.get(position).toString() }
+        ninntag.warn { "vm: added member details to list: " + taskMemberList.get(position).toString() }
+    }
+
+    fun assignMemberToTask(listener: IDataManager.OnAssignMemberListener, memberItem: TaskMemberItem) {
+        iDataManager.assignMemberToTask(this, listener, memberItem)
+    }
+
+    fun isAssigned(listener: OnAssignMemberListener, b: Boolean) {
+        var s: String
+        if (b) s = "Member Successfully Assigned To This Task" else s = "Failed To Assign Member to Task"
+        listener.assignMember(s)
     }
 
     override fun finishedAdding(listener: OnTaskMemberListener) {

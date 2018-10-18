@@ -5,13 +5,12 @@ import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.mikki.projectmanagement.BR
 import com.example.mikki.projectmanagement.R
-import com.example.mikki.projectmanagement.data.model.TaskItem
+import com.example.mikki.projectmanagement.data.model.taskmodel.TaskItem
 import com.example.mikki.projectmanagement.databinding.ItemTaskLayoutBinding
 import com.example.mikki.projectmanagement.viewmodel.TaskViewModel
 
