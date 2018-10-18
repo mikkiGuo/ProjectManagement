@@ -11,15 +11,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.mikki.myrecyclerviewdatabinding.SwipeToDeleteCallback
 import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.adapter.ProjectListAdapter
-import com.example.mikki.projectmanagement.data.model.ProjectsItem
+import com.example.mikki.projectmanagement.data.IDataManager
+import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectsItem
 import com.example.mikki.projectmanagement.databinding.FragProjectListBinding
 import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
 import kotlinx.android.synthetic.main.frag_project_list.view.*
 
-class ProjectListFragment(): Fragment() {
+class ProjectListFragment(): Fragment(), IDataManager.OnProjectListListener {
+
 
 
     private val viewModel = ProjectViewModel()
@@ -56,25 +59,24 @@ class ProjectListFragment(): Fragment() {
         val swipeHandler = object : SwipeToDeleteCallback(context) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder?, direction: Int) {
                 //val adapter = view.rv_project_list.adapter as ProjectListAdapter
-                viewModel.markCompleted(viewHolder!!.adapterPosition)
+                viewModel.markCompleted( this@ProjectListFragment,
+                        viewHolder!!.adapterPosition)
                 adapter.removeAt(viewHolder!!.adapterPosition)
 
             }
         }
 
+
         val mLayoutManager = LinearLayoutManager(context)
         mLayoutManager.setReverseLayout(true);
         mLayoutManager.setStackFromEnd(true);
-
         view.rv_project_list.layoutManager = mLayoutManager
         view.rv_project_list.adapter = adapter
 
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
         itemTouchHelper.attachToRecyclerView(view.rv_project_list)
 
-
-
-        viewModel.initList()
+        viewModel.initList(this)
 
         return view
     }
@@ -82,4 +84,17 @@ class ProjectListFragment(): Fragment() {
     override fun onDestroy() {
         super.onDestroy()
     }
+
+    override fun finishedInitialList(item: ProjectsItem) {
+        viewModel.updateList(item)
+    }
+
+    override fun finishedUpdateProject(p: ProjectsItem, index: Int) {
+        Toast.makeText(context,
+                "project, "+p.id+",marked completed",
+                Toast.LENGTH_SHORT).show()
+        viewModel.updateItem(index, p)
+    }
+
+
 }

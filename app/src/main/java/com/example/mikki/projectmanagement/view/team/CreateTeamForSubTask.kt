@@ -11,12 +11,14 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.adapter.EmployeeListAdapter
+import com.example.mikki.projectmanagement.data.IDataManager
 import com.example.mikki.projectmanagement.data.model.EmployeesItem
 import com.example.mikki.projectmanagement.databinding.FragTeamCreateForProjectBinding
 import com.example.mikki.projectmanagement.viewmodel.TeamViewModel
 import kotlinx.android.synthetic.main.frag_team_create_for_project.view.*
 
-class CreateTeamForSubTask:Fragment()  {
+class CreateTeamForSubTask:Fragment(), IDataManager.OnCreateTeamForProject  {
+
     private val MIKKI_TEAM = "MikkiTeam"
     val viewModel = TeamViewModel()
     val adapter = EmployeeListAdapter()
@@ -48,7 +50,8 @@ class CreateTeamForSubTask:Fragment()  {
         adapter.setOnItemClickListener(object : EmployeeListAdapter.onItemClickListener{
             override fun onClick(view: View, employee: EmployeesItem, position: Int) {
                 var employeeId = employee.empid!!.toInt()
-                viewModel.addTeammateToProject(projectId, employeeId, position)
+                viewModel.addTeammateToProject(this@CreateTeamForSubTask,
+                        projectId, employeeId, position)
             }
 
         })
@@ -62,7 +65,8 @@ class CreateTeamForSubTask:Fragment()  {
 
             var userId = view.et_team_userId.text.toString().toInt()
             Log.d(MIKKI_TEAM, "project_id: " + projectId + "user id: " + userId)
-            viewModel.addTeammateToProject(projectId, userId, -1)
+            viewModel.addTeammateToProject(this@CreateTeamForSubTask,
+                    projectId, userId, -1)
             /*val fragment = TeamForProjectFragment()
             fragmentManager.beginTransaction().replace(R.id.mainActivity,
                     fragment).addToBackStack(null).commit()*/
@@ -76,8 +80,15 @@ class CreateTeamForSubTask:Fragment()  {
         view.rv_employee_list.layoutManager = LinearLayoutManager(context)
         view.rv_employee_list.adapter = adapter
 
-        viewModel.initList()
+        viewModel.initList(this)
 
+
+    }
+
+    override fun finishedInitialEmployeeList(item: EmployeesItem) {
+
+    }
+    override fun finishedAddedMemberToProject(index: Int) {
 
     }
 }

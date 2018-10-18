@@ -126,6 +126,13 @@
             android:layout_marginTop="10dp"
             android:hint="Task ID"/>
 
+        <!--<TextView-->
+            <!--android:id="@+id/tvUserId"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:hint="SubTask Name"/>-->
+
         <TextView
             android:id="@+id/tvEditStName"
             android:layout_width="match_parent"
@@ -170,6 +177,23 @@
             android:text="Edit"
             android:textStyle="bold"
             android:background="#efbe78"/>
+
+        <Button
+            android:id="@+id/btViewBackSubTask"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:text="Back"
+            android:textStyle="bold"
+            android:background="#efbe78"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_subTaskMembers"
+            android:layout_marginTop="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:scrollbars="vertical" />
 
     </LinearLayout>
 

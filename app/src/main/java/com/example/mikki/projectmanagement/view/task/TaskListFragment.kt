@@ -1,5 +1,6 @@
 package com.example.mikki.projectmanagement.view.task
 
+import android.app.Activity
 import android.app.Fragment
 import android.content.Context
 import android.databinding.DataBindingUtil
@@ -13,6 +14,7 @@ import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.data.IDataManager
 import com.example.mikki.projectmanagement.databinding.FragTaskListBinding
 import com.example.mikki.projectmanagement.viewmodel.TaskViewModel
+import kotlinx.android.synthetic.main.frag_task_details.view.*
 import kotlinx.android.synthetic.main.frag_task_list.view.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.warn
@@ -41,8 +43,9 @@ class TaskListFragment(): Fragment(), IDataManager.OnAdminTaskListListener {
         var v = binding.root
         binding.viewModel = viewmodel
 
-        v.bt_updateTaskList.setOnClickListener {
-            viewmodel.taskRecyclerAdapter.notifyDataSetChanged()
+        v.bt_createTask.setOnClickListener {
+            var fragment = CreateTaskFragment()
+            (context as Activity).fragmentManager.beginTransaction().add(R.id.mainActivity, fragment).addToBackStack(null).commit()
         }
 
         return v

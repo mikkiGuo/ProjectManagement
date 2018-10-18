@@ -6,7 +6,7 @@
     <data>
         <variable
             name="member"
-            type="com.example.mikki.projectmanagement.data.model.TaskMemberItem"/>
+            type="com.example.mikki.projectmanagement.data.model.taskmodel.TaskMemberItem"/>
         <variable
             name="space"
             type="String"/>
