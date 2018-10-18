@@ -26,7 +26,7 @@ interface IDataManager:INetworkHelper {
     }
 
     interface OnAdminTaskListListener {
-        fun getAdminTaskList()
+        fun getTaskList()
     }
 
     interface OnAdminTaskUpdatedListener {

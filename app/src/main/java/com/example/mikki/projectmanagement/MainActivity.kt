@@ -1,6 +1,7 @@
 package com.example.mikki.projectmanagement
 
 import android.content.Intent
+import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.internal.NavigationMenu
@@ -10,11 +11,13 @@ import com.example.mikki.projectmanagement.view.subtask.SubTaskFragmentList
 import com.example.mikki.projectmanagement.view.task.CreateTaskFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import android.support.design.widget.Snackbar
+import android.view.MenuItem
+import android.view.View
 import com.anychart.AnyChart
 import com.anychart.chart.common.dataentry.DataEntry
 import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.example.mikki.projectmanagement.R
-import com.example.mikki.projectmanagement.login.LoginActivity
+import com.example.mikki.projectmanagement.view.login.LoginActivity
 import com.example.mikki.projectmanagement.view.project.CreateProjectFragment
 import com.example.mikki.projectmanagement.view.project.ProjectListFragment
 import com.example.mikki.projectmanagement.view.task.TaskListFragment
@@ -28,51 +31,56 @@ import java.util.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
-    private val OnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.projects -> {
-                val fragment = ProjectListFragment()
-                fragmentManager.beginTransaction().add(R.id.mainActivity, fragment).addToBackStack(null).commit()
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.employeeList -> {
-                val subTaskListFrag = EmployeeListFragment()
-                fragmentManager.beginTransaction().add(R.id.mainActivity, subTaskListFrag)
-                        .addToBackStack(null).commit()
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.logout -> {
-                startActivity(intentFor<LoginActivity>())
-                return@OnNavigationItemSelectedListener true
-            }
-        }
-        false
-    }
-
-    //private val menulistener = FabSpeedDial.MenuListener
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var fabSpeedDial = findViewById<FabSpeedDial>(R.id.fab_speeddial)
-        //fabSpeedDial.setMenuListener(menulistener)
+        val fabSpeedDial = findViewById<View>(R.id.fab_speeddial) as FabSpeedDial
 
-        /*bt_createTask.setOnClickListener {
-            var fragment = CreateTaskFragment()
-            fragmentManager.beginTransaction().add(R.id.mainActivity, fragment).addToBackStack(null).commit()
+        if (BuildConfig.FLAVOR.equals("developer")) {
+            fabSpeedDial.visibility = View.GONE
         }
 
-        bt_createProject.setOnClickListener {
-            val fragment = CreateProjectFragment()
-            fragmentManager.beginTransaction().add(R.id.mainActivity, fragment).addToBackStack(null).commit()
+        fabSpeedDial.setMenuListener(object : SimpleMenuListenerAdapter() {
+            override fun onMenuItemSelected(menuItem: MenuItem?): Boolean {
+
+                if (menuItem!!.itemId == R.id.createProject) {
+                    val fragment = CreateProjectFragment()
+                    fragmentManager.beginTransaction().add(R.id.mainActivity, fragment).addToBackStack(null).commit()
+                } else if (menuItem.itemId == R.id.createTask) {
+                    var fragment = CreateTaskFragment()
+                    fragmentManager.beginTransaction().add(R.id.mainActivity, fragment).addToBackStack(null).commit()
+                } else {
+                    val createSubTaskFrag = CreateSubTaskFragment()
+                    fragmentManager.beginTransaction().add(R.id.mainActivity, createSubTaskFrag).addToBackStack(null).commit()
+                }
+
+                return super.onMenuItemSelected(menuItem)
+            }
+        })
+
+        (bottom_navigation as BottomNavigationView).setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.projects -> {
+                    val fragment = ProjectListFragment()
+                    fragmentManager.beginTransaction().add(R.id.mainActivity, fragment).addToBackStack(null).commit()
+                    true
+                }
+                R.id.employeeList -> {
+                    val subTaskListFrag = EmployeeListFragment()
+                    fragmentManager.beginTransaction().add(R.id.mainActivity, subTaskListFrag)
+                            .addToBackStack(null).commit()
+                    true
+                }
+                R.id.logout -> {
+                    startActivity(intentFor<LoginActivity>())
+                    finish()
+                    true
+                }
+            }
+            false
         }
 
-        bt_createSubTask.setOnClickListener {
-            val createSubTaskFrag = CreateSubTaskFragment()
-            fragmentManager.beginTransaction().add(R.id.mainActivity, createSubTaskFrag)
-                    .addToBackStack(null).commit()
-        }*/
         var piechart = AnyChart.pie()
         val dataEntryList = ArrayList<DataEntry>()
         dataEntryList.add(ValueDataEntry("Completed", 13))
@@ -88,8 +96,27 @@ class MainActivity : AppCompatActivity() {
                     .setAction("Action", null).show()
         }
 
-        val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
-        bottomNavigation.setOnNavigationItemSelectedListener(OnNavigationItemSelectedListener)
+        (bottom_navigation as BottomNavigationView).setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.projects -> {
+                    val fragment = ProjectListFragment()
+                    fragmentManager.beginTransaction().add(R.id.mainActivity, fragment).addToBackStack(null).commit()
+                    true
+                }
+                R.id.employeeList -> {
+                    val subTaskListFrag = EmployeeListFragment()
+                    fragmentManager.beginTransaction().add(R.id.mainActivity, subTaskListFrag)
+                            .addToBackStack(null).commit()
+                    true
+                }
+                R.id.logout -> {
+                    startActivity(intentFor<LoginActivity>())
+                    finish()
+                    true
+                }
+            }
+            false
+        }
     }
 
 }

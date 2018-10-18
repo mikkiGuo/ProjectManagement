@@ -176,7 +176,7 @@ class NetworkHelper : INetworkHelper {
                 )
     }
 
-    override fun getAdminTaskList(viewModel: TaskViewModel, listener: OnAdminTaskListListener, projectId: Int) {
+    override fun getTaskList(viewModel: TaskViewModel, listener: OnAdminTaskListListener, projectId: Int) {
         var taskList = ArrayList<TaskItem>()
         disposable = apiServe.getAdminTaskList()
                 .subscribeOn(Schedulers.io())
@@ -184,8 +184,9 @@ class NetworkHelper : INetworkHelper {
                 .subscribe(
                         { result ->
                             for (item in result.task!!) {
-                                if (item.projectid!!.toInt() == projectId)
+                                if (item.projectid!!.toInt() == projectId) {
                                     taskList.add(item)
+                                }
                             }
                             viewModel.showTaskList(listener, taskList)
                         },
@@ -281,7 +282,13 @@ class NetworkHelper : INetworkHelper {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { result -> ninntag.warn { result.toString() } },
+                        { result ->
+                            ninntag.warn { result.toString() }
+                            if (result.msg!![0].equals("member added successfully in project task"))
+                                viewModel.isAssigned(listener, true)
+                            else
+                                viewModel.isAssigned(listener, false)
+                        },
                         { error -> ninntag.warn { error.message } }
                 )
     }

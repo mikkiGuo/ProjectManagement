@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.mikki.projectmanagement.login.LoginActivity"
+    tools:context="com.example.mikki.projectmanagement.view.login.LoginActivity"
     tools:showIn="@layout/activity_login"
     android:orientation="vertical">
 
@@ -61,4 +61,11 @@
         android:background="@color/spinner"
         android:text="LogIn" />
 
+    <TextView
+        android:id="@+id/tv_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Register"
+        android:textSize="18sp"/>
 </LinearLayout>

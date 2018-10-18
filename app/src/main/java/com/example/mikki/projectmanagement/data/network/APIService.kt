@@ -105,9 +105,9 @@ interface APIService {
     @GET("pms_team_member_deatil.php")
     fun getMemberDetails(@Query("memberuserid") userID: String): Observable<MemberDetails>
 
-    // pms_assign_task_project.php?taskid=1&project_id=27&team_member_userid=14
+    // pms_assign_task_project.php?task_id=1&project_id=27&team_member_userid=14
     @GET("pms_assign_task_project.php")
-    fun assignMemberToTask(@Query("taskid") taskId: String,
+    fun assignMemberToTask(@Query("task_id") taskId: String,
                                @Query("project_id") projectId: String,
                                @Query("team_member_userid") userId: String): Observable<SuccessMsg>
 
@@ -141,10 +141,10 @@ interface APIService {
     @GET("pms_project_sub_task_list.php")
     fun getSubTaskList():Observable<SubTaskList>
 
-    // pms_assign_sub_task_project.php?taskid=1&subtaskid=1&project_id=27&team_member_userid=14
+    // pms_assign_sub_task_project.php?task_id=1&subtask_id=1&project_id=27&team_member_userid=14
     @GET("pms_assign_sub_task_project.php")
-    fun assignSubTaskToUser(@Query("taskid") taskId: String,
-                            @Query("subtaskid") subTaskId: String,
+    fun assignSubTaskToUser(@Query("task_id") taskId: String,
+                            @Query("subtask_id") subTaskId: String,
                             @Query("project_id") projectId: String,
                             @Query("team_member_userid") userId: String):
             Observable<SuccessMsg>

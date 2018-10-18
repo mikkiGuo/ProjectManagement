@@ -1,4 +1,4 @@
-package com.example.mikki.projectmanagement.login
+package com.example.mikki.projectmanagement.view.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -18,6 +18,7 @@ import com.github.phajduk.rxvalidator.RxValidator
 
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.content_login.*
+import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.toast
 import rx.android.schedulers.AndroidSchedulers
 
@@ -40,6 +41,11 @@ class LoginActivity : AppCompatActivity(), IDataManager.OnLoginListener {
             getUserInput()
         }
 
+
+        tv_register.setOnClickListener {
+            startActivity(intentFor<RegisterActivity>())
+            finish()
+        }
 
         fab.setOnClickListener { view ->
             val manager = FingerprintManagerCompat.from(this)

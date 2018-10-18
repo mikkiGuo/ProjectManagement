@@ -1,6 +1,7 @@
 package com.example.mikki.projectmanagement.view.task
 
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.app.Fragment
 import android.content.Context
 import android.databinding.DataBindingUtil
@@ -12,20 +13,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.mikki.projectmanagement.BuildConfig
 import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.data.IDataManager.*
 import com.example.mikki.projectmanagement.data.model.taskmodel.TaskItem
+import com.example.mikki.projectmanagement.data.model.taskmodel.TaskMemberItem
 import com.example.mikki.projectmanagement.data.model.taskmodel.TaskMemberList
 import com.example.mikki.projectmanagement.databinding.FragTaskDetailsBinding
 import com.example.mikki.projectmanagement.view.subtask.SubTaskFragmentList
 import com.example.mikki.projectmanagement.viewmodel.TaskViewModel
 import kotlinx.android.synthetic.main.frag_task_details.view.*
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.warn
+import java.text.SimpleDateFormat
+import java.util.*
 
 class TaskDetailsFragment: Fragment(), OnAdminTaskUpdatedListener, OnTaskMemberListener {
+
+    private val ninntag = AnkoLogger("ninntag")
 
     lateinit var viewmodel: TaskViewModel
     lateinit var taskItem: TaskItem
     lateinit var taskMemberList: TaskMemberList
+
+    private val dateFormat = "yyyy-MM-dd"
+    private val sdf = SimpleDateFormat(dateFormat, Locale.US)
 
     override fun onAttach(context: Context?) {
         viewmodel = TaskViewModel(context!!)
@@ -47,16 +59,37 @@ class TaskDetailsFragment: Fragment(), OnAdminTaskUpdatedListener, OnTaskMemberL
         binding.task = taskItem
         binding.executePendingBindings()
 
+        if (BuildConfig.FLAVOR.equals("developer")) {
+            v.bt_details_update.visibility = View.GONE
+            v.bt_details_assignUser.visibility = View.GONE
+        }
+
+        if (v.bt_details_update.text.equals("Edit Task Details")) {
+            v.bt_edit_cancel.visibility = View.INVISIBLE
+        }
+
         v.bt_details_update.setOnClickListener {
             if (v.bt_details_update.text.equals("Edit Task Details")) {
                 enableEditTexts(v, true)
                 v.bt_details_update.text = "Update Task Details"
+                v.bt_edit_cancel.visibility = View.VISIBLE
             } else {
                 enableEditTexts(v, false)
                 var taskItem = getUserInput(v)
                 viewmodel.updateTaskDetails(this, taskItem)
                 v.bt_details_update.text = "Edit Task Details"
+                v.bt_edit_cancel.visibility = View.INVISIBLE
                 onBackPressed(v)
+            }
+        }
+
+        v.bt_edit_cancel.setOnClickListener {
+            if (v.bt_details_update.text.equals("Edit Task Details")) {
+                v.bt_edit_cancel.visibility = View.INVISIBLE
+            } else {
+                v.bt_edit_cancel.visibility = View.INVISIBLE
+                enableEditTexts(v, false)
+                v.bt_details_update.text = "Edit Task Details"
             }
         }
 
@@ -66,6 +99,35 @@ class TaskDetailsFragment: Fragment(), OnAdminTaskUpdatedListener, OnTaskMemberL
             bundle.putInt("taskid", taskItem.taskid!!.toInt())
             fragment.arguments = bundle
             (context as Activity).fragmentManager.beginTransaction().add(R.id.mainActivity, fragment).addToBackStack(null).commit()
+        }
+
+        v.et_details_start.setOnClickListener {
+            val dpd = DatePickerDialog(context, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                val selectedDate = GregorianCalendar(year, monthOfYear, dayOfMonth).time
+                v.et_details_start.setText(sdf.format(selectedDate))
+            }, 2000, 0, 1)
+            dpd.show()
+        }
+
+        v.et_details_end.setOnClickListener {
+            val dpd = DatePickerDialog(context, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                val selectedDate = GregorianCalendar(year, monthOfYear, dayOfMonth).time
+                v.et_details_start.setText(sdf.format(selectedDate))
+            }, 2000, 0, 1)
+            dpd.show()
+        }
+
+        v.bt_details_assignUser.setOnClickListener {
+            val dialogFragment = AssignToTaskDialogFragment()
+
+            var taskMemberItem = TaskMemberItem(projectid = taskItem.projectid, taskid = taskItem.taskid)
+
+            var bundle = Bundle()
+            bundle.putParcelable("taskmember", taskMemberItem)
+            bundle.putParcelable("taskitem", taskItem)
+            dialogFragment.arguments = bundle
+
+            dialogFragment.show(activity.fragmentManager, null)
         }
 
         return v

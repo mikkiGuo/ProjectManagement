@@ -7,10 +7,7 @@ import com.example.mikki.projectmanagement.data.model.taskmodel.TaskItem
 import com.example.mikki.projectmanagement.data.model.taskmodel.TaskMemberItem
 import com.example.mikki.projectmanagement.data.network.NetworkHelper
 import com.example.mikki.projectmanagement.viewmodel.ViewModelSubTask
-import com.example.mikki.projectmanagement.viewmodel.ProjectViewModel
 import com.example.mikki.projectmanagement.viewmodel.TaskViewModel
-import com.example.mikki.projectmanagement.viewmodel.TeamViewModel
-import kotlinx.coroutines.experimental.newCoroutineContext
 
 class DataManager:IDataManager {
     override fun login(listener: IDataManager.OnLoginListener, loginInfo: LoginInfo) {
@@ -51,8 +48,8 @@ class DataManager:IDataManager {
         iNetworkHelper.createTask(viewModel, listener, taskItem)
     }
 
-    override fun getAdminTaskList(viewModel: TaskViewModel, listener: IDataManager.OnAdminTaskListListener, projectId: Int) {
-        return iNetworkHelper.getAdminTaskList(viewModel, listener, projectId)
+    override fun getTaskList(viewModel: TaskViewModel, listener: IDataManager.OnAdminTaskListListener, projectId: Int) {
+        return iNetworkHelper.getTaskList(viewModel, listener, projectId)
     }
 
     override fun getUserTaskList(viewModel: TaskViewModel, id: String) {

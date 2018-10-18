@@ -1,12 +1,16 @@
-package com.example.mikki.projectmanagement.login
+package com.example.mikki.projectmanagement.view.login
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import com.example.mikki.projectmanagement.R
 import com.example.mikki.projectmanagement.data.DataManager
 import com.example.mikki.projectmanagement.data.IDataManager
 import com.example.mikki.projectmanagement.data.model.Register
+import kotlinx.android.synthetic.main.content_register.*
+import org.jetbrains.anko.intentFor
 import com.example.mikki.projectmanagement.utils.validator.CustomNameValidator
 import com.example.mikki.projectmanagement.utils.validator.NonEmptyValidator
 import com.github.phajduk.rxvalidator.RxValidator
@@ -83,6 +87,7 @@ class RegisterActivity : AppCompatActivity(), IDataManager.OnRegisterListener {
         Log.d("ninntag", boolean.toString())
         if (boolean) {
             toast("Successfully Registered")
+            finish()
         }
         else {
             toast("Registration Failed. User with that email already exists.")
