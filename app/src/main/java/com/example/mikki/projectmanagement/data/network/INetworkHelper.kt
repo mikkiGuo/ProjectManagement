@@ -48,7 +48,6 @@ interface INetworkHelper {
     fun getMemberDetailsSubTask(viewModelSubTask: ViewModelSubTask, addlistener: OnAddMemberDetailsListener,
                                 memberListListener: OnTaskMemberListener,
                                 memberList: ArrayList<TaskMemberItem>?)
-    fun storeNewSubTaskToServer(subTask: ProjectSubTaskItem)
     fun createNewSubTask(listener: IDataManager.OnAdminCreateSubTaskListener, subTask: ProjectSubTaskItem)
     fun editSubTask(listener: IDataManager.OnAdminEditSubTaskListener, subTask: ProjectSubTaskItem)
     fun editSubTaskStatus(listner: OnUserEditSubTaskStatusListener, subTask: ProjectSubTaskItem)

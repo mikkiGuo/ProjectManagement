@@ -30,8 +30,7 @@ class DataManager:IDataManager {
         iNetworkHelper.storeNewProjectToServer(p, viewModel)
     }
 
-    override fun updateProject(p: ProjectsItem,
-                               viewModel: ProjectViewModel, index: Int) {
+    override fun updateProject(p: ProjectsItem, viewModel: ProjectViewModel, index: Int) {
         iNetworkHelper.updateProject(p, viewModel, index)
     }
 
@@ -89,10 +88,6 @@ class DataManager:IDataManager {
 
     }
 
-    override fun storeNewSubTaskToServer(subTask: ProjectSubTaskItem) {
-        iNetworkHelper.storeNewSubTaskToServer(subTask)
-    }
-
     override fun viewSubTaskDetailByUser(listner: IDataManager.OnUserAdminViewSubTaskDetailListener,
                                          subTask: ProjectSubTaskItem) {
         iNetworkHelper.viewSubTaskDetailByUser(listner, subTask)
@@ -132,6 +127,7 @@ class DataManager:IDataManager {
     /******************************************************************
      * Team Stuff Divider
      ******************************************************************/
+
     override fun createTeamForProject(projectId: Int,
                                       team_member_userid: Int,
                                       index: Int,

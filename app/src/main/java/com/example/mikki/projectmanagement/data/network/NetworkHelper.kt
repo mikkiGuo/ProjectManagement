@@ -127,6 +127,23 @@ class NetworkHelper:INetworkHelper {
                         )
     }
 
+    override fun createTeamForProject(projectId: Int, team_member_userid: Int, index: Int, viewModel: TeamViewModel) {
+        disposable =
+                apiServe.createTeamForProject(
+                        projectId!!,
+                        team_member_userid!!)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                { result ->
+                                    Log.d(MIKKI_TEAM, result.toString())
+                                    viewModel.removeAddedEmployeeFromView(index)
+
+                                },
+                                { error -> Log.d(MIKKI_TEAM, error.message) }
+                        )
+    }
+
     /***************************************
      *          Task Stuff
      ***************************************/
@@ -442,25 +459,6 @@ class NetworkHelper:INetworkHelper {
                         )
     }
 
-    override fun storeNewSubTaskToServer(subTask: ProjectSubTaskItem) {
-        Log.d("MyTag", "+++++++++++++++++++++++++++++++++++++++")
-        disposable =
-                apiServe.getCreateNewSubTaskStatus(
-                        subTask.projectid!!,
-                        subTask.taskid!!,
-                        subTask.subtaskname!!,
-                        subTask.subtaskstatus!!,
-                        subTask.subtaskdesc!!,
-                        subTask.startdate!!,
-                        subTask.endstart!!)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                { result -> Log.d("MyTag", result.toString()) },
-                                { error -> Log.d("MyTag", error.message) }
-                        )
-    }
-
     override fun getTeamMemberBySubTask(viewModelSubTask: ViewModelSubTask,
                                         listener: OnTaskMemberListener, subTaskItem: ProjectSubTaskItem) {
         Log.d("nh getTeamMembSubTask", subTaskItem.subtaskid + " " + subTaskItem.taskid + " " + subTaskItem.projectid)
@@ -507,45 +505,9 @@ class NetworkHelper:INetworkHelper {
 
     }
 
-    override fun storeNewSubTaskToServer(subTask: ProjectSubTaskItem) {
-        Log.d("MyTag", "+++++++++++++++++++++++++++++++++++++++")
-        disposable =
-                apiServe.getCreateNewSubTaskStatus(
-                        subTask.projectid!!,
-                        subTask.taskid!!,
-                        subTask.subtaskname!!,
-                        subTask.subtaskstatus!!,
-                        subTask.subtaskdesc!!,
-                        subTask.startdate!!,
-                        subTask.endstart!!)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                { result -> Log.d("MyTag", result.toString()) },
-                                { error -> Log.d("MyTag", error.message) }
-                        )
-    }
-
     /**************************************************************************
      * Team Stuff Divider
      **************************************************************************/
-
-    override fun createTeamForProject(projectId: Int, team_member_userid: Int, index: Int, viewModel: TeamViewModel) {
-        disposable =
-                apiServe.createTeamForProject(
-                        projectId!!,
-                        team_member_userid!!)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                { result ->
-                                    Log.d(MIKKI_TEAM, result.toString())
-                                    viewModel.removeAddedEmployeeFromView(index)
-
-                                },
-                                { error -> Log.d(MIKKI_TEAM, error.message) }
-                        )
-    }
 
     override fun getEmployeeList(viewModel: TeamViewModel) {
         disposable = apiServe.getEmployeeList().
