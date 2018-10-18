@@ -12,8 +12,6 @@ import com.example.mikki.projectmanagement.data.model.projectmodel.ProjectSubTas
 
 class SubTaskDetailByUser: Fragment(), IDataManager.OnUserAdminViewSubTaskDetailListener {
 
-
-
     val dataManager: IDataManager = DataManager()
     var subTask = ProjectSubTaskItem()
 

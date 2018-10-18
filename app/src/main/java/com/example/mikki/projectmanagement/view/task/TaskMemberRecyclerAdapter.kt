@@ -43,7 +43,7 @@ class TaskMemberRecyclerAdapter(val context: Context, var viewModel: TaskViewMod
                 bundle.putParcelable("memberdetails", memberItem)
                 dialogFragment.arguments = bundle
 
-                dialogFragment.show((context as Activity).fragmentManager, "dialogFragment")
+                dialogFragment.show((context as Activity).fragmentManager, null)
             }
         }
     }

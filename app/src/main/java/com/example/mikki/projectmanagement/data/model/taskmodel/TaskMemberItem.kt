@@ -53,7 +53,7 @@ data class TaskMemberItem(
 				" userid=$userid," +
 				" assignid=$assignid," +
 				" taskid=$taskid," +
-				" taskid=$subtaskid," +
+				" subtaskid=$subtaskid," +
 				" memberdetails=$memberdetails)"
 	}
 

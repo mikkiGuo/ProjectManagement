@@ -1,4 +1,4 @@
-package com.example.mikki.projectmanagement.login
+package com.example.mikki.projectmanagement.view.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -16,6 +16,7 @@ import com.example.mikki.projectmanagement.viewmodel.AuthenticationViewModel
 
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.content_login.*
+import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.toast
 
 class LoginActivity : AppCompatActivity(), IDataManager.OnLoginListener {
@@ -32,6 +33,11 @@ class LoginActivity : AppCompatActivity(), IDataManager.OnLoginListener {
 
         btn_login.setOnClickListener {
             getUserInput()
+        }
+
+        tv_register.setOnClickListener {
+            startActivity(intentFor<RegisterActivity>())
+            finish()
         }
 
         fab.setOnClickListener { view ->

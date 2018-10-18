@@ -1,4 +1,4 @@
-package com.example.mikki.projectmanagement.login
+package com.example.mikki.projectmanagement.view.login
 
 import android.content.Context
 import android.content.Intent

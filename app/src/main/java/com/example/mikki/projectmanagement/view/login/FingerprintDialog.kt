@@ -1,4 +1,4 @@
-package com.example.mikki.projectmanagement.login
+package com.example.mikki.projectmanagement.view.login
 
 import android.os.Build
 import android.os.Bundle

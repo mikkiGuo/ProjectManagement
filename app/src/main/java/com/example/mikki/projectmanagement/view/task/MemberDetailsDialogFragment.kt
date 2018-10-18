@@ -37,6 +37,7 @@ class MemberDetailsDialogFragment(): DialogFragment() {
 
         dialog.setContentView(R.layout.frag_member_details)
         dialog.window.setLayout(width, height)
+        dialog.setCanceledOnTouchOutside(false)
 
         return dialog
     }

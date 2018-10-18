@@ -30,7 +30,7 @@ interface INetworkHelper {
      ******************************************************************/
 
     fun createTask(viewModel: TaskViewModel, listener: OnAdminCreateTaskListener, taskItem: TaskItem)
-    fun getAdminTaskList(viewModel: TaskViewModel, listener: OnAdminTaskListListener, projectId: Int)
+    fun getTaskList(viewModel: TaskViewModel, listener: OnAdminTaskListListener, projectId: Int)
     fun getUserTaskList(viewModel: TaskViewModel, id: String)
     fun updateTaskDetails(viewModel: TaskViewModel, listener: OnAdminTaskUpdatedListener, taskItem: TaskItem)
     fun getTeamMemberByTask(viewModel: TaskViewModel, listener: OnTaskMemberListener, taskItem: TaskItem)
