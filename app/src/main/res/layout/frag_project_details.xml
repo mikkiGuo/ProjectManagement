@@ -73,7 +73,7 @@
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"/>
 
-        <EditText
+        <TextView
             android:id="@+id/tv_startdate_cnp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"/>
 
-        <EditText
+        <TextView
             android:id="@+id/tv_enddate_cnp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"/>
 
-        <TextView
+        <EditText
             android:id="@+id/tv_add_file"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

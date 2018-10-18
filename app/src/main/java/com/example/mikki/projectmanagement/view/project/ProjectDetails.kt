@@ -1,7 +1,9 @@
 package com.example.mikki.projectmanagement.view.project
 
+import android.app.DatePickerDialog
 import android.app.Fragment
 import android.content.Intent
+import android.icu.text.SimpleDateFormat
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -29,6 +31,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_register.*
 import rx.android.schedulers.AndroidSchedulers
+import java.util.*
 
 
 class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
@@ -39,6 +42,8 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
     lateinit var projectItem: ProjectsItem
     lateinit var mStorage : StorageReference
     lateinit var uri : Uri
+    private val dateFormat = "yyyy-MM-dd"
+    private val sdf = SimpleDateFormat(dateFormat, Locale.US)
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
@@ -50,11 +55,12 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
 
         } else if (BuildConfig.FLAVOR.equals("developer")) {
             view.btn_edit_project.visibility = View.GONE
-            view.btn_update_project.visibility = View.GONE
+            view.btn_update_project.visibility = View.VISIBLE
 
         }
 
         mStorage = FirebaseStorage.getInstance().getReference();
+
         bundleFrom = arguments
         projectItem = bundleFrom.getParcelable<ProjectsItem>("data")
 
@@ -64,6 +70,23 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
         setValueToUI(view)
         setEnableFalse(view)
 
+        onViewClickedHandler(view)
+
+        return view
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == AppCompatActivity.RESULT_OK) {
+            if(requestCode == 1){
+                uri = data!!.data
+                upload ()
+            }
+
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun onViewClickedHandler(view:View){
         view.btn_edit_project.setOnClickListener{
             setEnableTrue(view)
         }
@@ -103,20 +126,27 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
                     "Select Picture"), 1)
         }
 
-        return view
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == AppCompatActivity.RESULT_OK) {
-            if(requestCode == 1){
-                uri = data!!.data
-                upload ()
-            }
-
+        view.tv_startdate_cnp.setOnClickListener {
+            Log.d("mikkidate","datepicked+++++++++++++++")
+            Toast.makeText(context,"clicked",Toast.LENGTH_LONG).show()
+            val dpd = DatePickerDialog(context,
+                    DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                val selectedDate = GregorianCalendar(year, monthOfYear, dayOfMonth).time
+                it.tv_startdate_cnp.setText(sdf.format(selectedDate))
+            }, 2000, 0, 1)
+            dpd.show()
         }
-        super.onActivityResult(requestCode, resultCode, data)
-    }
 
+
+        view.tv_enddate_cnp.setOnClickListener {
+            val dpd = DatePickerDialog(context, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                val selectedDate = GregorianCalendar(year, monthOfYear, dayOfMonth).time
+                it.tv_enddate_cnp.setText(sdf.format(selectedDate))
+
+            }, 2000, 0, 1)
+            dpd.show()
+        }
+    }
 
     private fun upload(){
 
@@ -136,10 +166,12 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
     }
 
     private fun setUpdatedProject(view: View):ProjectsItem {
+
         var updatedProject = ProjectsItem()
         updatedProject.id = projectItem.id
         updatedProject.projectname = view.tv_title_cnp.text.toString()
         updatedProject.projectdesc = view.tv_despt_cnp.text.toString()
+
         updatedProject.startdate = view.tv_startdate_cnp.text.toString()
         updatedProject.endstart = view.tv_enddate_cnp.text.toString()
 
@@ -155,26 +187,22 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
         view.tv_despt_cnp.isEnabled = false
         view.tv_enddate_cnp.isEnabled = false
         view.tv_startdate_cnp.isEnabled = false
-        view.spinner_project_status.isEnabled = false
     }
 
     private fun setEnableTrue(view:View){
         view.tv_title_cnp.isEnabled = true
         view.tv_despt_cnp.isEnabled = true
-        view.tv_enddate_cnp.isEnabled = true
-        view.tv_startdate_cnp.isEnabled = true
         view.btn_edit_project.visibility = View.GONE
         view.btn_update_project.visibility = View.VISIBLE
-        view.spinner_project_status.isEnabled = true
+        view.tv_enddate_cnp.isEnabled = true
+        view.tv_startdate_cnp.isEnabled = true
     }
 
     private fun setValueToUI(view:View){
-
         view.tv_title_cnp.setText(projectItem.projectname)
         view.tv_despt_cnp.setText(projectItem.projectdesc)
-        view.tv_enddate_cnp.setText(projectItem.endstart)
-        view.tv_startdate_cnp.setText(projectItem.startdate)
-
+        view.tv_startdate_cnp.text = projectItem.startdate
+        view.tv_enddate_cnp.text = projectItem.endstart
         var statusPos = projectItem.projectstatus!!.toInt()
         view.spinner_project_status.setSelection(statusPos)
     }

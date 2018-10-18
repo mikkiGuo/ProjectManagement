@@ -39,7 +39,7 @@ class LoginActivity : AppCompatActivity(), IDataManager.OnLoginListener {
         btn_login.setOnClickListener {
             getUserInput()
         }
-        
+
 
         fab.setOnClickListener { view ->
             val manager = FingerprintManagerCompat.from(this)
