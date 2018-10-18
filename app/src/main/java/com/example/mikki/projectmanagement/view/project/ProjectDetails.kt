@@ -133,7 +133,7 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
                     DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 val selectedDate = GregorianCalendar(year, monthOfYear, dayOfMonth).time
                 it.tv_startdate_cnp.setText(sdf.format(selectedDate))
-            }, 2018, 0, 1)
+            }, 2018, 10, 18)
             dpd.show()
         }
 
@@ -141,9 +141,9 @@ class ProjectDetails:Fragment(), IDataManager.OnProjectListListener {
         view.tv_enddate_cnp.setOnClickListener {
             val dpd = DatePickerDialog(context, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 val selectedDate = GregorianCalendar(year, monthOfYear, dayOfMonth).time
-                it.tv_enddate_cnp.setText(sdf.format(selectedDate))
+                it.tv_enddate_cnp.text = (sdf.format(selectedDate))
 
-            }, 2018, 0, 1)
+            }, 2018, 10, 18)
             dpd.show()
         }
     }
